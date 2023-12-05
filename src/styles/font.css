@@ -1,0 +1,43 @@
+/* ----------------------------- IRANSans ----------------------------- */
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 200;
+    src: url("../assets/fonts/IRANSans/IRANSans_UltraLight.ttf")
+      format("truetype");
+  }
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: 300;
+  src: url("../assets/fonts/IRANSans/IRANSans_Light.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/IRANSans/IRANSans.ttf") 
+    format("truetype");
+}
+
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: 600;
+  src: url("../assets/fonts/IRANSans/IRANSans_Medium.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: 800;
+  src: url("../assets/fonts/IRANSans/IRANSans_Bold.ttf")
+    format("truetype");
+}
+
+
+
+
