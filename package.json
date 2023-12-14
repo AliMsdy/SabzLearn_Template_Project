@@ -11,14 +11,19 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "countup.js": "^2.8.0",
+    "odometer_countup": "^1.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
-    "react-router-dom": "^6.20.1"
+    "react-router-dom": "^6.20.1",
+    "swiper": "^11.0.5",
+    "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
+    "@types/swiper": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@vitejs/plugin-react": "^4.2.0",
     "autoprefixer": "^10.4.16",

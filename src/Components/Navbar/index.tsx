@@ -1,6 +1,7 @@
 import Logo from "@/assets/images/logo/Logo.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Overlay } from "..";
 
 //icon
 import { FaSearch } from "react-icons/fa";
@@ -53,7 +54,7 @@ function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const [showUserInfo, setShowUserInfo] = useState(false);
   return (
-    <section className=" flex items-center justify-between px-3 lg:justify-normal lg:px-0">
+      <section className=" flex items-center justify-between px-3 lg:justify-normal lg:px-0 mb-8 ">
       <button className=" lg:hidden" onClick={() => setSidebar(true)}>
         <HiMenu size={35} />
       </button>
@@ -153,18 +154,8 @@ function Navbar() {
       </div>
 
       {/* BACKGROUND OVERLAY */}
-      <div
-        onClick={() => setSidebar(false)}
-        className={`absolute left-0 right-0 top-0 z-10 block h-screen w-screen bg-[rgba(0,0,0,0.5)] backdrop-blur-sm lg:hidden ${
-          sidebar ? "block" : "hidden"
-        }`}
-      />
-      <div
-        onClick={() => setShowUserInfo(false)}
-        className={`absolute left-0 right-0 top-0 z-10 block h-screen w-screen bg-[rgba(0,0,0,0.5)] backdrop-blur-sm lg:hidden ${
-          showUserInfo ? "block" : "hidden"
-        }`}
-      />
+      <Overlay showOverlay={sidebar} setStateFunc={setSidebar} />
+      <Overlay showOverlay={showUserInfo} setStateFunc={setShowUserInfo} />
     </section>
   );
 }

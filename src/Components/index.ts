@@ -4,5 +4,12 @@ export * from "./Navbar";
 export * from "./Topbar";
 export * from "./Header";
 export * from "./Footer";
+export * from "./UI/Overlay"
+export * from "./CourseBox"
+export * from "./ArticleBox"
+export * from "./SectionHeader"
+export * from "./Slider"
+export * from "./LandingCountUp"
+
 
 
