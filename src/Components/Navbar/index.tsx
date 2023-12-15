@@ -5,9 +5,8 @@ import { Overlay } from "..";
 
 //icon
 import { FaSearch } from "react-icons/fa";
-import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
+import { FaAngleDown, FaCartShopping, FaUserLarge } from "react-icons/fa6";
 import { HiMenu } from "react-icons/hi";
-import { IoIosArrowDown } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 
 const navLink = [
@@ -54,7 +53,7 @@ function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const [showUserInfo, setShowUserInfo] = useState(false);
   return (
-      <section className=" flex items-center justify-between px-3 lg:justify-normal lg:px-0 mb-8 ">
+    <section className=" mb-8 flex items-center justify-between px-3 lg:justify-normal lg:px-0 ">
       <button className=" lg:hidden" onClick={() => setSidebar(true)}>
         <HiMenu size={35} />
       </button>
@@ -79,7 +78,7 @@ function Navbar() {
                 >
                   <span className="peer flex cursor-pointer items-center gap-x-1">
                     <span>{title}</span>
-                    <IoIosArrowDown />
+                    <FaAngleDown />
                   </span>
                   <ul className=" invisible absolute z-10 min-w-[240px] translate-y-0 rounded-lg border-b-4  border-solid border-primary-color bg-white p-4  opacity-0 shadow-lg transition-all duration-[400ms] hover:visible hover:translate-y-1 hover:opacity-100 peer-hover:visible peer-hover:translate-y-1 peer-hover:opacity-100">
                     {children.map(({ title, path }) => (

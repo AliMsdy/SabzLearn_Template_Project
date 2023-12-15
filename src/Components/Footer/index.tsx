@@ -44,7 +44,7 @@ function FooterTitle({ title }: { title: string }) {
 function Footer() {
   return (
     <footer className=" mt-20">
-      <div className="lg container relative mx-auto grid max-w-[90%] grid-cols-1 gap-x-6 gap-y-4 rounded-xl bg-[#f0f2f7] px-8 py-6 after:absolute after:-bottom-4 after:right-1/2 after:-z-10 after:h-6 after:w-1/2 after:min-w-[70%] after:translate-x-1/2 after:rounded-b-3xl after:bg-primary-color md:max-w-[85%] md:grid-cols-2 xl:grid-cols-3">
+      <div className="container relative mx-auto grid max-w-[90%] grid-cols-1 gap-x-6 gap-y-4 rounded-xl bg-[#f0f2f7] px-8 py-6 after:absolute after:-bottom-4 after:right-1/2 after:-z-10 after:h-6 after:w-1/2 after:min-w-[70%] after:translate-x-1/2 after:rounded-b-3xl after:bg-primary-color md:max-w-[85%] md:grid-cols-2 xl:grid-cols-3">
         <div>
           <FooterTitle title="درباره ما" />
           <p className="text-justify text-[#7d7e7f]">

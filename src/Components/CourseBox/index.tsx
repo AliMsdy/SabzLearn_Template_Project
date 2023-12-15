@@ -29,7 +29,7 @@ function CourseBox({
   return (
     <div
       className={`flex min-h-[25rem] translate-y-0 flex-col rounded-lg shadow-xl transition-all duration-300 ${
-        !isForSlider && "hover:-translate-y-6"
+        !isForSlider && "hover:-translate-y-2"
       }`}
     >
       <Link to={path}>
