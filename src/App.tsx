@@ -1,9 +1,13 @@
-import {useRoutes} from "react-router-dom";
-import routes from "./routes";
-import { Layout } from "./Layout/Layout";
+import { useEffect } from "react";
+import { Routes } from './routes';
+import darkModeHandler from "./utils/darkmodeHandler";
 function App() {
-  const router = useRoutes(routes);
-  return <Layout>{router}</Layout>;
+  useEffect(() => {
+    darkModeHandler(true);
+  }, []);
+  return (
+    <Routes isAuthorized={true} />
+  );
 }
 
 export default App;
