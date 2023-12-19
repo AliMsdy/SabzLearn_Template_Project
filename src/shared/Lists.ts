@@ -23,7 +23,7 @@ import {
   FaLeaf,
   FaRegCopyright,
 } from "react-icons/fa";
-import { FaCrown } from "react-icons/fa6";
+import { FaCrown,FaFacebookF, FaTelegram, FaTwitter } from "react-icons/fa6";
 
 const CourseList = [
   {
@@ -135,4 +135,61 @@ const SabzlearnFeatures = [
   },
 ];
 
-export { ArticleList, CourseList,LandingSvgList,SabzlearnFeatures };
+const socialList = [
+  { Icon: FaTelegram, path: "/#" },
+  { Icon: FaTwitter, path: "/#" },
+  { Icon: FaFacebookF, path: "/#" },
+];
+const relatedCoursesList = [
+  {
+    title: "پروژه های تخصصی با جاوااسکریپت",
+    imgSrc: "/src/assets/images/courses/js_project.png",
+  },
+  {
+    title: "تعیین قیمت پروژه های فریلنسری",
+    imgSrc: "/src/assets/images/courses/fareelancer.png",
+  },
+  { title: "دوره Api نویسی", imgSrc: "/src/assets/images/courses/nodejs.png" },
+  { title: "متخصص جنگو", imgSrc: "/src/assets/images/courses/jango.png" },
+];
+const navLinks = [
+  { title: "صفحه اصلی", children: [], path: "/" },
+  {
+    title: "فرانت اند",
+    children: [
+      { title: "آموزش Html", path: "/html-course" },
+      { title: "آموزش Css", path: "/css/course" },
+      { title: "آموزش جاوااسکریپت", path: "/#" },
+      { title: "آموزش FlexBox", path: "/#" },
+      { title: "آموزش جامع ریکت", path: "/#" },
+    ],
+  },
+  {
+    title: "امنیت",
+    children: [
+      { title: "آموزش کالی لینوکس", path: "/#" },
+      { title: "آموزش پایتون سیاه", path: "/#" },
+      { title: "آموزش جاوااسکریپت سیاه", path: "/#" },
+      { title: "آموزش شبکه", path: "/#" },
+    ],
+  },
+  {
+    title: "مقالات",
+    children: [
+      { title: "توسعه وب ", path: "/#" },
+      { title: "جاوااسکریپت", path: "/#" },
+      { title: "فرانت اند", path: "/#" },
+    ],
+  },
+  {
+    title: "پایتون",
+    children: [
+      { title: "دوره متخصص پایتون", path: "/#" },
+      { title: "دوره هوش مصنوعی با پایتون", path: "/#" },
+      { title: "دوره متخصص جنگو", path: "/#" },
+    ],
+  },
+  { title: "مهارت های نرم", children: [], path: "/#" },
+];
+
+export { ArticleList, CourseList,LandingSvgList,SabzlearnFeatures,socialList,relatedCoursesList,navLinks };

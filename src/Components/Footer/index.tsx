@@ -44,10 +44,11 @@ function FooterTitle({ title }: { title: string }) {
 function Footer() {
   return (
     <footer className=" mt-20">
-      <div className="container relative mx-auto grid max-w-[90%] grid-cols-1 gap-x-6 gap-y-4 rounded-xl bg-[#f0f2f7] px-8 py-6 after:absolute after:-bottom-4 after:right-1/2 after:-z-10 after:h-6 after:w-1/2 after:min-w-[70%] after:translate-x-1/2 after:rounded-b-3xl after:bg-primary-color md:max-w-[85%] md:grid-cols-2 xl:grid-cols-3">
+      {/* UPPER SECTION START */}
+      <div className="custom-container relative  grid  grid-cols-1 gap-x-6 gap-y-4 rounded-xl bg-gray-color dark:bg-dark-theme-secondary px-8 py-6 after:absolute after:-bottom-4 after:right-1/2 after:-z-10 after:h-6 after:w-1/2 after:min-w-[70%] after:translate-x-1/2 after:rounded-b-3xl after:bg-primary-color  md:grid-cols-2 xl:grid-cols-3">
         <div>
           <FooterTitle title="درباره ما" />
-          <p className="text-justify text-[#7d7e7f]">
+          <p className="text-justify text-[#7d7e7f] dark:text-white">
             وقتی تازه شروع به یادگیری برنامه نویسی کردم. یکی از مشکلاتی که در
             فرآیند یادگیری داشتم، کمبود آموزش های خوب با پشتیبانی قابل قبول بود
             که باعث شد اون موقع تصمیم بگیرم اگر روزی توانایی مالی و فنی قابل
@@ -89,12 +90,19 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className="mt-14 bg-[#f0f2f7] p-8">
-        <p className="text-center font-bold text-dark-color">
-          کلیه حقوق برای آکادمی آموزش برنامه نویسی <Link to="/#" className="text-primary-color hover:text-primary-color">سبزلرن</Link>{" "}
+      {/* UPPER SECTION END */}
+
+      {/* BOTTOM SECTION START */}
+      <div className="mt-14 bg-gray-color p-8 dark:bg-dark-theme-secondary">
+        <p className="text-center font-bold text-dark-color dark:text-white">
+          کلیه حقوق برای آکادمی آموزش برنامه نویسی{" "}
+          <Link to="/#" className="text-primary-color hover:text-primary-color">
+            سبزلرن
+          </Link>{" "}
           محفوظ است
         </p>
       </div>
+      {/* BOTTOM SECTION END */}
     </footer>
   );
 }

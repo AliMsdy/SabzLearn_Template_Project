@@ -13,7 +13,7 @@ const TopbarLinks = [
 
 function Topbar() {
   return (
-    <section className="flex justify-center bg-[#f0f2f7] p-4 lg:justify-normal lg:p-6 mb-6">
+    <section className="bg-gray-color mb-8 dark:bg-dark-theme-primary flex justify-center p-4 lg:justify-normal lg:p-6">
       <div className="lg:flex-grow">
         <ul className="flex flex-wrap gap-3">
           {TopbarLinks.map(({ path, title, id }) => (

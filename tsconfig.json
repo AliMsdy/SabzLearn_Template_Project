@@ -7,7 +7,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
       // "src/*": ["./src/*"],
     },
 
@@ -25,6 +25,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src","swiper.d.ts"],
+  "include": ["src", "swiper.d.ts", "src/Layout/MainLayout.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -8,6 +8,7 @@ import { FaArrowLeft, FaSearch } from "react-icons/fa";
 //components
 import {
   ArticleBox,
+  Button,
   CourseBox,
   LandingCountUp,
   SectionHeader,
@@ -22,11 +23,11 @@ import {
   SabzlearnFeatures,
 } from "@/shared/Lists";
 
-function HomePage() {
-  const tailwindConfig = resolveConfig(myTailwindConfig);
+const tailwindConfig = resolveConfig(myTailwindConfig);
 
+function HomePage() {
   return (
-    <main>
+    <>
       {/* HERO SECTION START */}
       <section>
         <div className="flex h-[calc(100vh-5vh)]  w-full flex-col items-center justify-center bg-landing-pattern bg-cover bg-fixed bg-center bg-no-repeat text-white sm:h-screen">
@@ -53,9 +54,9 @@ function HomePage() {
               type="text"
               placeholder="چه چیزی دوست داری یاد بگیری..."
             />
-            <button className=" rounded-md bg-primary-color p-2 text-white">
+            <Button className="px-2">
               <FaSearch size={30} />
-            </button>
+            </Button>
           </div>
           <div className="mt-10 hidden justify-between gap-x-32 px-4 sm:flex">
             {LandingSvgList.map((item) => (
@@ -65,8 +66,7 @@ function HomePage() {
         </div>
       </section>
       {/* HERO SECTION END */}
-
-      <div className="container mx-auto max-w-[90%] md:max-w-[85%] ">
+      <div className="custom-container">
         {/* COURSE SECTION START */}
         <section>
           <div className="mt-10 flex flex-col gap-y-6 sm:flex-row">
@@ -75,10 +75,10 @@ function HomePage() {
               desc="سکوی پرتاپ شما به سمت موفقیت"
             />
             <div className="flex flex-grow items-center justify-center sm:justify-end">
-              <button className="flex items-center gap-x-2 rounded-md bg-primary-color p-2 px-4 text-white">
+              <Button className="gap-x-2">
                 <span>تمامی دوره</span>
                 <FaArrowLeft />
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -103,9 +103,9 @@ function HomePage() {
             {SabzlearnFeatures.map(({ title, desc, Icon }) => (
               <div
                 key={title}
-                className="flex min-h-[10rem] items-center gap-x-4 rounded-md p-4 shadow-[0_0_10px_0_rgba(0,0,0,0.3)]"
+                className="flex min-h-[10rem] items-center gap-x-4 rounded-md p-4 shadow-[0_0_10px_0_rgba(0,0,0,0.3)] dark:bg-dark-theme-secondary"
               >
-                <div className="text-[#666]">
+                <div className="text-[#666] dark:text-white">
                   <Icon size={65} />
                 </div>
                 <div>
@@ -147,10 +147,10 @@ function HomePage() {
               />
             </div>
             <div className="flex flex-grow items-center justify-center sm:justify-end">
-              <button className="flex items-center gap-x-2 rounded-md bg-primary-color p-2 px-4 text-white">
+              <Button className="gap-x-2">
                 <span>تمامی مقاله ها</span>
                 <FaArrowLeft />
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -162,7 +162,7 @@ function HomePage() {
         </section>
         {/* ARTICLE SECTION END */}
       </div>
-    </main>
+    </>
   );
 }
 

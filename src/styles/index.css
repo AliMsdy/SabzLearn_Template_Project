@@ -1,5 +1,6 @@
 @import url("./reset.css");
 @import url("./font.css");
+@import url("./bootstrapProgressbar.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,12 +11,49 @@ body,
   font-family: IRANSans, sans-serif;
 }
 
-a{
+a {
   text-decoration: none;
   color: #464749;
   transition: all 400ms ease;
 }
+.dark a {
+  color: #fff;
+}
 
-a:hover{
+a:hover {
   color: #1e83f0;
+}
+
+.custom-container {
+  @apply container mx-auto max-w-[90%] md:max-w-[85%];
+}
+
+/* COURSE PAGE STYLES */
+.course-details img {
+  @apply mt-8 rounded-lg;
+}
+
+.course-details p {
+  @apply mt-5 text-[#7a7a7a];
+}
+.dark .course-details p {
+  @apply text-white;
+}
+
+/* BLOG PAGE STYLES */
+.blog-content p {
+  @apply mt-5 text-[#7a7a7a];
+}
+.blog-content span {
+  @apply text-[#7a7a7a];
+}
+.blog-content h2 {
+  @apply text-[#008c25] text-[1.5rem] mt-8;
+  
+}
+.blog-content img {
+  @apply mt-5 rounded-lg mx-auto ;
+}
+.dark .blog-content p {
+  @apply text-white;
 }
