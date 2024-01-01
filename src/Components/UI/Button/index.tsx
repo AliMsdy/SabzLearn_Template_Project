@@ -14,7 +14,7 @@ type ButtonType = Children &
     className?: string;
   };
 
-const baseStyles = "rounded-md p-2 flex items-center justify-center px-4";
+const baseStyles = "rounded-md p-2 flex items-center justify-center px-4 disabled:cursor-not-allowed disabled:opacity-50";
 
 function Button({
   children,

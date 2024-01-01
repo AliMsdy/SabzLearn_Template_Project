@@ -8,7 +8,7 @@
 html,
 body,
 * {
-  font-family: IRANSans, sans-serif;
+  font-family: IRANSans, sans-serif !important;
 }
 
 a {
@@ -57,3 +57,5 @@ a:hover {
 .dark .blog-content p {
   @apply text-white;
 }
+
+

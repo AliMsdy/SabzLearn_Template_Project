@@ -5,19 +5,12 @@ import {AnonymousLayout} from "@/Layout/AnonymousLayout";
 import {MainLayout} from "@/Layout/MainLayout";
 
 // Pages
-import { ArticlePage, CategoryPage,CoursePage ,HomePage,AllCoursesPage,Login } from "@/pages";
+import { ArticlePage, CategoryPage,CoursePage ,HomePage,AllCoursesPage,Login,Register } from "@/pages";
 
 export const routes = [
 {
     layout: AnonymousLayout,
     routes: [
-      // {
-      //   name: 'login',
-      //   title: 'Login page',
-      //   component: Login,
-      //   path: '/',
-        
-      // },
       {
         name: 'login',
         title: 'Login page',
@@ -28,7 +21,7 @@ export const routes = [
       {
         name: 'register',
         title: 'Register page',
-        component: Login,
+        component: Register,
         path: '/register',
         
       },
@@ -73,41 +66,3 @@ export const routes = [
   }
 ];
 export const Routes = renderRoutes(routes);
-
-// import { ArticlePage, CategoryPage,CoursePage ,HomePage,AllCoursesPage,Login,Register } from "./pages";
-// import { CoursePage } from "./pages/Course/test";
-
-// const routes = [
-//   { path: "/home", element: <HomePage /> },
-//   { path: "/", element: <Login /> },
-//   { path: "/all-courses", element: <AllCoursesPage /> },
-//   { path: "/course-info/:courseName", element: <CoursePage /> },
-//   { path: "/category-info/:categoryName", element: <CategoryPage /> },
-//   { path: "/article-info/:articleName", element: <ArticlePage /> },
-//   { path: "/login", element: <Login /> },
-//   { path: "/register", element: <Register /> },
-// ];
-
-// export default routes;
-
-// {
-//     name: 'users',
-//     title: 'Users',
-//     hasSiderLink: true,
-//     routes: [
-//       {
-//         name: 'list-users',
-//         title: 'List of users',
-//         hasSiderLink: true,
-//         component: ListUsers,
-//         path: '/users'
-//       },
-//       {
-//         name: 'create-user',
-//         title: 'Add user',
-//         hasSiderLink: true,
-//         component: CreateUser,
-//         path: '/users/new'
-//       }
-//     ]
-//   }
