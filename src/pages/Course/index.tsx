@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 //component
 import {
   BreadCrumb,
   Button,
+  CommentBox,
   CourseDetailBox,
+  Pagination,
   SectionHeader,
   SendCommentBox,
   SidebarBox,
@@ -21,25 +23,30 @@ import {
   FaComments,
   FaGraduationCap,
   FaLink,
+  FaPen,
   FaPlay,
+  FaRegComment,
   FaUser,
   FaUserGraduate,
 } from "react-icons/fa6";
 
-//list
-const courseInfoList = [
-  { title: "وضعیت دوره:", subTitle: "به اتمام رسیده", Icon: FaGraduationCap },
-  { title: "مدت زمان دوره:", subTitle: "19 ساعت", Icon: FaClock },
-  { title: "آخرین بروزرسانی:", subTitle: "1401/03/02", Icon: FaCalendarDays },
-  { title: "روش پشتیبانی:", subTitle: "آنلاین", Icon: FaUser },
-  { title: "پیش نیاز:", subTitle: "HTML CSS", Icon: FaInfoCircle },
-  { title: "نوع مشاهده:", subTitle: "ضبط شده / آنلاین", Icon: FaPlay },
-];
+//api
+import { useCourseInfo } from "@/services/query";
 
+//list
 import { relatedCoursesList } from "@/shared/Lists";
 
+//type
+import { CommentType } from "@/types/shared";
 
 function CoursePage() {
+  const { courseName } = useParams();
+  const { data, isLoading } = useCourseInfo(courseName!);
+
+  if (isLoading) {
+    return <h1>Loading....</h1>;
+  }
+
   return (
     <section className="custom-container">
       {/* BREADCRUMB START */}
@@ -47,7 +54,7 @@ function CoursePage() {
       {/* BREADCRUMB END */}
 
       {/* COURSE VIDEO AND INTRODUCTION START */}
-      <CourseVideoSection />
+      <CourseVideoSection title={data.categoryID.title} cover={data.cover} name={data.name} desc={data.description} />
       {/* COURSE VIDEO AND INTRODUCTION END */}
 
       {/* MAIN CONTENT START */}
@@ -56,9 +63,38 @@ function CoursePage() {
         <div className="col-span-12 lg:col-span-8">
           {/* COURSE INFO BOX */}
           <div className="grid grid-cols-2 gap-6 lg:grid-cols-3 ">
-            {courseInfoList.map((courseDetail) => (
-              <CourseDetailBox key={courseDetail.title} {...courseDetail} />
-            ))}
+            <CourseDetailBox
+              title="وضعیت دوره:"
+              subTitle={data.isComplete ? "به اتمام رسیده" : " در حال برگذاری"}
+              Icon={FaGraduationCap}
+            />
+            <CourseDetailBox
+              title="قیمت"
+              subTitle={
+                data.price ? `${data.price.toLocaleString()} تومان` : "رایگان"
+              }
+              Icon={FaClock}
+            />
+            <CourseDetailBox
+              title="آخرین بروزرسانی:"
+              subTitle={data.updatedAt.slice(0, 10)}
+              Icon={FaCalendarDays}
+            />
+            <CourseDetailBox
+              title="روش پشتیبانی:"
+              subTitle={data.support}
+              Icon={FaUser}
+            />
+            <CourseDetailBox
+              title="تخفیف"
+              subTitle={`% ${data.discount}`}
+              Icon={FaInfoCircle}
+            />
+            <CourseDetailBox
+              title="نوع مشاهده:"
+              subTitle="آنلاین"
+              Icon={FaPlay}
+            />
           </div>
           {/* COURSE INFO BOX */}
 
@@ -89,7 +125,7 @@ function CoursePage() {
                 title="آموزش 20 کتابخانه جاوا اسکریپت مخصوص بازار کار"
               />
               <img
-                src="/src/assets/images/info/1.gif"
+                src="/images/info/1.gif"
                 alt="course-detail-cover"
               />
               <p>
@@ -108,7 +144,7 @@ function CoursePage() {
                 title="هدف از این دوره چیست؟ (تنها راه ورود به بازار کار و کسب درآمد)"
                 className="mt-6 w-full after:h-[calc(100%-10px)] sm:w-max sm:after:h-2/6"
               />
-              <img src="/src/assets/images/info/2.jpg" />
+              <img src="/images/info/2.jpg" />
               <p>
                 وقتی برای اولین بار وارد یکی از شرکت های برنامه نویسی شدم، از
                 کتابخانه هایی به اسم Lodash و Formik استفاده می شد، در حالی که
@@ -156,8 +192,7 @@ function CoursePage() {
 
             {/* COURSE VIDEOS START */}
             <div className="mt-8">
-              <VideoAccordion isOpen />
-              <VideoAccordion />
+              <VideoAccordion sessions={data.sessions} />
             </div>
             {/* COURSE VIDEOS END */}
           </div>
@@ -168,12 +203,15 @@ function CoursePage() {
               <div className="flex items-center gap-x-4">
                 <img
                   className="h-auto w-16 rounded-full"
-                  src="/src/assets/images/info/teacher.jfif"
+                  src="/images/info/teacher.jfif"
                   alt="teacher-photo"
                 />
                 <div>
                   <h3>
-                    <Link className="text-secondary-color dark:text-white" to="/#">
+                    <Link
+                      className="text-secondary-color dark:text-white"
+                      to="/#"
+                    >
                       محمد امین سعیدی راد
                     </Link>
                   </h3>
@@ -195,7 +233,31 @@ function CoursePage() {
           </div>
           {/* COURSE TEACHER END */}
           {/* COMMENT SECTION START */}
-          <SendCommentBox />
+
+          <div className="mt-8 rounded-md p-5 shadow-custom dark:bg-dark-theme-secondary dark:shadow-dark-theme">
+            <div className="flex items-center gap-3">
+              <Button>
+                <FaRegComment size={25} />
+              </Button>
+              <h3 className="text-lg">نظرات</h3>
+            </div>
+
+            {data.comments.length ? (
+              <div className="mt-10">
+                {data.comments.map((comment: CommentType) => (
+                  <CommentBox key={comment._id} {...comment} />
+                ))}
+                <Pagination darkBackground="dark:bg-[#545676]" />
+              </div>
+            ) : (
+              <div className="mt-10 rounded-md bg-gray-400 p-4 text-center text-white">
+                کامنتی برای دوره ثبت نشده هست
+              </div>
+            )}
+
+            <SendCommentBox />
+          </div>
+
           {/* COMMENT SECTION END */}
         </div>
         {/* RIGHT SECTION END */}
@@ -206,8 +268,17 @@ function CoursePage() {
             {/* USER STATUS */}
             <SidebarBox>
               <Button className="gap-x-4 rounded-lg text-lg">
-                <FaGraduationCap size={35} />
-                دانشجوی دوره هستید
+                {data.isUserRegisteredToThisCourse ? (
+                  <>
+                    <FaGraduationCap size={35} />
+                    شما دانشجوی دوره هستید
+                  </>
+                ) : (
+                  <>
+                    <FaPen size={35} />
+                    ثبت نام
+                  </>
+                )}
               </Button>
             </SidebarBox>
             {/* USER STATUS */}
@@ -223,7 +294,7 @@ function CoursePage() {
                   تعداد دانشجو:{" "}
                 </span>
                 <span className="rounded-md bg-[#c4c7cf] p-1 px-3 text-white dark:text-dark-color">
-                  178
+                  {data.courseStudentsCount}
                 </span>
               </div>
               <div className="mt-4 flex justify-between p-2 text-secondary-color dark:text-white">

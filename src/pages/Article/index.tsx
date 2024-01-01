@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { BreadCrumb, SendCommentBox, SidebarBox } from "@/Components";
 
 //svg
-import StarUnfilled from "@/assets/images/svgs/star.svg";
-import StarFilled from "@/assets/images/svgs/star_fill.svg";
+import StarUnfilled from "/images/svgs/star.svg";
+import StarFilled from "/images/svgs/star_fill.svg";
 
 //icons
 import { navLinks, relatedCoursesList, socialList } from "@/shared/Lists";

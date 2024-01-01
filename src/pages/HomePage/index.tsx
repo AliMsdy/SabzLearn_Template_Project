@@ -16,16 +16,16 @@ import {
 } from "@/Components";
 
 //lists
-import {
-  ArticleList,
-  CourseList,
-  LandingSvgList,
-  SabzlearnFeatures,
-} from "@/shared/Lists";
+import { ArticleList, LandingSvgList, SabzlearnFeatures } from "@/shared/Lists";
+//api
+import { useCourses } from "@/services/query";
+
+//types
+import { CourseType } from "@/types/shared";
 
 const tailwindConfig = resolveConfig(myTailwindConfig);
-
 function HomePage() {
+  const { data: courses = [] } = useCourses();
   return (
     <>
       {/* HERO SECTION START */}
@@ -67,7 +67,7 @@ function HomePage() {
       </section>
       {/* HERO SECTION END */}
       <div className="custom-container">
-        {/* COURSE SECTION START */}
+        {/* LATEST COURSES SECTION START */}
         <section>
           <div className="mt-10 flex flex-col gap-y-6 sm:flex-row">
             <SectionHeader
@@ -83,12 +83,12 @@ function HomePage() {
           </div>
 
           <div className="mt-8 grid grid-cols-1 gap-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {CourseList.map((courseInfo) => (
-              <CourseBox {...courseInfo} key={courseInfo.title} />
+            {courses.slice(0,6).map((courseInfo: CourseType) => (
+              <CourseBox {...courseInfo} key={courseInfo._id} />
             ))}
           </div>
         </section>
-        {/* COURSE SECTION END */}
+        {/* LATEST COURSES SECTION END */}
 
         {/* ABOUT US START */}
         <section>
@@ -123,7 +123,7 @@ function HomePage() {
           <div className="mt-16">
             <SectionHeader title="محبوبترین دوره ها" />
           </div>
-          <Slider list={CourseList} />
+          <Slider list={courses} />
         </section>
         {/* MOST POPULAR COURSES START */}
 
@@ -132,7 +132,7 @@ function HomePage() {
           <div className="mt-16">
             <SectionHeader title="دوره های در حال پیش فروش" />
           </div>
-          <Slider list={CourseList} />
+          <Slider list={courses} />
         </section>
 
         {/* PRE-SALE COURSES END */}

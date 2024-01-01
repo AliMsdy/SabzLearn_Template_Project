@@ -1,10 +1,10 @@
 //components
-import { Navbar, Topbar } from "..";
+import { Navbar, TopBar } from "..";
 
 function Header() {
   return (
     <header>
-      <Topbar />
+      <TopBar />
       <Navbar />
     </header>
   );

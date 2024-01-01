@@ -1,7 +1,13 @@
-import "./style.css"
+import styles from "./style.module.css"
+
+type LoadingProps = {
+  className?:string
+}
+
+const {loader,loading} = styles
 function Loading() {
   return (
-    <div className="loader">
+    <div className={loader}>
       <svg className="circular" viewBox="25 25 50 50">
         <circle
           className="path"
@@ -17,4 +23,8 @@ function Loading() {
   );
 }
 
-export { Loading };
+function SimpleLoading({className}:LoadingProps){
+  return <span className={`${loading} ${className}` } />
+}
+
+export { Loading,SimpleLoading };

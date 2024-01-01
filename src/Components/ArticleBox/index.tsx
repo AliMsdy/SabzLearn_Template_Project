@@ -16,7 +16,7 @@ function ArticleBox({ title, desc, Img, path }: ArticleBoxType) {
     <div className="flex min-h-[28rem] flex-col rounded-xl shadow-xl dark:bg-dark-theme-secondary">
       <Link to={path} className="text-center">
         <img
-          className="inline-block h-[15rem] rounded-t-lg w-full max-w-[400px]"
+          className="inline-block h-[15rem] rounded-t-lg w-full "
           src={Img}
           // src="https://picsum.photos/200/300"
           alt="article-picture"

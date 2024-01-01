@@ -15,14 +15,19 @@ function Slider({ list }: { list: CourseType[] }) {
       slidesPerView: 1,
       spaceBetween: 20,
       speed: 800,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
       loop: true,
+      centeredSlides:true,
       dir: "rtl",
       breakpoints: {
-        640: {
+        600: {
           slidesPerView: 2,
         },
-        1024: {
-          slidesPerView: 3,
+        1200: {
+          slidesPerView: 3.5,
           spaceBetween: 30,
         },
       },
@@ -41,7 +46,7 @@ function Slider({ list }: { list: CourseType[] }) {
   return (
     <swiper-container ref={slider} init={false}>
       {list.map((course: CourseType) => (
-        <swiper-slide style={{ padding: "40px 0" }} key={course.title}>
+        <swiper-slide style={{ padding: "40px 0" }} key={course._id}>
           <CourseBox {...course} isForSlider={true} />
         </swiper-slide>
       ))}

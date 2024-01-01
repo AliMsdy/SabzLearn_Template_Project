@@ -16,7 +16,7 @@ export default {
       },
       backgroundImage: {
         "landing-pattern":
-          "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('/src/assets/images/background_landing.jfif')",
+          "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('/images/background_landing.jfif')",
       },
       fontSize: {
         xs: "0.75rem", // Extra small screen sizes

@@ -1,61 +1,59 @@
+
 import { Link } from "react-router-dom";
 
 //icons
 import { FaArrowLeft, FaChalkboardTeacher, FaUsers } from "react-icons/fa";
 
 //svg
-import StarUnfilled from "@/assets/images/svgs/star.svg";
-import StarFilled from "@/assets/images/svgs/star_fill.svg";
-import { useState } from "react";
-//components
-import { Loading } from "..";
+import StarUnfilled from "/images/svgs/star.svg";
+import StarFilled from "/images/svgs/star_fill.svg";
 
-type CourseType = {
-  imgSrc: string;
-  numberOfStudents: number;
-  price: number;
-  teacher: string;
-  title: string;
-  path: string;
-  isForSlider?: boolean;
-};
+//components
+// import { Breathing, Image } from ;
+import { Breathing, Image as ShimmerImage } from "react-shimmer";
+//types
+import { CourseType } from "@/types/shared";
+
+
 
 function CourseBox({
-  imgSrc,
-  numberOfStudents,
+  cover,
+  registers,
   price,
-  teacher,
-  title,
-  path,
+  creator,
+  name,
+  shortName,
   isForSlider,
 }: CourseType) {
-  const [loading, setLoading] = useState(true);
-
-  const onImgLoad = () => setLoading(false);
   return (
     <div
       className={`flex min-h-[25rem] translate-y-0 flex-col rounded-xl shadow-xl transition-all duration-300 dark:bg-dark-theme-secondary ${
         !isForSlider && "hover:-translate-y-2"
       }`}
     >
-      <Link to={path}>
-        <img
-          className="h-auto max-h-[200px] w-full rounded-t-xl"
-          src={imgSrc}
+      <Link to={`/course-info/${shortName}`}>
+      
+        <ShimmerImage 
+          fadeIn={true}
+          src={`/images/courses/${cover}`}
+          
           // src="https://picsum.photos/200/300"
-          alt="course-picture"
-          onLoad={onImgLoad}
+          NativeImgProps={{
+            className: "max-h-[200px] w-full rounded-t-xl",
+          }}
+          fallback={         
+            <Breathing width={"100%" as unknown as number} height={200} className="rounded-t-xl" />
+          }
         />
-        {loading && <Loading />}
       </Link>
       <div className="px-3">
-        <Link to={path} className="my-4 inline-block">
-          {title}
+        <Link to={`/course-info/${shortName}`} className="my-4 inline-block">
+          {name}
         </Link>
         <div className="flex items-center justify-between">
           <span className="flex items-center gap-x-3 text-[#6c757d] dark:text-white">
             <FaChalkboardTeacher size={25} />
-            {teacher}
+            {creator}
           </span>
           <div className="flex">
             <img src={StarUnfilled} alt="rating-star" />
@@ -67,10 +65,12 @@ function CourseBox({
         <div className="my-4 flex justify-between">
           <span className="flex items-center gap-x-3 text-[#6c757d] dark:text-white">
             <FaUsers size={25} />
-            {numberOfStudents}
+            {registers}
           </span>
           <p className="text-[#6c757d] dark:text-white">
-            {price.toLocaleString()}
+            {
+              price === 0 ? "رایگان" : price.toLocaleString()
+            }
           </p>
         </div>
       </div>
@@ -80,7 +80,7 @@ function CourseBox({
       <div className="p-4">
         <Link
           className="mx-auto flex w-max items-center justify-center gap-x-2 text-primary-color"
-          to={path}
+          to={`/course-info/${shortName}`}
         >
           مشاهده اطلاعات
           <FaArrowLeft />

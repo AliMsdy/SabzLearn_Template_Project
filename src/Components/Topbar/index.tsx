@@ -2,27 +2,32 @@ import { Link } from "react-router-dom";
 //icon
 import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
-const TopbarLinks = [
-  { id: 1, path: "#", title: "آموزش Html" },
-  { id: 2, path: "#", title: "آموزش Css" },
-  { id: 3, path: "#", title: "آموزش جاوااسکریپت" },
-  { id: 4, path: "#", title: "آموزش بوت استرپ" },
-  { id: 5, path: "#", title: "آموزش پایتون" },
-  { id: 6, path: "#", title: "آموزش ریکت" },
-];
+//api
+import { useTopBarLinks } from "@/services/query";
 
-function Topbar() {
+
+
+function TopBar() {
+  const { data: TopBarLinks = [] } = useTopBarLinks();
+
+  const getRandomItemFromArray = (arr:[], itemNumber:number) => {
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, itemNumber);
+  };
+
   return (
-    <section className="bg-gray-color mb-8 dark:bg-dark-theme-primary flex justify-center p-4 lg:justify-normal lg:p-6">
+    <section className="mb-8 flex justify-center bg-gray-color p-4 dark:bg-dark-theme-primary lg:justify-normal lg:p-6">
       <div className="lg:flex-grow">
         <ul className="flex flex-wrap gap-3">
-          {TopbarLinks.map(({ path, title, id }) => (
-            <li key={id}>
-              <Link className="block text-center" to={path}>
-                {title}
-              </Link>
-            </li>
-          ))}
+          {getRandomItemFromArray(TopBarLinks, 5).map(
+            ({ href, title, _id }) => (
+              <li key={_id}>
+                <Link className="block text-center" to={href}>
+                  {title}
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
       </div>
       <div className="hidden gap-x-4 lg:flex">
@@ -39,4 +44,4 @@ function Topbar() {
   );
 }
 
-export { Topbar };
+export { TopBar };

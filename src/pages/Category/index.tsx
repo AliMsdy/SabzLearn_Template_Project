@@ -17,7 +17,6 @@ const orderingList = [
 ];
 
 function CategoryPage() {
-  const isSelected = true;
   return (
     <section className="custom-container my-14">
       {/* TOP SECTION START */}
@@ -68,7 +67,7 @@ function CategoryPage() {
       {/* COURSEBOX SECTION START */}
       <div className="mt-16 grid grid-cols-1 gap-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {CourseList.slice(0, 3).map((courseInfo) => (
-          <CourseBox {...courseInfo} key={courseInfo.title} />
+          <CourseBox {...courseInfo} key={courseInfo.name} />
         ))}
       </div>
       {/* COURSEBOX SECTION END */}

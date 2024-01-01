@@ -1,21 +1,21 @@
-//images/courses
-import FreelanceProjects from "@/assets/images/courses/fareelancer.png";
-import DjangoCourse from "@/assets/images/courses/jango.png";
-import JSprojects from "@/assets/images/courses/js_project.png";
-import NodeJSCourse from "@/assets/images/courses/nodejs.png";
-import PythonCourse from "@/assets/images/courses/python.png";
-import YoutuberCourse from "@/assets/images/courses/youtuber.png";
+// images/courses
+import FreelanceProjects from "/images/courses/freelancer.png";
+import DjangoCourse from "/images/courses/jango.png";
+import JSprojects from "/images/courses/js_project.png";
+import NodeJSCourse from "/images/courses/nodejs.png";
+import PythonCourse from "/images/courses/python.png";
+import YoutuberCourse from "/images/courses/youtuber.png";
 
 //images/articles
-import Pic1 from "@/assets/images/blog/1.jpg";
-import Pic3 from "@/assets/images/blog/3.jpg";
-import Pic2 from "@/assets/images/blog/4.png";
+import Pic1 from "/images/blog/1.jpg";
+import Pic3 from "/images/blog/3.jpg";
+import Pic2 from "/images/blog/4.png";
 
 
 //SVG files
-import BookLogo from "@/assets/images/svgs/book.svg";
-import ClockLogo from "@/assets/images/svgs/clock.svg";
-import StudentLogo from "@/assets/images/svgs/student.svg";
+import BookLogo from "/images/svgs/book.svg";
+import ClockLogo from "/images/svgs/clock.svg";
+import StudentLogo from "/images/svgs/student.svg";
 
 //icons
 import {
@@ -192,4 +192,13 @@ const navLinks = [
   { title: "مهارت های نرم", children: [], path: "/#" },
 ];
 
-export { ArticleList, CourseList,LandingSvgList,SabzlearnFeatures,socialList,relatedCoursesList,navLinks };
+
+const SendCommentRules = [
+  "اگر نیاز به پشتیبانی دوره دارید از قسمت پرسش سوال در قسمت نمایش آنلاین استفاده نمایید و سوالات مربوط به رفع اشکال تایید نخواهید شد",
+  "دیدگاه های نامرتبط به دوره تایید نخواهد شد",
+  "سوالات مرتبط با رفع اشکال در این بخش تایید نخواهد شد",
+  "از درج دیدگاه های تکراری پرهیز نمایید",
+];
+
+
+export { ArticleList,LandingSvgList,SabzlearnFeatures,socialList,relatedCoursesList,navLinks,SendCommentRules,CourseList };
