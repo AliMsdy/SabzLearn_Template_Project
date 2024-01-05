@@ -140,7 +140,7 @@ function HomePage() {
         {/* PRE-SALE COURSES END */}
 
         {/* ARTICLE SECTION START */}
-        <section>
+      <section>
           <div className="mt-10 flex flex-col gap-y-6 sm:flex-row">
             <div>
               <SectionHeader
@@ -149,7 +149,7 @@ function HomePage() {
               />
             </div>
             <div className="flex flex-grow items-center justify-center sm:justify-end">
-              <Button className="gap-x-2">
+              <Button component="link" to="/all-articles" className="gap-x-2">
                 <span>تمامی مقاله ها</span>
                 <FaArrowLeft />
               </Button>

@@ -12,7 +12,7 @@ type ArticleBoxType = {
 function ArticleBox({ title, description, cover, shortName }: ArticleBoxType) {
   return (
     <div className="flex min-h-[24rem] flex-col rounded-xl shadow-xl dark:bg-dark-theme-secondary">
-      <Link to={`article-info/${shortName}`} className="text-center">
+      <Link to={`/article-info/${shortName}`} className="text-center">
         <ShimmerImage
           fadeIn={true}
           src={`/images/blog/${cover}`}
@@ -31,7 +31,7 @@ function ArticleBox({ title, description, cover, shortName }: ArticleBoxType) {
         />
       </Link>
       <div className="flex h-full flex-col px-6 pb-6">
-        <Link to={`article-info/${shortName}`} className="mb-2 mt-4 font-bold ">
+        <Link to={`/article-info/${shortName}`} className="mb-2 mt-4 font-bold ">
           {title}
         </Link>
         <p className=" text-xs text-[#898989] dark:text-white">
@@ -39,7 +39,7 @@ function ArticleBox({ title, description, cover, shortName }: ArticleBoxType) {
         </p>
         <Button
           component="link"
-          to={`article-info/${shortName}`}
+          to={`/article-info/${shortName}`}
           variant="unfilled"
           className="mt-auto text-sm"
         >

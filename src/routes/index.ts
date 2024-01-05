@@ -5,7 +5,7 @@ import {AnonymousLayout} from "@/Layout/AnonymousLayout";
 import {MainLayout} from "@/Layout/MainLayout";
 
 // Pages
-import { ArticlePage, CategoryPage,CoursePage ,HomePage,AllCoursesPage,Login,Register } from "@/pages";
+import { ArticlePage, CategoryPage,CoursePage ,HomePage,AllCoursesPage,Login,Register,AllArticlesPage } from "@/pages";
 
 export const routes = [
 {
@@ -59,6 +59,12 @@ export const routes = [
         title: 'All Courses page',
         component: AllCoursesPage,
         path: '/all-courses/',
+      },
+      {
+        name: 'all articles',
+        title: 'All Articles page',
+        component: AllArticlesPage,
+        path: '/all-articles/',
         isPublic:false
       },
       
