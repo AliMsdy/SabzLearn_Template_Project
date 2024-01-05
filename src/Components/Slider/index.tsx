@@ -16,7 +16,7 @@ function Slider({ list }: { list: CourseType[] }) {
       spaceBetween: 20,
       speed: 800,
       autoplay: {
-        delay: 2500,
+        delay: 500,
         disableOnInteraction: false,
       },
       loop: true,

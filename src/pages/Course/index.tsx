@@ -5,7 +5,6 @@ import {
   Button,
   CommentBox,
   CourseDetailBox,
-  Pagination,
   SectionHeader,
   SendCommentBox,
   SidebarBox,
@@ -42,7 +41,6 @@ import { CommentType } from "@/types/shared";
 function CoursePage() {
   const { courseName } = useParams();
   const { data, isLoading } = useCourseInfo(courseName!);
-
   if (isLoading) {
     return <h1>Loading....</h1>;
   }
@@ -54,7 +52,12 @@ function CoursePage() {
       {/* BREADCRUMB END */}
 
       {/* COURSE VIDEO AND INTRODUCTION START */}
-      <CourseVideoSection title={data.categoryID.title} cover={data.cover} name={data.name} desc={data.description} />
+      <CourseVideoSection
+        title={data.categoryID.title}
+        cover={data.cover}
+        name={data.name}
+        desc={data.description}
+      />
       {/* COURSE VIDEO AND INTRODUCTION END */}
 
       {/* MAIN CONTENT START */}
@@ -124,10 +127,7 @@ function CoursePage() {
                 className="w-full after:h-[calc(100%-10px)] sm:w-max sm:after:h-2/6"
                 title="آموزش 20 کتابخانه جاوا اسکریپت مخصوص بازار کار"
               />
-              <img
-                src="/images/info/1.gif"
-                alt="course-detail-cover"
-              />
+              <img src="/images/info/1.gif" alt="course-detail-cover" />
               <p>
                 کتابخانه های بسیار زیادی برای زبان جاوا اسکریپت وجود دارد و
                 سالانه چندین کتابخانه جدید نیز به این لیست اضافه می شود که در
@@ -247,7 +247,7 @@ function CoursePage() {
                 {data.comments.map((comment: CommentType) => (
                   <CommentBox key={comment._id} {...comment} />
                 ))}
-                <Pagination darkBackground="dark:bg-[#545676]" />
+                {/* <Pagination darkBackground="dark:bg-[#545676]" /> */}
               </div>
             ) : (
               <div className="mt-10 rounded-md bg-gray-400 p-4 text-center text-white">
@@ -368,3 +368,4 @@ function CoursePage() {
 }
 
 export { CoursePage };
+

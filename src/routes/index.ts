@@ -58,7 +58,7 @@ export const routes = [
         name: 'all courses',
         title: 'All Courses page',
         component: AllCoursesPage,
-        path: '/all-courses',
+        path: '/all-courses/',
         isPublic:false
       },
       

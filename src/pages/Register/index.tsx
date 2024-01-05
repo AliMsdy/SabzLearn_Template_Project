@@ -4,7 +4,7 @@ import {
 } from "@/constants/formInputsInformation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "@/context/AuthContext";
 
 //component
@@ -20,7 +20,7 @@ import { useRegister } from "@/services/mutation";
 import { RegisterInputTypes } from "@/types/shared";
 
 function Register() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { login } = useAuthContext();
   const { mutateAsync: registerUser, isPending } = useRegister();
 
@@ -42,7 +42,7 @@ function Register() {
     if (responseData) {
       login(responseData.accessToken);
       //navigating to the homepage
-      // navigate("/",{replace:true});
+      navigate("/",{replace:true});
     }
   };
 

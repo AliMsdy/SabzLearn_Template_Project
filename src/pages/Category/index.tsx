@@ -1,3 +1,6 @@
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+
 //icons
 import { FaSearch } from "react-icons/fa";
 import { FaAlignLeft, FaAngleDown, FaBorderAll } from "react-icons/fa6";
@@ -5,8 +8,11 @@ import { FaAlignLeft, FaAngleDown, FaBorderAll } from "react-icons/fa6";
 //components
 import { CourseBox, Pagination } from "@/Components";
 
-//list
-import { CourseList } from "@/shared/Lists";
+
+//api
+import { useCategoryCourses } from "@/services/query";
+//types
+import { CourseType } from "@/types/shared";
 const orderingList = [
   "مرتب سازی پیش فرض",
   "مرتب سازی بر اساس محبوبیت",
@@ -17,6 +23,14 @@ const orderingList = [
 ];
 
 function CategoryPage() {
+  const {categoryName} = useParams()
+  const {data:courses=[],isLoading} = useCategoryCourses(categoryName!)
+  const [shownCourses,setShownCourses] = useState([])
+  const isSelected = true
+  const isCourseExist = !isLoading && courses.length !== 0
+  if(!isCourseExist) {
+    return <div className="text-center bg-gray-color dark:bg-dark-theme-secondary custom-container my-14 py-4 rounded-md">دوره ای برای دسته بندی مورد نظر وجود ندارد</div>
+  }
   return (
     <section className="custom-container my-14">
       {/* TOP SECTION START */}
@@ -64,16 +78,16 @@ function CategoryPage() {
       </div>
       {/* TOP SECTION END */}
 
-      {/* COURSEBOX SECTION START */}
+      {/* COURSE BOX SECTION START */}
       <div className="mt-16 grid grid-cols-1 gap-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-        {CourseList.slice(0, 3).map((courseInfo) => (
+        {shownCourses.map((courseInfo:CourseType) => (
           <CourseBox {...courseInfo} key={courseInfo.name} />
         ))}
       </div>
-      {/* COURSEBOX SECTION END */}
+      {/* COURSE BOX SECTION END */}
 
       {/* PAGINATION SECTION START */}
-      <Pagination />
+      <Pagination items={courses} setShowedItems={setShownCourses} />
       {/* PAGINATION SECTION END */}
     </section>
   );

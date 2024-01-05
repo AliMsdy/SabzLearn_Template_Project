@@ -19,6 +19,11 @@ const getCourse = async (shortName: string) => {
   return data;
 };
 
+const getCategoryCourses = async (categoryName:string) => {
+  const { data } = await axios.get(`/courses/category/${categoryName}`);
+  return data;
+}
+
 const getUserInfo = async (token: string) => {
   const { data } = await axios.get("/auth/me", {
     headers: {
@@ -36,6 +41,8 @@ const getAllMenus = async () => {
   const { data } = await axios.get("/menus");
   return data;
 };
+
+
 
 //mutation API
 
@@ -94,4 +101,5 @@ export {
   loginUser,
   registerUser,
   submitCourseComment,
+  getCategoryCourses
 };

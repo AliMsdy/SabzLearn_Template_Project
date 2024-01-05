@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 //api
 import { useAllMenus } from "@/services/query";
 //component
@@ -24,7 +24,7 @@ function NavigationSection({ sidebar, setSidebar }: NavagationSectionProps) {
     <>
       {/* MOBILE NAVIGATION MENU START */}
       <nav
-        className={`fixed bottom-0 right-0 top-0 z-20 w-[70vw] bg-gray-800 p-4  transition-all duration-500 sm:w-[40-vw] md:w-[30vw] lg:hidden overflow-y-auto ${
+        className={`fixed bottom-0 right-0 top-0 z-20 w-[70vw] overflow-y-auto bg-gray-800  p-4 transition-all duration-500 sm:w-[40-vw] md:w-[30vw] lg:hidden ${
           !sidebar && "translate-x-[1000px]"
         }`}
       >
@@ -50,22 +50,26 @@ function NavigationSection({ sidebar, setSidebar }: NavagationSectionProps) {
             const hasSubmenus = !!submenus.length;
             return (
               <li className="relative " key={title}>
-                <Link
-                  to={href}
-                  className="peer flex cursor-pointer items-center gap-x-1 text-[#7f8187] hover:text-[#1e83f0] dark:text-white dark:hover:text-[#1e83f0]"
+                <NavLink
+                  to={href === "/" ? href : `/category-info/${href}`}
+                  className={({ isActive }) =>
+                    `peer flex cursor-pointer items-center gap-x-1  hover:text-[#1e83f0]  dark:hover:text-[#1e83f0] ${
+                      isActive
+                        ? "text-[#1e83f0]"
+                        : "text-[#7f8187] dark:text-white"
+                    }`
+                  }
                 >
                   {title}
                   {hasSubmenus && <FaAngleDown />}
-                </Link>
+                </NavLink>
                 {hasSubmenus && (
                   <ul className=" invisible absolute z-10 mt-2 min-w-[240px] translate-y-0 rounded-lg  border-b-4 border-solid border-primary-color bg-white p-4  opacity-0 shadow-lg transition-all duration-[400ms] hover:visible hover:translate-y-1 hover:opacity-100 peer-hover:visible peer-hover:translate-y-1 peer-hover:opacity-100 dark:bg-dark-theme-secondary">
-                    {submenus.map(
-                      ({ title, href }: LinkType) => (
-                        <li className="my-3 last:mb-1" key={title}>
-                          <Link to={href}>{title}</Link>
-                        </li>
-                      ),
-                    )}
+                    {submenus.map(({ title, href }: LinkType) => (
+                      <li className="my-3 last:mb-1" key={title}>
+                        <Link to={href}>{title}</Link>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </li>

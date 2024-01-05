@@ -1,25 +1,26 @@
-import Logo from "/images/logo/Logo.png";
 import { useAuthContext } from "@/context/AuthContext";
+import { useThemeContext } from "@/context/ThemeContext";
+
 import darkModeHandler from "@/utils/darkmodeHandler";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Logo from "/images/logo/Logo.png";
 
 //component
 import { Button, NavigationSection, Overlay } from "..";
 
 //icon
-import { FaSearch } from "react-icons/fa";
-import {  FaCartShopping, FaUserLarge } from "react-icons/fa6";
+import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
 import { HiMenu } from "react-icons/hi";
-
-
+import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 
 function Navbar() {
+  const { theme, setTheme } = useThemeContext();
+  const { isLoggedIn, userInfos } = useAuthContext();
   const [sidebar, setSidebar] = useState(false);
   const [showUserInfo, setShowUserInfo] = useState(false);
 
-  const { isLoggedIn, userInfos } = useAuthContext();
-  
+
   return (
     <section className=" mb-8  flex items-center justify-between px-3 lg:justify-normal lg:px-0 ">
       {/* HUMBERGER MENU START */}
@@ -61,8 +62,12 @@ function Navbar() {
               : "hidden"
           }`}
         >
-          <Button onClick={() => darkModeHandler()} className="px-2">
-            <FaSearch size={25} />
+          <Button onClick={() => setTheme(darkModeHandler())} className="px-2">
+            {theme === "light" ? (
+              <IoMoonOutline size={25} />
+            ) : (
+              <IoSunnyOutline size={25} />
+            )}
           </Button>
           <Button
             component="link"

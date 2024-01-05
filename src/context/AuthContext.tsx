@@ -4,10 +4,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 //type
 import { Children, UserType } from "@/types/shared";
 
-type AuthContextProps = {
+type AuthType = {
   token: string;
   isLoggedIn: boolean;
   userInfos: UserType | null;
+};
+type AuthContextProps = AuthType & {
   login: (token: string) => void;
   logout: () => void;
 };
@@ -15,11 +17,7 @@ type AuthContextProps = {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 function AuthContextProvider({ children }: Children) {
-  const [authState, setAuthState] = useState<{
-    token: string;
-    isLoggedIn: boolean;
-    userInfos: UserType | null;
-  }>({
+  const [authState, setAuthState] = useState<AuthType>({
     token: "",
     isLoggedIn: false,
     userInfos: null,
@@ -74,5 +72,4 @@ function useAuthContext() {
 
 export default AuthContextProvider;
 
-
-export { useAuthContext };// eslint-disable-line
+export { useAuthContext }; // eslint-disable-line

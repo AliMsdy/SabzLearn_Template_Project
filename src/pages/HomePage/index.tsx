@@ -30,7 +30,7 @@ function HomePage() {
     <>
       {/* HERO SECTION START */}
       <section>
-        <div className="flex h-[calc(100vh-5vh)]  w-full flex-col items-center justify-center bg-landing-pattern bg-cover bg-fixed bg-center bg-no-repeat text-white sm:h-screen">
+        <div className="flex h-[calc(100dvh-5dvh)]  w-full flex-col items-center justify-center bg-landing-pattern bg-cover bg-fixed bg-center bg-no-repeat text-white sm:h-screen">
           <h2 className="px-4 text-center text-2xl font-bold md:text-4xl">
             <Typewriter
               options={{
@@ -75,7 +75,7 @@ function HomePage() {
               desc="سکوی پرتاپ شما به سمت موفقیت"
             />
             <div className="flex flex-grow items-center justify-center sm:justify-end">
-              <Button className="gap-x-2">
+              <Button component="link" to="/all-courses" className="gap-x-2">
                 <span>تمامی دوره</span>
                 <FaArrowLeft />
               </Button>
