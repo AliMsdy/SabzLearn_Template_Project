@@ -16,16 +16,18 @@ import {
 } from "@/Components";
 
 //lists
-import { ArticleList, LandingSvgList, SabzlearnFeatures } from "@/shared/Lists";
+import { LandingSvgList, SabzlearnFeatures } from "@/shared/Lists";
 //api
-import { useCourses } from "@/services/query";
+import { useArticles, useCourses } from "@/services/query";
 
 //types
-import { CourseType } from "@/types/shared";
+import type { CourseType,ArticleType } from "@/types/shared";
 
 const tailwindConfig = resolveConfig(myTailwindConfig);
 function HomePage() {
   const { data: courses = [] } = useCourses();
+  const { data: articles = [] } = useArticles();
+
   return (
     <>
       {/* HERO SECTION START */}
@@ -83,7 +85,7 @@ function HomePage() {
           </div>
 
           <div className="mt-8 grid grid-cols-1 gap-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {courses.slice(0,6).map((courseInfo: CourseType) => (
+            {courses.slice(0, 6).map((courseInfo: CourseType) => (
               <CourseBox {...courseInfo} key={courseInfo._id} />
             ))}
           </div>
@@ -155,8 +157,8 @@ function HomePage() {
           </div>
 
           <div className="mt-8 grid grid-cols-1  gap-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-            {ArticleList.map((article, i) => (
-              <ArticleBox key={i} {...article} />
+            {articles.slice(0,3).map((article: ArticleType) => (
+              <ArticleBox key={article._id} {...article} />
             ))}
           </div>
         </section>

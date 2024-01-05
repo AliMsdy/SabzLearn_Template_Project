@@ -143,14 +143,14 @@ const socialList = [
 const relatedCoursesList = [
   {
     title: "پروژه های تخصصی با جاوااسکریپت",
-    imgSrc: "/src/assets/images/courses/js_project.png",
+    imgSrc: "/images/courses/js_project.png",
   },
   {
     title: "تعیین قیمت پروژه های فریلنسری",
-    imgSrc: "/src/assets/images/courses/fareelancer.png",
+    imgSrc: "/images/courses/freelancer.png",
   },
-  { title: "دوره Api نویسی", imgSrc: "/src/assets/images/courses/nodejs.png" },
-  { title: "متخصص جنگو", imgSrc: "/src/assets/images/courses/jango.png" },
+  { title: "دوره Api نویسی", imgSrc: "/images/courses/nodejs.png" },
+  { title: "متخصص جنگو", imgSrc: "/images/courses/jango.png" },
 ];
 const navLinks = [
   { title: "صفحه اصلی", children: [], path: "/" },

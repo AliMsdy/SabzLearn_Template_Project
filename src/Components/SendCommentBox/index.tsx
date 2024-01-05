@@ -41,7 +41,7 @@ function SendCommentBox() {
   const onSubmit: SubmitHandler<InputTypes> = async (data) => {
     console.log("all the data", data);
     await new Promise((resolve) => setTimeout(resolve, 3000));
-     await submitCourseComment({
+    await submitCourseComment({
       body: data.textArea,
       score: data.score,
       courseShortName: courseName!,
@@ -65,15 +65,17 @@ function SendCommentBox() {
     );
   }
   return (
-    <div className="mt-6 pr-2">
-      <p>قوانین ثبت دیدگاه</p>
-      <div className="mt-4 space-y-2 text-sm  text-secondary-color dark:text-white ">
-        {SendCommentRules.map((rule) => (
-          <p key={rule} className="flex items-center gap-3">
-            <FaCheck className="min-w-[20px] text-lg text-primary-color" />
-            <span>{rule}</span>
-          </p>
-        ))}
+    <div className="mt-6 pr-2 dark:bg-dark-theme-secondary rounded-lg">
+      <div className="px-4 py-2">
+        <p>قوانین ثبت دیدگاه</p>
+        <div className="mt-4 space-y-2 text-sm text-secondary-color dark:text-white ">
+          {SendCommentRules.map((rule) => (
+            <p key={rule} className="flex items-center gap-3">
+              <FaCheck className="min-w-[20px] text-lg text-primary-color" />
+              <span>{rule}</span>
+            </p>
+          ))}
+        </div>
       </div>
 
       <div className="mt-8 rounded-md bg-gray-color p-4 dark:bg-dark-theme-secondary">

@@ -16,6 +16,19 @@ type CourseType = {
   isForSlider?: boolean;
 };
 
+type ArticleType = {
+  cover:string;
+  shortName:string;
+  title:string;
+  description:string
+  _id:string
+  creator:{
+    name:string
+    role:string
+    profile:string
+  }
+}
+
 type RegisterInputTypes = {
 
   name: string;
@@ -60,4 +73,4 @@ type CommentType = {
 }
 
 
-export type { Children, CourseType, RegisterInputTypes, SetState,UserType,LoginInputTypes,LinkType,CommentType };
+export type { Children, CourseType, RegisterInputTypes, SetState,UserType,LoginInputTypes,LinkType,CommentType,ArticleType };

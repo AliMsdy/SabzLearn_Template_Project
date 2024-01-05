@@ -19,10 +19,19 @@ const getCourse = async (shortName: string) => {
   return data;
 };
 
-const getCategoryCourses = async (categoryName:string) => {
+const getCategoryCourses = async (categoryName: string) => {
   const { data } = await axios.get(`/courses/category/${categoryName}`);
   return data;
-}
+};
+
+const getArticleInfo = async (shortName:string) => {
+  const { data } = await axios.get(`/articles/${shortName}`);
+  return data;
+};
+const getArticles = async () => {
+  const { data } = await axios.get("/articles");
+  return data;
+};
 
 const getUserInfo = async (token: string) => {
   const { data } = await axios.get("/auth/me", {
@@ -42,8 +51,6 @@ const getAllMenus = async () => {
   return data;
 };
 
-
-
 //mutation API
 
 const submitCourseComment = async (commentData: {
@@ -52,9 +59,9 @@ const submitCourseComment = async (commentData: {
   score: string;
 }) => {
   const { data } = await axios.post("/comments", commentData, {
-    headers:{
-      "Authorization" : `Bearer ${localStorage.getItem("token")}`
-    }
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
   return data;
 };
@@ -94,6 +101,8 @@ const loginUser = async (data: LoginInputTypes) => {
 
 export {
   getAllMenus,
+  getArticleInfo,
+  getCategoryCourses,
   getCourse,
   getCourses,
   getTopBarLinks,
@@ -101,5 +110,5 @@ export {
   loginUser,
   registerUser,
   submitCourseComment,
-  getCategoryCourses
+  getArticles,
 };

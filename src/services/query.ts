@@ -1,16 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTopBarLinks,getAllMenus,getCourse, getCourses, getCategoryCourses } from "./api";
+import { getTopBarLinks,getAllMenus,getCourse, getCourses, getCategoryCourses, getArticleInfo, getArticles } from "./api";
 
-
-// const useUserInfo = () => {
-//   return useQuery({
-//     queryKey: ["userInfo"],
-//     queryFn: (token) => getUserInfo(token),
-//     enabled:false
-//   });
-// };
-
-
+//MENUS AND LINKS START
 const useTopBarLinks = () => {
   return useQuery({
     queryKey: ["TopBarLinks"],
@@ -23,6 +14,11 @@ const useAllMenus= () => {
     queryFn: getAllMenus,
   });
 };
+//MENUS AND LINKS END
+
+
+//COURSES START
+
 const useCourses = () => {
   return useQuery({
     queryKey: ["Courses"],
@@ -38,11 +34,35 @@ const useCourseInfo= (shortName:string) => {
   });
 };
 
+
+
 const useCategoryCourses= (shortName:string) => {
   return useQuery({
     queryKey: ["categoryCourses",shortName],
     queryFn: () => getCategoryCourses(shortName),
   });
 };
+//COURSES END
 
-export { useTopBarLinks,useAllMenus,useCourseInfo,useCourses,useCategoryCourses };
+
+// ARTICLES START
+
+const useArticles = () => {
+  return useQuery({
+    queryKey: ["Articles"],
+    queryFn: getArticles,
+    
+  });
+}
+
+const useArticleInfo= (shortName:string) => {
+  return useQuery({
+    queryKey: ["ArticleInfo",shortName],
+    queryFn: () => getArticleInfo(shortName),
+  });
+};
+
+// ARTICLES END
+
+
+export { useTopBarLinks,useAllMenus,useCourseInfo,useCourses,useCategoryCourses,useArticleInfo,useArticles };
