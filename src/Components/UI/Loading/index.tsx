@@ -1,10 +1,10 @@
-import styles from "./style.module.css"
+import styles from "./style.module.css";
 
 type LoadingProps = {
-  className?:string
-}
+  className?: string;
+};
 
-const {loader,loading} = styles
+const { loader, loading } = styles;
 function Loading() {
   return (
     <div className={loader}>
@@ -23,8 +23,8 @@ function Loading() {
   );
 }
 
-function SimpleLoading({className}:LoadingProps){
-  return <span className={`${loading} ${className}` } />
+function SimpleLoading({ className }: LoadingProps) {
+  return <span className={`${loading} ${className}`} />;
 }
 
-export { Loading,SimpleLoading };
+export { Loading, SimpleLoading };

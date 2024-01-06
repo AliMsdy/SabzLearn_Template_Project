@@ -24,6 +24,8 @@ export * from "./Pagination"
 export * from "./NavItem"
 export * from "./NavigationSection"
 export * from "./CommentBox"
+export * from "./RowCourseBox"
+
 
 
 

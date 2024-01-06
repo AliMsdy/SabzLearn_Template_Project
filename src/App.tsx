@@ -1,7 +1,9 @@
+import { useAuthContext } from "./context/AuthContext";
 import { Routes } from "./routes";
 
 function App() {
-  return <Routes isAuthorized={true} />;
+  const {isLoggedIn} = useAuthContext()
+  return <Routes isAuthorized={isLoggedIn} />;
 }
 
 export default App;

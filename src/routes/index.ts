@@ -1,3 +1,4 @@
+// import { lazy } from "react";
 import { renderRoutes } from "./generate-routes";
 
 // Layouts
@@ -5,7 +6,10 @@ import {AnonymousLayout} from "@/Layout/AnonymousLayout";
 import {MainLayout} from "@/Layout/MainLayout";
 
 // Pages
-import { ArticlePage, CategoryPage,CoursePage ,HomePage,AllCoursesPage,Login,Register,AllArticlesPage } from "@/pages";
+import { ArticlePage, CategoryPage,CoursePage,HomePage ,AllCoursesPage,Login,Register,AllArticlesPage } from "@/pages";
+// const HomePage = lazy(() => import("../pages/HomePage"));
+// console.log(HomePage)
+
 
 export const routes = [
 {

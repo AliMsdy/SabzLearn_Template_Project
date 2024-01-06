@@ -14,6 +14,7 @@ type CourseType = {
   name: string;
   shortName: string;
   isForSlider?: boolean;
+  description:string;
 };
 
 type ArticleType = {

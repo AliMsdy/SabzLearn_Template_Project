@@ -1,3 +1,5 @@
+// import { Loading } from "@/Components";
+// import { Suspense } from "react";
 import { Route as ReactRoute, Routes as ReactRoutes } from "react-router-dom";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -47,16 +49,27 @@ export const renderRoutes = (mainRoutes: Routes) => {
 
       return (
         <ReactRoute key={index} element={<Layout />}>
-          {subRoutes.map(({ component: Component, path, name,isPublic }) => {
+          {subRoutes.map(({ component: Component, path, name, isPublic }) => {
             return (
               <ReactRoute
-              key={name}
+                key={name}
                 element={
-                  <ProtectedRoute isPublic={isPublic} isAuthorized={isAuthorized} />
+                  <ProtectedRoute
+                    isPublic={isPublic}
+                    isAuthorized={isAuthorized}
+                  />
                 }
               >
                 {Component && path && (
-                  <ReactRoute key={name} element={<Component />} path={path} />
+                  <ReactRoute
+                    key={name}
+                    element={
+                      // <Suspense fallback={<Loading />}>
+                        <Component />
+                      // </Suspense> 
+                    }
+                    path={path}
+                  />
                 )}
               </ReactRoute>
             );
