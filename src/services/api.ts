@@ -3,7 +3,11 @@ import { toast } from "react-toastify";
 import axios from "./axios";
 
 //type
-import { LoginInputTypes, RegisterInputTypes,ContactUsInputTypes } from "@/types/shared";
+import {
+  ContactUsInputTypes,
+  LoginInputTypes,
+  RegisterInputTypes,
+} from "@/types/shared";
 
 //query API
 const getCourses = async () => {
@@ -24,7 +28,7 @@ const getCategoryCourses = async (categoryName: string) => {
   return data;
 };
 
-const getArticleInfo = async (shortName:string) => {
+const getArticleInfo = async (shortName: string) => {
   const { data } = await axios.get(`/articles/${shortName}`);
   return data;
 };
@@ -66,15 +70,22 @@ const submitCourseComment = async (commentData: {
   return data;
 };
 
-const submitContactUsForm = async (contactData:ContactUsInputTypes) => {
+const submitContactUsForm = async (contactData: ContactUsInputTypes) => {
   await new Promise((resolve) => setTimeout(resolve, 5000));
   const data = await axios.post("/contact", contactData);
-  if(data.status === 201){
-    toast.success("پیغام شما با موفقیت به مدیران سایت ارسال شد")
+  if (data.status === 201) {
+    toast.success("پیغام شما با موفقیت به مدیران سایت ارسال شد");
   }
-  console.log(data)
+  console.log(data);
   return data.data;
-}
+};
+
+const subscribeToNewsletter = async (email:{email:string}) => {
+  const {status} = await axios.post("/newsletters", email);
+  if (status === 201) {
+    toast.success("ایمیل شما با موفقیت در خبرنامه ثبت شد");  
+  }
+};
 
 //Authentication API
 const registerUser = async (data: RegisterInputTypes) => {
@@ -112,6 +123,7 @@ const loginUser = async (data: LoginInputTypes) => {
 export {
   getAllMenus,
   getArticleInfo,
+  getArticles,
   getCategoryCourses,
   getCourse,
   getCourses,
@@ -119,7 +131,7 @@ export {
   getUserInfo,
   loginUser,
   registerUser,
-  submitCourseComment,
-  getArticles,
   submitContactUsForm,
+  submitCourseComment,
+  subscribeToNewsletter
 };

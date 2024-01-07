@@ -15,9 +15,10 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> &
     Icon?: IconType;
     element?: string;
     options?: { title: string; value: string; disabled?: boolean }[];
+    isValidationStylesEnabled?:boolean;
   };
 
-function Input({ Icon, element, options, ...rest }: InputProps) {
+function Input({ Icon, element, options,isValidationStylesEnabled = true, ...rest }: InputProps) {
   let style;
   const {
     control,
@@ -62,7 +63,7 @@ function Input({ Icon, element, options, ...rest }: InputProps) {
     );
   }
 
-  if (element !== "select") {
+  if (element !== "select" && isValidationStylesEnabled === true) {
     const hasError = isDirty ? (invalid ? true : false) : null;
 
     style =

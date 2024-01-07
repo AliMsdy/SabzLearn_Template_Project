@@ -81,12 +81,6 @@ const contactUsValidationSchema = yup.object().shape({
   body: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
 });
 
-const newsletterValidationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("ایمیل خود را به درستی وارد کنید")
-    .required("فیلد را تکمیل کنید(الزامی)"),
-});
 
 const sendCommentSchema = yup.object().shape({
   textArea: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
@@ -157,5 +151,4 @@ export {
   registerInputList,
   registerValidationSchema,
   sendCommentSchema,
-  newsletterValidationSchema
 };

@@ -1,4 +1,10 @@
+import { FormProvider, useForm,SubmitHandler } from "react-hook-form";
+
 import { Link } from "react-router-dom";
+import { Button, Input } from "..";
+
+//api
+import { subscribeToNewsletter } from "@/services/api";
 
 const LastArticles = [
   {
@@ -31,6 +37,7 @@ const QuickAccess = [
   { title: "آموزش CSS", path: "/#" },
   { title: "آموزش بوت استرپ", path: "/#" },
   { title: "آموزش پایتون", path: "/#" },
+  { title: "ارتباط با ما", path: "/contact-us" },
 ];
 
 function FooterTitle({ title }: { title: string }) {
@@ -41,11 +48,25 @@ function FooterTitle({ title }: { title: string }) {
   );
 }
 
+type NewsLetterInputType = {
+  email: string;
+};
+
 function Footer() {
+  const methods = useForm<NewsLetterInputType>({
+    mode: "onChange",
+    defaultValues: {
+      email: "",
+    },
+  });
+  const onSubmit: SubmitHandler<NewsLetterInputType> = async (data) => {
+    await subscribeToNewsletter(data)
+    methods.reset()
+  };
   return (
     <footer className=" mt-20">
       {/* UPPER SECTION START */}
-      <div className="custom-container relative  grid  grid-cols-1 gap-x-6 gap-y-4 rounded-xl bg-gray-color dark:bg-dark-theme-secondary px-8 py-6 after:absolute after:-bottom-4 after:right-1/2 after:-z-10 after:h-6 after:w-1/2 after:min-w-[70%] after:translate-x-1/2 after:rounded-b-3xl after:bg-primary-color  md:grid-cols-2 xl:grid-cols-3">
+      <div className="custom-container relative  grid  grid-cols-1 gap-x-6 gap-y-4 rounded-xl bg-gray-color px-8 py-6 after:absolute after:-bottom-4 after:right-1/2 after:-z-10 after:h-6 after:w-1/2 after:min-w-[70%] after:translate-x-1/2 after:rounded-b-3xl after:bg-primary-color dark:bg-dark-theme-secondary  md:grid-cols-2 xl:grid-cols-3">
         <div>
           <FooterTitle title="درباره ما" />
           <p className="text-justify text-[#7d7e7f] dark:text-white">
@@ -86,6 +107,25 @@ function Footer() {
                   {title}
                 </Link>
               ))}
+            </div>
+            <div className="col-span-2">
+              <FooterTitle title="عضویت در خبرنامه" />
+              <p className="my-2 mb-4 text-sm text-[#7d7e7f] dark:text-white">
+                جهت اطلاع از آخرین اخبار و تخفیف های سایت مشترک شوید!{" "}
+              </p>
+              <FormProvider {...methods}>
+                <form className="flex flex-wrap justify-between gap-2 gap-y-4 text-sm" onSubmit={methods.handleSubmit(onSubmit)}>
+                  <Input
+                    className="flex-grow"
+                    name="email"
+                    placeholder="ایمیل خود را وارد کنید..."
+                    type="email"
+                    required
+                    isValidationStylesEnabled={false}
+                  />
+                  <Button disabled={methods.formState.isSubmitting}>عضویت در خبرنامه</Button>
+                </form>
+              </FormProvider>
             </div>
           </div>
         </div>
