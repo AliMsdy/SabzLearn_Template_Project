@@ -28,7 +28,7 @@ function Input({ Icon, element, options, ...rest }: InputProps) {
       errors={errors}
       name={rest.name!}
       render={({ message }) => (
-        <div className="py-3 pr-4 text-red-700">{message}</div>
+        <div className="py-1 pr-4 text-red-700">{message}</div>
       )}
     />
   );
@@ -62,7 +62,7 @@ function Input({ Icon, element, options, ...rest }: InputProps) {
     );
   }
 
-  if (element !== "textArea" && element !== "select") {
+  if (element !== "select") {
     const hasError = isDirty ? (invalid ? true : false) : null;
 
     style =
@@ -77,12 +77,13 @@ function Input({ Icon, element, options, ...rest }: InputProps) {
     return (
       <>
         <textarea
-          className={twMerge(
-            "my-4 w-full rounded-md p-4 text-black shadow-custom focus:outline-none dark:bg-[#484965] dark:text-white dark:shadow-dark-theme",
-            rest.className,
-          )}
           {...rest}
           {...field}
+          className={twMerge(
+            "my-4 w-full rounded-md p-4 text-black shadow-custom focus:outline-none dark:bg-[#484965] dark:text-white dark:shadow-dark-theme",
+            style,
+            rest.className,
+          )}
         />
         {ErrorMessageElement}
       </>
@@ -99,9 +100,9 @@ function Input({ Icon, element, options, ...rest }: InputProps) {
         )}
       >
         <input
-          className="w-full p-2 focus:outline-none dark:bg-transparent"
           {...rest}
           {...field}
+          className="w-full p-2 focus:outline-none dark:bg-transparent"
         />
         {Icon && (
           <Icon

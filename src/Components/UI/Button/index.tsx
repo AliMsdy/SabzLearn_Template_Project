@@ -33,7 +33,7 @@ function Button({
 
   if (component === "link") {
     return (
-      <Link to={to!} className={mergedClasses} {...props}>
+      <Link to={to!} {...props} className={mergedClasses}>
         {children}
       </Link>
     );

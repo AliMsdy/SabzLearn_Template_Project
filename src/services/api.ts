@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import axios from "./axios";
 
 //type
-import { LoginInputTypes, RegisterInputTypes } from "@/types/shared";
+import { LoginInputTypes, RegisterInputTypes,ContactUsInputTypes } from "@/types/shared";
 
 //query API
 const getCourses = async () => {
@@ -66,6 +66,16 @@ const submitCourseComment = async (commentData: {
   return data;
 };
 
+const submitContactUsForm = async (contactData:ContactUsInputTypes) => {
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+  const data = await axios.post("/contact", contactData);
+  if(data.status === 201){
+    toast.success("پیغام شما با موفقیت به مدیران سایت ارسال شد")
+  }
+  console.log(data)
+  return data.data;
+}
+
 //Authentication API
 const registerUser = async (data: RegisterInputTypes) => {
   await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -111,4 +121,5 @@ export {
   registerUser,
   submitCourseComment,
   getArticles,
+  submitContactUsForm,
 };

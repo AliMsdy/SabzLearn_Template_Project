@@ -6,7 +6,7 @@ import {AnonymousLayout} from "@/Layout/AnonymousLayout";
 import {MainLayout} from "@/Layout/MainLayout";
 
 // Pages
-import { ArticlePage, CategoryPage,CoursePage,HomePage ,AllCoursesPage,Login,Register,AllArticlesPage } from "@/pages";
+import { ArticlePage, CategoryPage,CoursePage,HomePage ,AllCoursesPage,Login,Register,AllArticlesPage,ContactUs } from "@/pages";
 // const HomePage = lazy(() => import("../pages/HomePage"));
 // console.log(HomePage)
 
@@ -27,6 +27,13 @@ export const routes = [
         title: 'Register page',
         component: Register,
         path: '/register',
+        
+      },
+      {
+        name: 'contactUs',
+        title: 'ContactUs page',
+        component: ContactUs,
+        path: '/contact-us',
         
       },
     ]

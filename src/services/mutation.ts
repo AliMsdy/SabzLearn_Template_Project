@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { registerUser,loginUser } from "./api";
+import { registerUser,loginUser,submitContactUsForm } from "./api";
 
 //type
-import { RegisterInputTypes,LoginInputTypes } from "@/types/shared";
+import { RegisterInputTypes,LoginInputTypes,ContactUsInputTypes } from "@/types/shared";
 
 
 // const useSubmitComment = () => {
@@ -24,4 +24,10 @@ const useLogin = () => {
   });
 };
 
-export { useRegister,useLogin};
+const useContactUs = () => {
+  return useMutation({
+    mutationFn: (data: ContactUsInputTypes) => submitContactUsForm(data),
+  });
+};
+
+export { useRegister,useLogin,useContactUs};
