@@ -1,4 +1,6 @@
 import myTailwindConfig from "@/../tailwind.config.ts";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import resolveConfig from "tailwindcss/resolveConfig";
 import Typewriter from "typewriter-effect";
 
@@ -21,12 +23,15 @@ import { LandingSvgList, SabzlearnFeatures } from "@/shared/Lists";
 import { useArticles, useCourses } from "@/services/query";
 
 //types
-import type { CourseType,ArticleType } from "@/types/shared";
+import type { ArticleType, CourseType } from "@/types/shared";
 
 const tailwindConfig = resolveConfig(myTailwindConfig);
 function HomePage() {
   const { data: courses = [] } = useCourses();
   const { data: articles = [] } = useArticles();
+  const [searchBoxValue, setSearchBoxValue] = useState("");
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -50,16 +55,25 @@ function HomePage() {
           <h3 className="my-6 px-4 text-center text-lg font-semibold md:text-xl">
             با آکادمی سبزلرن، برنامه نویسی رو با خیال راحت یاد بگیر و پیشرفت کن
           </h3>
-          <div className="flex min-w-[300px] justify-between gap-x-2 rounded-md bg-white p-2 px-3 sm:min-w-[500px]">
+          <form
+            onSubmit={() => navigate(`/search/${searchBoxValue}`)}
+            className="flex min-w-[300px] justify-between gap-x-2 rounded-md bg-white p-2 px-3 sm:min-w-[500px]"
+          >
             <input
               className="flex-grow text-black focus:outline-none"
               type="text"
               placeholder="چه چیزی دوست داری یاد بگیری..."
+              value={searchBoxValue}
+              onChange={(e) => setSearchBoxValue(e.target.value)}
+              spellCheck="false"
             />
-            <Button className="px-2">
+            <Button
+              className="px-2"
+              onClick={() => navigate(`/search/${searchBoxValue}`)}
+            >
               <FaSearch size={30} />
             </Button>
-          </div>
+          </form>
           <div className="mt-10 hidden justify-between gap-x-32 px-4 sm:flex">
             {LandingSvgList.map((item) => (
               <LandingCountUp {...item} key={item.numberValue} />
@@ -128,7 +142,6 @@ function HomePage() {
           <Slider list={courses} />
         </section>
         {/* MOST POPULAR COURSES START */}
-
         {/* PRE-SALE COURSES START */}
         <section>
           <div className="mt-16">
@@ -136,11 +149,11 @@ function HomePage() {
           </div>
           <Slider list={courses} />
         </section>
-
         {/* PRE-SALE COURSES END */}
 
+
         {/* ARTICLE SECTION START */}
-      <section>
+        <section>
           <div className="mt-10 flex flex-col gap-y-6 sm:flex-row">
             <div>
               <SectionHeader
@@ -157,7 +170,7 @@ function HomePage() {
           </div>
 
           <div className="mt-8 grid grid-cols-1  gap-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.slice(0,3).map((article: ArticleType) => (
+            {articles.slice(0, 3).map((article: ArticleType) => (
               <ArticleBox key={article._id} {...article} />
             ))}
           </div>

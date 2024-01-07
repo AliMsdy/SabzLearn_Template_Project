@@ -1,11 +1,12 @@
 import styles from "./style.module.css";
-
+import loadingSpinner from "/images/Loading.svg"
 type LoadingProps = {
   className?: string;
 };
 
-const { loader, loading } = styles;
-function Loading() {
+
+const { loading, loader } = styles;
+function CircleLoading() {
   return (
     <div className={loader}>
       <svg className="circular" viewBox="25 25 50 50">
@@ -23,8 +24,16 @@ function Loading() {
   );
 }
 
+function Loading() {
+  return (
+    <div className="absolute bottom-0 left-0 right-0 top-0 z-30 flex items-center justify-center bg-gray-300 h-screen">
+      <img src={loadingSpinner} />
+    </div>
+  );
+}
+
 function SimpleLoading({ className }: LoadingProps) {
   return <span className={`${loading} ${className}`} />;
 }
 
-export { Loading, SimpleLoading };
+export { Loading, SimpleLoading,CircleLoading };

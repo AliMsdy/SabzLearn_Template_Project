@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 //components
-import { BreadCrumb, SendCommentBox, SidebarBox } from "@/Components";
+import { BreadCrumb, Loading, SendCommentBox, SidebarBox } from "@/Components";
 
 //svg
 import StarUnfilled from "/images/svgs/star.svg";
@@ -38,7 +38,7 @@ function ArticlePage() {
 
   const { data, isLoading } = useArticleInfo(articleName!);
   if (isLoading) {
-    return <h1>Loading....</h1>;
+    return <Loading />
   }
   return (
       <section className="custom-container">

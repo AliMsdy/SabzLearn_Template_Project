@@ -6,7 +6,7 @@ import {AnonymousLayout} from "@/Layout/AnonymousLayout";
 import {MainLayout} from "@/Layout/MainLayout";
 
 // Pages
-import { ArticlePage, CategoryPage,CoursePage,HomePage ,AllCoursesPage,Login,Register,AllArticlesPage,ContactUs } from "@/pages";
+import { ArticlePage, CategoryPage,CoursePage,HomePage ,AllCoursesPage,Login,Register,AllArticlesPage,ContactUs,SearchPage } from "@/pages";
 // const HomePage = lazy(() => import("../pages/HomePage"));
 // console.log(HomePage)
 
@@ -77,6 +77,12 @@ export const routes = [
         component: AllArticlesPage,
         path: '/all-articles/',
         isPublic:false
+      },
+      {
+        name: "search page",
+        title: 'search page',
+        component: SearchPage,
+        path: '/search/:searchedValue',
       },
       
     ]

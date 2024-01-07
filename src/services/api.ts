@@ -9,7 +9,7 @@ import {
   RegisterInputTypes,
 } from "@/types/shared";
 
-//query API
+//QUERY API
 const getCourses = async () => {
   const { data } = await axios.get("/courses");
   return data;
@@ -50,12 +50,19 @@ const getTopBarLinks = async () => {
   const { data } = await axios.get("/menus/topbar");
   return data;
 };
+
 const getAllMenus = async () => {
   const { data } = await axios.get("/menus");
   return data;
 };
 
-//mutation API
+
+const getSearchResult = async (searchQuery:string) => {
+  const { data } = await axios.get(`/search/${searchQuery}`);
+  return data;
+};
+
+//MUTATION API
 
 const submitCourseComment = async (commentData: {
   body: string;
@@ -87,7 +94,7 @@ const subscribeToNewsletter = async (email:{email:string}) => {
   }
 };
 
-//Authentication API
+//AUTHENTICATION API
 const registerUser = async (data: RegisterInputTypes) => {
   await new Promise((resolve) => setTimeout(resolve, 5000));
   try {
@@ -133,5 +140,6 @@ export {
   registerUser,
   submitContactUsForm,
   submitCourseComment,
-  subscribeToNewsletter
+  subscribeToNewsletter,
+  getSearchResult
 };

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTopBarLinks,getAllMenus,getCourse, getCourses, getCategoryCourses, getArticleInfo, getArticles } from "./api";
+import { getTopBarLinks,getAllMenus,getCourse, getCourses, getCategoryCourses, getArticleInfo, getArticles,getSearchResult } from "./api";
 
 //MENUS AND LINKS START
 const useTopBarLinks = () => {
@@ -51,7 +51,6 @@ const useArticles = () => {
   return useQuery({
     queryKey: ["Articles"],
     queryFn: getArticles,
-    
   });
 }
 
@@ -65,4 +64,12 @@ const useArticleInfo= (shortName:string) => {
 // ARTICLES END
 
 
-export { useTopBarLinks,useAllMenus,useCourseInfo,useCourses,useCategoryCourses,useArticleInfo,useArticles };
+const useSearchQueryResult = (searchedValue:string) => {
+  return useQuery({
+    queryKey: ["searchResult",searchedValue],
+    queryFn: () => getSearchResult(searchedValue),
+  });
+};
+
+
+export { useTopBarLinks,useAllMenus,useCourseInfo,useCourses,useCategoryCourses,useArticleInfo,useArticles,useSearchQueryResult };

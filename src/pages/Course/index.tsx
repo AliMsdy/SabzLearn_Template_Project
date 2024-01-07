@@ -5,6 +5,7 @@ import {
   Button,
   CommentBox,
   CourseDetailBox,
+  Loading,
   SectionHeader,
   SendCommentBox,
   SidebarBox,
@@ -42,7 +43,7 @@ function CoursePage() {
   const { courseName } = useParams();
   const { data, isLoading } = useCourseInfo(courseName!);
   if (isLoading) {
-    return <h1>Loading....</h1>;
+    return <Loading />;
   }
 
   return (
