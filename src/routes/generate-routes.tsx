@@ -1,5 +1,5 @@
-// import { Loading } from "@/Components";
-// import { Suspense } from "react";
+import { Loading } from "@/Components";
+import { Suspense } from "react";
 import { Route as ReactRoute, Routes as ReactRoutes } from "react-router-dom";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -12,33 +12,34 @@ type Route = {
   hasSiderLink?: boolean;
   routes?: Route[];
 };
-
 type Routes = {
   layout: () => JSX.Element;
   routes: Route[];
 }[];
 
-function flattenArray(arr: (Route | Route[] | undefined)[]): Route[] {
-  let flattened: Route[] = [];
-
-  for (let i = 0; i < arr.length; i++) {
-    if (Array.isArray(arr[i])) {
-      flattened = flattened.concat(flattenArray(arr[i] as Route[]));
-    } else if (arr[i]) {
-      flattened.push(arr[i] as Route);
-    }
-  }
-
-  return flattened;
-}
-
-const generateFlattenRoutes = (routes: Route[] | undefined): Route[] => {
+const generateFlattenRoutes = (
+  routes: Route[] | undefined,
+  basePath = "",
+  isPublicParent = true,
+): Route[] => {
   if (!routes) return [];
-  return flattenArray(
-    routes.map(({ routes: subRoutes, ...rest }) => [
-      ...[rest],
-      ...generateFlattenRoutes(subRoutes),
-    ]),
+
+  return routes.flatMap(
+    ({ routes: subRoutes, path: routePath, isPublic = true, ...rest }) => {
+      const path = `${basePath}/${routePath || ""}`.replace(/\/+/g, "/"); // Combine the basePath and routePath, and replace any consecutive slashes with a single slash
+      const isPublicChild = isPublicParent && isPublic; // Set isPublicChild to true only if isPublicParent is true and isPublic is not explicitly set to false
+
+      const flattenedSubRoutes = generateFlattenRoutes(
+        subRoutes,
+        path,
+        isPublicChild,
+      );
+
+      return [
+        { ...rest, path, isPublic: isPublicChild },
+        ...flattenedSubRoutes,
+      ];
+    },
   );
 };
 
@@ -64,9 +65,9 @@ export const renderRoutes = (mainRoutes: Routes) => {
                   <ReactRoute
                     key={name}
                     element={
-                      // <Suspense fallback={<Loading />}>
+                      <Suspense fallback={<Loading />}>
                         <Component />
-                      // </Suspense> 
+                      </Suspense>
                     }
                     path={path}
                   />
