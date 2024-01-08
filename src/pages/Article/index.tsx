@@ -38,7 +38,7 @@ function ArticlePage() {
 
   const { data, isLoading } = useArticleInfo(articleName!);
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
   return (
       <section className="custom-container">

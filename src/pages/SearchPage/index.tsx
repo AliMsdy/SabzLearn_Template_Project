@@ -12,9 +12,7 @@ import { CourseType,ArticleType } from "@/types/shared";
 function SearchPage() {
   const { searchedValue } = useParams();
   const { data, isLoading } = useSearchQueryResult(searchedValue!);
-  if (isLoading) {
-    return <Loading />
-  }
+  if (isLoading) return <Loading />
   return (
       <section className="custom-container">
         <SectionHeader title={`نتیجه دوره ها برای جستجوی شما : ${searchedValue}`} />

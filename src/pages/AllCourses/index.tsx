@@ -1,4 +1,4 @@
-import { BreadCrumb, CourseBox, Pagination } from "@/Components";
+import { BreadCrumb, CourseBox, Loading, Pagination } from "@/Components";
 import { useCourses } from "@/services/query";
 
 //type
@@ -7,8 +7,9 @@ import { useState } from "react";
 
 function AllCoursesPage() {
 
-  const {data:courses=[]} = useCourses()
+  const {data:courses=[],isLoading} = useCourses()
   const [shownCourses,setShownCourses] = useState([])
+  if(isLoading) return <Loading />
   return (
     <section className="custom-container">
       {/* BREADCRUMB START */}

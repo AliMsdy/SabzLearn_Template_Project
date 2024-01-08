@@ -6,7 +6,7 @@ import { FaSearch } from "react-icons/fa";
 import { FaAlignLeft, FaAngleDown, FaBorderAll } from "react-icons/fa6";
 
 //components
-import { CourseBox, Pagination, RowCourseBox } from "@/Components";
+import { CourseBox, Loading, Pagination, RowCourseBox } from "@/Components";
 
 //api
 import { useCategoryCourses } from "@/services/query";
@@ -88,6 +88,8 @@ function CategoryPage() {
     setOrderedCourses(searchedCourses);
   };
 
+  if(isLoading) return <Loading />
+
   if (isCourseNotExist) {
     return (
       <div className="custom-container my-14 rounded-md bg-gray-color py-4 text-center dark:bg-dark-theme-secondary">
@@ -155,7 +157,7 @@ function CategoryPage() {
       {/* COURSE BOX SECTION START */}
       <div className="mt-16 grid grid-cols-1 gap-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {shownCourses.length === 0 ? (
-          <div className=" col-span-3 rounded-md p-4 dark:bg-dark-theme-secondary">
+          <div className=" col-span-3 rounded-md p-4 dark:bg-dark-theme-secondary shadow-custom">
             دوره ای وجود ندارد
           </div>
         ) : (

@@ -1,4 +1,4 @@
-import { ArticleBox, BreadCrumb, Pagination } from "@/Components";
+import { ArticleBox, BreadCrumb, Loading, Pagination } from "@/Components";
 import { useArticles } from "@/services/query";
 
 //type
@@ -6,8 +6,10 @@ import { ArticleType } from "@/types/shared";
 import { useState } from "react";
 
 function AllArticlesPage() {
-  const { data: articles = [] } = useArticles();
+  const { data: articles = [], isLoading } = useArticles();
   const [shownArticles, setShownArticles] = useState([]);
+
+  if(isLoading) return <Loading />
   return (
     <section className="custom-container">
       {/* BREADCRUMB START */}
