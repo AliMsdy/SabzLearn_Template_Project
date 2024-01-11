@@ -1,5 +1,5 @@
 //components
-import { Navbar, TopBar } from "..";
+import { Navbar, TopBar } from "@/Components";
 
 function Header() {
   return (
