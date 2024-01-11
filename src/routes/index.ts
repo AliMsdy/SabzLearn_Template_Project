@@ -8,10 +8,10 @@ import { AnonymousLayout } from "@/Layout/AnonymousLayout";
 import { MainLayout } from "@/Layout/MainLayout";
 
 // Pages
-import { ContactUs, Login, Register, SearchPage } from "@/pages";
+// import { ContactUs, Login, Register, SearchPage } from "@/pages";
 
 //adminPanelPages
-import { MainPage, Users } from "@/pages/AdminPanel";
+// import { MainPage, Users } from "@/pages/AdminPanel";
 
 
 
@@ -23,6 +23,13 @@ const ArticlePage = importLazyPage("Article", "ArticlePage");
 const CategoryPage = importLazyPage("Category", "CategoryPage");
 const AllCoursesPage = importLazyPage("AllCourses", "AllCoursesPage");
 const AllArticlesPage = importLazyPage("AllArticles", "AllArticlesPage");
+
+//other pages
+const ContactUs = importLazyPage("ContactUs");
+const Login = importLazyPage("Login");
+const Register = importLazyPage("Register");
+const SearchPage = importLazyPage("SearchPage");
+
 
 export const routes = [
   {
@@ -101,14 +108,14 @@ export const routes = [
       {
         name: "adminPanel",
         title: "AdminPanel",
-        component: MainPage,
+        // component: MainPage,
         path: "/admin-panel",
         // isPublic: false,
         routes: [
           {
             name: "admin-panel-users",
             title: "admin-panel-users",
-            component: Users,
+            // component: Users,
             path: "users",
           },
         ],
