@@ -5,6 +5,8 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 });
 
+console.log("baseUrl",import.meta.env.VITE_BASE_URL)
+
 axiosInstance.interceptors.response.use(
   (response) => response,
   //handling Errors
