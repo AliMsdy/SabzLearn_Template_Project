@@ -1,5 +1,5 @@
 //components
-import { TopBar } from "@/Components/TopBar/index.tsx";
+import { TopBar } from "../TopBar/index";
 import { Navbar } from "@/Components/Navbar";
 
 function Header() {
