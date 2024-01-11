@@ -1,11 +1,11 @@
 //components
-import { TopBar } from "../TopBar/index.tsx";
+//import { TopBar } from "../TopBar/index.tsx";
 import { Navbar } from "@/Components/Navbar";
 
 function Header() {
   return (
     <header>
-      <TopBar />
+      {/* <TopBar /> */}
       <Navbar />
     </header>
   );
