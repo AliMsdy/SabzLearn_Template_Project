@@ -10,7 +10,7 @@ import StarFilled from "/images/svgs/star_fill.svg";
 
 //components
 // import { Breathing, Image } from ;
-import { Breathing, Image as ShimmerImage } from "react-shimmer";
+import { Breathing, Image, ImageProps  } from "react-shimmer";
 //types
 import { CourseType } from "@/types/shared";
 
@@ -25,6 +25,8 @@ function CourseBox({
   shortName,
   isForSlider,
 }: CourseType) {
+  const ShimmerImage = Image as any as React.ComponentClass<ImageProps>;
+
   return (
     <div
       className={`flex min-h-[25rem] translate-y-0 flex-col rounded-xl shadow-xl transition-all duration-300 dark:bg-dark-theme-secondary ${

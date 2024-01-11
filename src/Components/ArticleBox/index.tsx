@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 //component
-import { Breathing, Image as ShimmerImage } from "react-shimmer";
+import { Breathing, Image, ImageProps } from "react-shimmer";
 import { Button } from "..";
 type ArticleBoxType = {
   title: string;
@@ -10,13 +10,14 @@ type ArticleBoxType = {
 };
 
 function ArticleBox({ title, description, cover, shortName }: ArticleBoxType) {
+  const ShimmerImage = Image as any as React.ComponentClass<ImageProps>;
+
   return (
     <div className="flex min-h-[24rem] flex-col rounded-xl shadow-xl dark:bg-dark-theme-secondary">
       <Link to={`/article-info/${shortName}`} className="text-center">
         <ShimmerImage
           fadeIn={true}
           src={`/images/blog/${cover}`}
-          // src="https://picsum.photos/200/300"
           NativeImgProps={{
             className: "max-h-[200px] w-full rounded-t-xl",
             alt: "article-picture",
@@ -31,7 +32,10 @@ function ArticleBox({ title, description, cover, shortName }: ArticleBoxType) {
         />
       </Link>
       <div className="flex h-full flex-col px-6 pb-6">
-        <Link to={`/article-info/${shortName}`} className="mb-2 mt-4 font-bold ">
+        <Link
+          to={`/article-info/${shortName}`}
+          className="mb-2 mt-4 font-bold "
+        >
           {title}
         </Link>
         <p className=" text-xs text-[#898989] dark:text-white">

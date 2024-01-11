@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Breathing, Image as ShimmerImage } from "react-shimmer";
+import { Breathing, Image, ImageProps } from "react-shimmer";
 //type
 import { CourseType } from "@/types/shared";
 
@@ -20,6 +20,8 @@ function RowCourseBox({
   shortName,
   description,
 }: CourseType) {
+  const ShimmerImage = Image as any as React.ComponentClass<ImageProps>;
+
   return (
     <div className="col-span-3 flex rounded-xl text-xs dark:bg-dark-theme-secondary sm:text-sm lg:text-base shadow-xl">
       <div className="max-h-[200px] w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4">
