@@ -38,6 +38,24 @@
     format("truetype");
 }
 
+/* ----------------------------- Lalehzar ----------------------------- */
+
+@font-face {
+  font-family: "lalehzar";
+  src: url("../assets/fonts/Lalezar-Font/OTF/Lalezar-Regular.otf");
+  src: url("../assets/fonts/Lalezar-Font/TTF/Lalezar-Regular.ttf");
+}
+
+/* ----------------------------- Vazir ----------------------------- */
+@font-face {
+  font-family: "vazir";
+  src: url("../assets/fonts/Vazir/Vazir.eot");
+  src: url("../assets/fonts/Vazir/Vazir.ttf");
+  src: url("../assets/fonts/Vazir/Vazir.woff");
+  src: url("../assets/fonts/Vazir/Vazir.woff2");
+}
+
+
 
 
 

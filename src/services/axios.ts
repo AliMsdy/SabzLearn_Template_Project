@@ -5,8 +5,6 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 });
 
-console.log("baseUrl",import.meta.env.VITE_BASE_URL)
-
 axiosInstance.interceptors.response.use(
   (response) => response,
   //handling Errors
@@ -16,7 +14,7 @@ axiosInstance.interceptors.response.use(
       //handling 404 error
     }
     if (status === 401) {
-      // unauthorized user 
+      // unauthorized user
       data.message
         ? toast.error(data.message, {
             rtl: false,

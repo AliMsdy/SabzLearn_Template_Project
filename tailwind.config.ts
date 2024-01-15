@@ -17,6 +17,8 @@ export default {
       backgroundImage: {
         "landing-pattern":
           "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('/images/background_landing.jfif')",
+          "sidebar-links-background":
+          "linear-gradient(90deg, #353c50  0%, rgba(0, 212, 255, 0) 100%)"
       },
       fontSize: {
         xs: "0.75rem", // Extra small screen sizes
@@ -33,8 +35,14 @@ export default {
         "custom": "0 0 13px 1px rgba(70, 72, 77, 0.2)",
         "dark-theme": "0 0 13px 1px rgb(47 56 81 / 50%)"
       },
+      fontFamily:{
+        lalehzar: "lalehzar",
+        vazir:"vazir",
+        iranSanse:"IRANSans"
+      }
     },
   },
+  
   plugins: [],
   important: true,
   darkMode: "class",

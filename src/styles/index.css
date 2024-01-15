@@ -5,12 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
-* {
-  font-family: IRANSans, sans-serif !important;
-}
-
 a {
   text-decoration: none;
   color: #464749;

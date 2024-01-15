@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 function MainLayout() {
   return (
-    <div className="relative dark:bg-dark-theme-primary dark:text-white">
+    <div className="relative dark:bg-dark-theme-primary dark:text-white font-iranSanse">
       <Header />
       <main>
         <Outlet />
