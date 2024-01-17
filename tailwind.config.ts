@@ -9,6 +9,7 @@ export default {
         "dark-color": "#464749",
         "gray-color": "#f0f2f7",
         "secondary-color":"#7b868a",
+        "admin-blue-color":"#1943da",
         "slate":"#4A4B6D",
         "white-color": "#fff",
         "dark-theme-primary": "#1C1C28",
@@ -33,7 +34,8 @@ export default {
       },
       boxShadow:{
         "custom": "0 0 13px 1px rgba(70, 72, 77, 0.2)",
-        "dark-theme": "0 0 13px 1px rgb(47 56 81 / 50%)"
+        "dark-theme": "0 0 13px 1px rgb(47 56 81 / 50%)",
+        "admin-panel-box-shadow":"0px 0px 10px 1px rgba(0, 0, 0, 0.2)"
       },
       fontFamily:{
         lalehzar: "lalehzar",
