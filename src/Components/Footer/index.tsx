@@ -142,6 +142,7 @@ function Footer() {
           محفوظ است
         </p>
         <p>سلام</p>
+        <p className="text-red-500 text-center">سلام منن علی هستم و خوب هستم</p>
       </div>
       {/* BOTTOM SECTION END */}
     </footer>
