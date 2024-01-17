@@ -141,6 +141,7 @@ function Footer() {
           </Link>{" "}
           محفوظ است
         </p>
+        <p>سلام</p>
       </div>
       {/* BOTTOM SECTION END */}
     </footer>
