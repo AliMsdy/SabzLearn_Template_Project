@@ -40,12 +40,6 @@ function SendCommentBox() {
   const { mutate: submitCourseComment, isPending } = useMutateCall(
     ["submitCourseComment"],
     {
-      url: "/comments",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
       onSuccess: async () => {
         await new Promise((resolve) => setTimeout(resolve, 3000));
         methods.reset();
@@ -57,9 +51,15 @@ function SendCommentBox() {
   );
   const onSubmit: SubmitHandler<InputTypes> = (data) => {
     submitCourseComment({
-      body: data.textArea,
-      score: data.score,
-      courseShortName: courseName,
+      url: "/comments",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        body: data.textArea,
+        score: data.score,
+        courseShortName: courseName,
+      },
     });
   };
   if (!isLoggedIn) {

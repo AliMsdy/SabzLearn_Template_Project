@@ -32,7 +32,6 @@ function ContactUs() {
 
   const { mutate: registerContactUsFormData, isPending } = useMutateCall(
     ["contactUsForm"],
-    { url: "/contact" },
     {
       onSuccess: async () => {
         await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -44,7 +43,7 @@ function ContactUs() {
 
   const isFormValid = methods.formState.isValid;
   const onSubmit: SubmitHandler<ContactUsInputTypes> = (data) => {
-    registerContactUsFormData(data);
+    registerContactUsFormData({ url: "/contact", data });
   };
 
   return (

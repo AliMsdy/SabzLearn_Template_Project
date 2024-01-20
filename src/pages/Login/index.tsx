@@ -28,7 +28,6 @@ function Login() {
   const { login } = useAuthContext();
   const { mutate: loginUser, isPending } = useMutateCall(
     ["loginUser"],
-    { url: "/auth/login" },
     {
       onSuccess: async ({
         data: { accessToken },
@@ -56,8 +55,11 @@ function Login() {
 
   const onSubmit: SubmitHandler<LoginInputTypes> = (data) => {
     loginUser({
-      identifier: data.emailOrUsername,
-      password: data.password,
+      url: "/auth/login",
+      data: {
+        identifier: data.emailOrUsername,
+        password: data.password,
+      },
     });
   };
   const recaptchaChagneHandler = () => {

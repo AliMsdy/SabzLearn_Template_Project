@@ -60,9 +60,8 @@ function Footer() {
       email: "",
     },
   });
-  const { mutate: subscribeToNewsletter,isPending } = useMutateCall(
+  const { mutate: subscribeToNewsletter, isPending } = useMutateCall(
     ["subscribeToNewsLetter"],
-    { url: "/newsletters" },
     {
       onSuccess: async () => {
         await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -72,7 +71,7 @@ function Footer() {
     },
   );
   const onSubmit: SubmitHandler<NewsLetterInputType> = (data) => {
-    subscribeToNewsletter(data);
+    subscribeToNewsletter({ url: "/newsletters", data });
   };
   return (
     <footer className=" mt-20">
@@ -137,9 +136,7 @@ function Footer() {
                     required
                     isValidationStylesEnabled={false}
                   />
-                  <Button disabled={isPending}>
-                    عضویت در خبرنامه
-                  </Button>
+                  <Button disabled={isPending}>عضویت در خبرنامه</Button>
                 </form>
               </FormProvider>
             </div>

@@ -26,7 +26,6 @@ function Register() {
   const { login } = useAuthContext();
   const { mutate: registerUser, isPending } = useMutateCall(
     ["registerUser"],
-    { url: "/auth/register" },
     {
       onSuccess: async ({
         data: { accessToken },
@@ -61,7 +60,7 @@ function Register() {
   });
   const isFormValid = methods.formState.isValid;
   const onSubmit: SubmitHandler<RegisterInputTypes> = (data) => {
-    registerUser(data);
+    registerUser({ url: "/auth/register",data });
   };
 
   return (

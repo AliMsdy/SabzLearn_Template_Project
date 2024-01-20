@@ -56,15 +56,14 @@ const useQueryCall = (
     ...options,
   });
 
-const useMutateCall = (
-  key: MutationKey,
-  { method = "POST", ...config }: AxiosRequestConfig,
-  options = {},
-) =>
+const useMutateCall = (key: MutationKey, options = {}) =>
   useMutation({
     mutationKey: key,
-    mutationFn: (data: unknown) =>
-      axiosInstance.request({ ...config, data, method }),
+    mutationFn: ({ method = "POST", ...config }: AxiosRequestConfig) =>
+      axiosInstance.request({
+        method,
+        ...config,
+      }),
     ...options,
   });
 
