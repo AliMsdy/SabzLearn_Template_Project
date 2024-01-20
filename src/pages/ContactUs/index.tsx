@@ -4,6 +4,7 @@ import {
 } from "@/constants/formInputsInformation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 //component
 import { Button, Input, SimpleLoading } from "@/Components";
@@ -12,14 +13,12 @@ import { Button, Input, SimpleLoading } from "@/Components";
 import { FaCommentDots } from "react-icons/fa6";
 
 //api
-import { useContactUs } from "@/services/mutation";
+import { useMutateCall } from "@/hooks";
 
 //type
 import { ContactUsInputTypes } from "@/types/shared";
 
 function ContactUs() {
-  const { mutateAsync: registerContactUsFormData, isPending } = useContactUs();
-
   const methods = useForm<ContactUsInputTypes>({
     resolver: yupResolver(contactUsValidationSchema),
     mode: "onChange",
@@ -30,10 +29,22 @@ function ContactUs() {
       body: "",
     },
   });
+
+  const { mutate: registerContactUsFormData, isPending } = useMutateCall(
+    ["contactUsForm"],
+    { url: "/contact" },
+    {
+      onSuccess: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        toast.success("پیغام شما با موفقیت به مدیران سایت ارسال شد");
+        methods.reset();
+      },
+    },
+  );
+
   const isFormValid = methods.formState.isValid;
-  const onSubmit: SubmitHandler<ContactUsInputTypes> = async (data) => {
-     await registerContactUsFormData(data);
-     methods.reset()
+  const onSubmit: SubmitHandler<ContactUsInputTypes> = (data) => {
+    registerContactUsFormData(data);
   };
 
   return (

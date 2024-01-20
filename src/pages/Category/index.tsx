@@ -9,7 +9,8 @@ import { FaAlignLeft, FaAngleDown, FaBorderAll } from "react-icons/fa6";
 import { CourseBox, Loading, Pagination, RowCourseBox } from "@/Components";
 
 //api
-import { useCategoryCourses } from "@/services/query";
+import { useQueryCall } from "@/hooks";
+
 //types
 import { CourseType } from "@/types/shared";
 const orderingList = [
@@ -25,7 +26,12 @@ let category = "";
 
 function CategoryPage() {
   const { categoryName } = useParams();
-  const { data: courses = [], isLoading } = useCategoryCourses(categoryName!);
+  const { data: courses = [], isLoading } = useQueryCall(
+    ["categoryCourses", categoryName],
+    {
+      url: `/courses/category/${categoryName}`,
+    },
+  );
   const [status, setStatus] = useState({
     title: "مرتب سازی پیش فرض",
     value: "default",
@@ -88,7 +94,7 @@ function CategoryPage() {
     setOrderedCourses(searchedCourses);
   };
 
-  if(isLoading) return <Loading />
+  if (isLoading) return <Loading />;
 
   if (isCourseNotExist) {
     return (
@@ -157,7 +163,7 @@ function CategoryPage() {
       {/* COURSE BOX SECTION START */}
       <div className="mt-16 grid grid-cols-1 gap-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {shownCourses.length === 0 ? (
-          <div className=" col-span-3 rounded-md p-4 dark:bg-dark-theme-secondary shadow-custom">
+          <div className=" col-span-3 rounded-md p-4 shadow-custom dark:bg-dark-theme-secondary">
             دوره ای وجود ندارد
           </div>
         ) : (

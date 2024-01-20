@@ -3,12 +3,12 @@ import {
   loginValidationSchema,
 } from "@/constants/formInputsInformation";
 import { useAuthContext } from "@/context/AuthContext";
-import { useLogin } from "@/services/mutation";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { toast } from "react-toastify";
 
 //component
 import { Button, Input, SimpleLoading } from "@/Components";
@@ -19,11 +19,30 @@ import { FaSignInAlt } from "react-icons/fa";
 //type
 import { LoginInputTypes } from "@/types/shared";
 
+//api
+import { useMutateCall } from "@/hooks";
+
 function Login() {
   const navigate = useNavigate();
   const [isRecaptchaVerified, setIsRecaptchaVerified] = useState(false);
   const { login } = useAuthContext();
-  const { mutateAsync: loginUser, isPending } = useLogin();
+  const { mutate: loginUser, isPending } = useMutateCall(
+    ["loginUser"],
+    { url: "/auth/login" },
+    {
+      onSuccess: async ({
+        data: { accessToken },
+      }: {
+        data: { accessToken: string };
+      }) => {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        login(accessToken);
+        // navigating to the homepage
+        navigate("/", { replace: true });
+        toast.success("با موفقیت وارد شدید");
+      },
+    },
+  );
   const methods = useForm<LoginInputTypes>({
     resolver: yupResolver(loginValidationSchema),
     mode: "onChange",
@@ -35,18 +54,17 @@ function Login() {
   });
   const isFormValid = methods.formState.isValid;
 
-  const onSubmit: SubmitHandler<LoginInputTypes> = async (data) => {
-    const responseData = await loginUser(data);
-    login(responseData.accessToken);
-    // navigating to the homepage
-    navigate("/",{replace:true});
+  const onSubmit: SubmitHandler<LoginInputTypes> = (data) => {
+    loginUser({
+      identifier: data.emailOrUsername,
+      password: data.password,
+    });
   };
   const recaptchaChagneHandler = () => {
     //sending the token we get from recaptcha to backend
     // console.log(value)
-    setIsRecaptchaVerified(true)
-     
-  }
+    setIsRecaptchaVerified(true);
+  };
 
   return (
     <div className="relative overflow-hidden before:absolute before:-inset-2 before:-top-24 before:-z-10 before:h-[480px] before:w-[150%] before:rotate-[-4deg] before:bg-[#2bce56] after:absolute after:top-0 after:-z-20 after:h-[480px] after:w-[150%]  after:rotate-[-4deg] after:bg-[#2bce5699]">
@@ -79,7 +97,10 @@ function Login() {
               {loginInputList.map((input) => (
                 <Input key={input.name} {...input} />
               ))}
-              <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={recaptchaChagneHandler}/>
+              <ReCAPTCHA
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                onChange={recaptchaChagneHandler}
+              />
               <Button
                 disabled={!isFormValid || isPending || !isRecaptchaVerified}
                 className="relative w-full"
@@ -92,7 +113,7 @@ function Login() {
 
                 <div>{isPending ? "در حال بررسی اطلاعات " : "ورود"}</div>
               </Button>
-              
+
               <div className="flex flex-col justify-between gap-y-2 sm:mt-4 sm:flex-row">
                 <div className="flex gap-x-2">
                   <input {...methods.register("rememberMe")} type="checkbox" />

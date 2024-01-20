@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
 //api
-import { useTopBarLinks } from "@/services/query";
-
-
+import { useQueryCall } from "@/hooks";
 
 function TopBar() {
-  const { data: TopBarLinks = [] } = useTopBarLinks();
-
-  const getRandomItemFromArray = (arr:[], itemNumber:number) => {
+  const { data: TopBarLinks = [] } = useQueryCall(["TopBarLinks"], {
+    url: "/menus/topbar",
+  });
+  const getRandomItemFromArray = (arr: [], itemNumber: number) => {
     const shuffled = [...arr].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, itemNumber);
   };

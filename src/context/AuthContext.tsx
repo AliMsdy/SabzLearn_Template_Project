@@ -1,5 +1,5 @@
-import { getUserInfo } from "@/services/api";
 import { createContext, useContext, useEffect, useState } from "react";
+import { axiosInstance } from "@/hooks";
 
 //type
 import { Children, UserType } from "@/types/shared";
@@ -24,7 +24,11 @@ function AuthContextProvider({ children }: Children) {
   });
 
   const fetchAndSetUserInfo = async (token: string) => {
-    const data = await getUserInfo(token);
+    const { data } = await axiosInstance.get("/auth/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     setAuthState((prevState) => ({
       ...prevState,
       token,

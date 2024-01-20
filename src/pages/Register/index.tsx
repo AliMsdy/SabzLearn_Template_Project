@@ -2,10 +2,11 @@ import {
   registerInputList,
   registerValidationSchema,
 } from "@/constants/formInputsInformation";
+import { useAuthContext } from "@/context/AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 //component
 import { Button, Input, SimpleLoading } from "@/Components";
@@ -14,15 +15,38 @@ import { Button, Input, SimpleLoading } from "@/Components";
 import { FaUserPlus } from "react-icons/fa6";
 
 //api
-import { useRegister } from "@/services/mutation";
+import { useMutateCall } from "@/hooks";
 
 //type
 import { RegisterInputTypes } from "@/types/shared";
+import type { AxiosError } from "axios";
 
 function Register() {
   const navigate = useNavigate();
   const { login } = useAuthContext();
-  const { mutateAsync: registerUser, isPending } = useRegister();
+  const { mutate: registerUser, isPending } = useMutateCall(
+    ["registerUser"],
+    { url: "/auth/register" },
+    {
+      onSuccess: async ({
+        data: { accessToken },
+      }: {
+        data: { accessToken: string };
+      }) => {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        login(accessToken);
+        //navigating to the homepage
+        navigate("/", { replace: true });
+        toast.success("کاربر با موفقیت ثبت شد");
+      },
+      onError: (error: AxiosError) => {
+        if (error.response?.status === 409) {
+          //conflict Error
+          toast.error("ایمیل یا نام کاربری قبلا ثبت شده است");
+        }
+      },
+    },
+  );
 
   const methods = useForm<RegisterInputTypes>({
     resolver: yupResolver(registerValidationSchema),
@@ -36,14 +60,8 @@ function Register() {
     },
   });
   const isFormValid = methods.formState.isValid;
-  const onSubmit: SubmitHandler<RegisterInputTypes> = async (data) => {
-    const responseData = await registerUser(data);
-    console.log("responseData", responseData);
-    if (responseData) {
-      login(responseData.accessToken);
-      //navigating to the homepage
-      navigate("/",{replace:true});
-    }
+  const onSubmit: SubmitHandler<RegisterInputTypes> = (data) => {
+    registerUser(data);
   };
 
   return (

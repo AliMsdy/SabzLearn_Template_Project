@@ -31,7 +31,7 @@ import {
 } from "react-icons/fa6";
 
 //api
-import { useCourseInfo } from "@/services/query";
+import { useQueryCall } from "@/hooks";
 
 //list
 import { relatedCoursesList } from "@/shared/Lists";
@@ -41,7 +41,13 @@ import { CommentType } from "@/types/shared";
 
 function CoursePage() {
   const { courseName } = useParams();
-  const { data, isLoading } = useCourseInfo(courseName!);
+  const { data, isLoading } = useQueryCall(["CourseInfo", courseName], {
+    url: `/courses/${courseName}`,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+
   if (isLoading) {
     return <Loading />;
   }
@@ -369,4 +375,3 @@ function CoursePage() {
 }
 
 export { CoursePage };
-

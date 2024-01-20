@@ -20,19 +20,22 @@ import {
 //lists
 import { LandingSvgList, SabzlearnFeatures } from "@/shared/Lists";
 //api
-import { useArticles, useCourses } from "@/services/query";
+import { useQueryCall } from "@/hooks";
 
 //types
 import type { ArticleType, CourseType } from "@/types/shared";
 
 const tailwindConfig = resolveConfig(myTailwindConfig);
 function HomePage() {
-  const { data: courses = [] } = useCourses();
-  const { data: articles = [] } = useArticles();
   const [searchBoxValue, setSearchBoxValue] = useState("");
 
+  const { data: courses = [] } = useQueryCall(["Courses"], {
+    url: "/courses",
+  });
+  const { data: articles = [] } = useQueryCall(["Articles"], {
+    url: "/articles",
+  });
   const navigate = useNavigate();
-
   return (
     <>
       {/* HERO SECTION START */}
@@ -150,7 +153,6 @@ function HomePage() {
           <Slider list={courses} />
         </section>
         {/* PRE-SALE COURSES END */}
-
 
         {/* ARTICLE SECTION START */}
         <section>

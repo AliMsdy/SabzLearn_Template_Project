@@ -1,15 +1,18 @@
 import { BreadCrumb, CourseBox, Loading, Pagination } from "@/Components";
-import { useCourses } from "@/services/query";
+import { useState } from "react";
+
+//api
+import { useQueryCall } from "@/hooks";
 
 //type
 import { CourseType } from "@/types/shared";
-import { useState } from "react";
 
 function AllCoursesPage() {
-
-  const {data:courses=[],isLoading} = useCourses()
-  const [shownCourses,setShownCourses] = useState([])
-  if(isLoading) return <Loading />
+  const { data: courses = [], isLoading } = useQueryCall(["Courses"], {
+    url: "/courses",
+  });
+  const [shownCourses, setShownCourses] = useState([]);
+  if (isLoading) return <Loading />;
   return (
     <section className="custom-container">
       {/* BREADCRUMB START */}
@@ -32,4 +35,3 @@ function AllCoursesPage() {
 }
 
 export { AllCoursesPage };
-

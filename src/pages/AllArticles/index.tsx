@@ -1,15 +1,22 @@
+import { useState } from "react";
+
 import { ArticleBox, BreadCrumb, Loading, Pagination } from "@/Components";
-import { useArticles } from "@/services/query";
+//api
+import { useQueryCall } from "@/hooks";
 
 //type
 import { ArticleType } from "@/types/shared";
-import { useState } from "react";
 
 function AllArticlesPage() {
-  const { data: articles = [], isLoading } = useArticles();
+  const { data: articles = [], isLoading } = useQueryCall(
+    ["Articles"],
+    {
+      url: "/articles",
+    },
+  );
   const [shownArticles, setShownArticles] = useState([]);
 
-  if(isLoading) return <Loading />
+  if (isLoading) return <Loading />;
   return (
     <section className="custom-container">
       {/* BREADCRUMB START */}

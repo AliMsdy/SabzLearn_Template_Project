@@ -11,7 +11,7 @@ import { MainLayout } from "@/Layout/MainLayout";
 // import { ContactUs, Login, Register, SearchPage } from "@/pages";
 
 //adminPanelPages
-// import { MainPage, Users } from "@/pages/AdminPanel";
+import { MainPage, Users } from "@/pages/AdminPanel";
 
 
 
@@ -108,14 +108,14 @@ export const routes = [
       {
         name: "adminPanel",
         title: "AdminPanel",
-        // component: MainPage,
+        component: MainPage,
         path: "/admin-panel",
         // isPublic: false,
         routes: [
           {
             name: "admin-panel-users",
             title: "admin-panel-users",
-            // component: Users,
+            component: Users,
             path: "users",
           },
         ],

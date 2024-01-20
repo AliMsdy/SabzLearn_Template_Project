@@ -11,7 +11,7 @@ import { Button, Input, SimpleLoading } from "..";
 //icon
 import { FaCheck } from "react-icons/fa6";
 // api
-import { submitCourseComment } from "@/services/api";
+import { useMutateCall } from "@/hooks";
 
 const optionsList = [
   { title: "امتیاز خود را وارد کنید", value: "", disabled: true },
@@ -28,6 +28,7 @@ type InputTypes = {
 };
 
 function SendCommentBox() {
+  const { token, isLoggedIn } = useAuthContext();
   const { courseName } = useParams();
   const methods = useForm<InputTypes>({
     resolver: yupResolver(sendCommentSchema),
@@ -36,20 +37,30 @@ function SendCommentBox() {
       score: "",
     },
   });
-  const { isLoggedIn } = useAuthContext();
-  const isFormSubmitting = methods.formState.isSubmitting;
-  const onSubmit: SubmitHandler<InputTypes> = async (data) => {
-    console.log("all the data", data);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    await submitCourseComment({
+  const { mutate: submitCourseComment, isPending } = useMutateCall(
+    ["submitCourseComment"],
+    {
+      url: "/comments",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+    {
+      onSuccess: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        methods.reset();
+        toast.success(
+          "دیدگاه شما با موفقیت ثبت شد و پس از تایید مدیر به نمایش در خواهد آمد",
+        );
+      },
+    },
+  );
+  const onSubmit: SubmitHandler<InputTypes> = (data) => {
+    submitCourseComment({
       body: data.textArea,
       score: data.score,
-      courseShortName: courseName!,
+      courseShortName: courseName,
     });
-    methods.reset();
-    toast.success(
-      "دیدگاه شما با موفقیت ثبت شد و پس از تایید مدیر به نمایش در خواهد آمد",
-    );
   };
   if (!isLoggedIn) {
     return (
@@ -65,7 +76,7 @@ function SendCommentBox() {
     );
   }
   return (
-    <div className="mt-6 pr-2 dark:bg-dark-theme-secondary rounded-lg">
+    <div className="mt-6 rounded-lg pr-2 dark:bg-dark-theme-secondary">
       <div className="px-4 py-2">
         <p>قوانین ثبت دیدگاه</p>
         <div className="mt-4 space-y-2 text-sm text-secondary-color dark:text-white ">
@@ -97,8 +108,8 @@ function SendCommentBox() {
               name="textArea"
               id="textArea"
             />
-            <Button disabled={isFormSubmitting}>
-              {isFormSubmitting ? (
+            <Button disabled={isPending}>
+              {isPending ? (
                 <span className="flex items-center gap-3">
                   در حال ثبت
                   <SimpleLoading className="h-6 w-6" />

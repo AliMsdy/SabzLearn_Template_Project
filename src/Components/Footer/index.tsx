@@ -1,10 +1,11 @@
-import { FormProvider, useForm,SubmitHandler } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { Link } from "react-router-dom";
 import { Button, Input } from "..";
 
 //api
-import { subscribeToNewsletter } from "@/services/api";
+import { useMutateCall } from "@/hooks";
 
 const LastArticles = [
   {
@@ -59,9 +60,19 @@ function Footer() {
       email: "",
     },
   });
-  const onSubmit: SubmitHandler<NewsLetterInputType> = async (data) => {
-    await subscribeToNewsletter(data)
-    methods.reset()
+  const { mutate: subscribeToNewsletter,isPending } = useMutateCall(
+    ["subscribeToNewsLetter"],
+    { url: "/newsletters" },
+    {
+      onSuccess: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        methods.reset();
+        toast.success("ایمیل شما با موفقیت در خبرنامه ثبت شد");
+      },
+    },
+  );
+  const onSubmit: SubmitHandler<NewsLetterInputType> = (data) => {
+    subscribeToNewsletter(data);
   };
   return (
     <footer className=" mt-20">
@@ -114,7 +125,10 @@ function Footer() {
                 جهت اطلاع از آخرین اخبار و تخفیف های سایت مشترک شوید!{" "}
               </p>
               <FormProvider {...methods}>
-                <form className="flex flex-wrap justify-between gap-2 gap-y-4 text-sm" onSubmit={methods.handleSubmit(onSubmit)}>
+                <form
+                  className="flex flex-wrap justify-between gap-2 gap-y-4 text-sm"
+                  onSubmit={methods.handleSubmit(onSubmit)}
+                >
                   <Input
                     className="flex-grow"
                     name="email"
@@ -123,7 +137,9 @@ function Footer() {
                     required
                     isValidationStylesEnabled={false}
                   />
-                  <Button disabled={methods.formState.isSubmitting}>عضویت در خبرنامه</Button>
+                  <Button disabled={isPending}>
+                    عضویت در خبرنامه
+                  </Button>
                 </form>
               </FormProvider>
             </div>

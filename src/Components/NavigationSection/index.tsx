@@ -1,6 +1,4 @@
 import { Link, NavLink } from "react-router-dom";
-//api
-import { useAllMenus } from "@/services/query";
 //component
 import { NavItem } from "..";
 
@@ -10,13 +8,17 @@ import { IoClose } from "react-icons/io5";
 
 //type
 import { LinkType, SetState } from "@/types/shared";
+//api
+import { useQueryCall } from "@/hooks";
 
 type NavagationSectionProps = {
   sidebar: boolean;
   setSidebar: SetState<boolean>;
 };
 function NavigationSection({ sidebar, setSidebar }: NavagationSectionProps) {
-  const { data: navLinks = [] } = useAllMenus();
+  const { data: navLinks = [] } = useQueryCall(["AllMenus"], {
+    url: "/menus",
+  });
   const navLinksModified = navLinks.length
     ? [{ title: "صفحه اصلی", href: "/", submenus: [] }, ...navLinks]
     : [];
