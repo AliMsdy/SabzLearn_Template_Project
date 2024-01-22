@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { axiosInstance } from "@/hooks";
 
 //type
 import { Children, UserType } from "@/types/shared";
+import { axiosInstance } from "@/hooks";
 
 type AuthType = {
   token: string;

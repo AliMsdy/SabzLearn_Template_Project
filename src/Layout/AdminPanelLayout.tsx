@@ -8,7 +8,7 @@ function AdminPanelLayout() {
 
   return (
     <div
-      className={`grid h-screen  grid-rows-[80px_1fr] transition-all duration-500 font-vazir ${
+      className={`relative grid  h-screen grid-rows-[80px_1fr] overflow-hidden font-vazir transition-all duration-500 ${
         toggleCollapse ? "grid-cols-[50px_1fr]" : "grid-cols-[200px_1fr] "
       }`}
     >
@@ -17,7 +17,7 @@ function AdminPanelLayout() {
         setToggleCollapse={setToggleCollapse}
       />
       <TopBar />
-      <main className="col-start-2 bg-[#f9faff] overflow-y-auto">
+      <main className="col-start-2 overflow-y-auto bg-[#f9faff] p-4">
         <Outlet />
       </main>
     </div>
