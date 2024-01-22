@@ -1,4 +1,6 @@
-import { NavLink,Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 //icons
 import {
   FaCartPlus,
@@ -12,10 +14,14 @@ import {
   FaUserPlus,
   FaUsers,
 } from "react-icons/fa";
+import { HiOutlineLogout } from "react-icons/hi";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 //types
+import { useAuthContext } from "@/context/AuthContext";
 import { SetState } from "@/types/shared";
+
+//components
 type SidebarProps = {
   toggleCollapse: boolean;
   setToggleCollapse: SetState<boolean>;
@@ -35,8 +41,15 @@ const sideBarLinks = [
 ];
 
 function Sidebar({ toggleCollapse, setToggleCollapse }: SidebarProps) {
+  const { logout } = useAuthContext();
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    toast.success("با موفقیت از حساب کاربری خود خارج شدید");
+    logout();
+    navigate("/");
+  };
   return (
-    <aside className="row-span-2 bg-[#17203f] text-white">
+    <aside className="row-span-2 flex flex-col overflow-y-auto bg-[#17203f] text-white">
       <div
         className={`flex items-center border-b border-solid border-[#838383] p-2 ${
           toggleCollapse ? "justify-center py-4" : "mt-4 justify-between pb-2"
@@ -60,13 +73,13 @@ function Sidebar({ toggleCollapse, setToggleCollapse }: SidebarProps) {
         />
       </div>
 
-      <div className="mt-12 ">
+      <div className="mt-12">
         {sideBarLinks.map(({ title, link, Icon }) => (
           <NavLink
             to={`admin-panel${link}`}
             end
             className={({ isActive }) =>
-              `hover:bg-sidebar-links-background relative flex items-center gap-4 py-3 text-sm text-[#8c90a0] hover:text-white pr-3 ${
+              `relative flex items-center gap-4 py-3 pr-3 text-sm text-[#8c90a0] hover:bg-sidebar-links-background hover:text-white ${
                 isActive
                   ? "bg-sidebar-links-background text-white after:absolute after:left-0 after:top-0 after:h-full after:w-1.5 after:rounded-md after:bg-[#4869ff]"
                   : ""
@@ -79,8 +92,12 @@ function Sidebar({ toggleCollapse, setToggleCollapse }: SidebarProps) {
           </NavLink>
         ))}
       </div>
+      <div className="mt-auto flex items-center gap-4 cursor-pointer py-3 pr-3 text-sm text-[#8c90a0] hover:bg-sidebar-links-background hover:text-white" onClick={logoutHandler}>
+        <HiOutlineLogout size={20} />
+        {!toggleCollapse && <span>خروج</span>}
+      </div>
     </aside>
   );
 }
-
+//onClick={logoutHandler}
 export { Sidebar };

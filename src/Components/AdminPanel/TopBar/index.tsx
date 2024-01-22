@@ -32,67 +32,68 @@ function TopBar() {
   };
 
   return (
-      <header className="flex items-center justify-between p-2 py-4 lg:px-6">
-        <div className="hidden items-center gap-5 sm:flex">
-          <form>
-            <input
-              type="text"
-              placeholder="جستجو..."
-              className="rounded-md bg-[#eef5fd] p-2 placeholder:text-sm focus:outline-none"
-            />
-          </form>
-          <span
-            className={`relative ${
-              isNotificationExist
-                ? "after:absolute after:-right-[3px] after:-top-[1.5px] after:h-2 after:w-2 after:rounded-full after:bg-red-500"
-                : ""
+    <header className="flex items-center justify-between p-2 py-4 lg:px-6">
+      <div className="hidden items-center gap-5 sm:flex">
+        <form>
+          <input
+            type="text"
+            placeholder="جستجو..."
+            className="rounded-md bg-[#eef5fd] p-2 placeholder:text-sm focus:outline-none"
+          />
+        </form>
+        <span
+          className={`relative ${
+            isNotificationExist
+              ? "after:absolute after:-right-[3px] after:-top-[1.5px] after:h-2 after:w-2 after:rounded-full after:bg-red-500"
+              : ""
+          }`}
+        >
+          <FaRegBell
+            size={20}
+            onClick={() => setShowNotifs(!showNotifs)}
+            className="cursor-pointer text-[#a3abb1]"
+          />
+          <ul
+            className={`absolute right-1/2 z-20 mt-1 w-max translate-x-1/2 rounded-md bg-gray-color p-1 opacity-0 transition-all duration-500 ${
+              showNotifs && "opacity-100"
             }`}
           >
-            <FaRegBell
-              size={20}
-              onClick={() => setShowNotifs(!showNotifs)}
-              className='text-[#a3abb1] cursor-pointer'
-            />
-            <ul
-              className={`absolute right-1/2 z-20 mt-1 w-max translate-x-1/2 rounded-md bg-gray-color p-1 opacity-0 transition-all duration-500 ${
-                showNotifs && "opacity-100"
-              }`}
-            >
-              {isNotificationExist ? (
-                showNotifs && userInfos?.notifications.map(({ msg, _id }) => (
-                  <li
-                    key={_id}
-                    className="mb-2 flex items-center justify-between gap-3 p-2 text-sm"
+            {isNotificationExist ? (
+              showNotifs &&
+              userInfos?.notifications.map(({ msg, _id }) => (
+                <li
+                  key={_id}
+                  className="mb-2 flex items-center justify-between gap-3 p-2 text-sm"
+                >
+                  <span>{msg}</span>
+                  <Button
+                    className="p-2 py-1"
+                    variant="unfilled"
+                    onClick={() => seeNotification(_id)}
                   >
-                    <span>{msg}</span>
-                    <Button
-                      className="p-2 py-1"
-                      variant="unfilled"
-                      onClick={() => seeNotification(_id)}
-                    >
-                      دیدم
-                    </Button>
-                  </li>
-                ))
-              ) : (
-                <li className="p-2 text-sm">نوتیفیکیشنی وجود ندارد</li>
-              )}
-            </ul>
-          </span>
+                    دیدم
+                  </Button>
+                </li>
+              ))
+            ) : (
+              <li className="p-2 text-sm">نوتیفیکیشنی وجود ندارد</li>
+            )}
+          </ul>
+        </span>
+      </div>
+      <div className="flex w-full items-center justify-between gap-4 sm:w-auto">
+        <div className="flex items-center gap-1">
+          <FaAngleDown />
+          <span className="text-sm">{userInfos?.name}</span>
         </div>
-        <div className="flex w-full items-center justify-between gap-4 sm:w-auto">
-          <div className="flex items-center gap-1">
-            <FaAngleDown />
-            <span className="text-sm">{userInfos?.name}</span>
-          </div>
-          <img
-            src="/images/profilePic.jfif"
-            className="h-12 w-12 cursor-pointer rounded-full"
-            alt="profile-pic"
-          />
-        </div>
-        <Overlay showOverlay={showNotifs} setStateFunc={setShowNotifs} />
-      </header>
+        <img
+          src={userInfos?.profile}
+          className="h-12 w-12 cursor-pointer rounded-full"
+          alt="profile-pic"
+        />
+      </div>
+      <Overlay showOverlay={showNotifs} setStateFunc={setShowNotifs} />
+    </header>
   );
 }
 

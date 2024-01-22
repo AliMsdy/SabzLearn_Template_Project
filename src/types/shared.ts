@@ -56,6 +56,7 @@ type UserType = {
   email: string;
   password: string;
   username: string;
+  profile:string;
   role: string;
   courses: [];
   notifications: [];
