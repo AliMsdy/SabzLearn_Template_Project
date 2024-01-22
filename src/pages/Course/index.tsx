@@ -210,7 +210,7 @@ function CoursePage() {
               <div className="flex items-center gap-x-4">
                 <img
                   className="h-auto w-16 rounded-full"
-                  src="/images/info/teacher.jfif"
+                  src={data.creator.profile}
                   alt="teacher-photo"
                 />
                 <div>
@@ -219,7 +219,7 @@ function CoursePage() {
                       className="text-secondary-color dark:text-white"
                       to="/#"
                     >
-                      محمد امین سعیدی راد
+                      {data.creator.name}
                     </Link>
                   </h3>
                   <span className="text-xs text-secondary-color dark:text-white">
