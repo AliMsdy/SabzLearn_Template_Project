@@ -1,7 +1,5 @@
-import myTailwindConfig from "@/../tailwind.config.ts";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import resolveConfig from "tailwindcss/resolveConfig";
 import Typewriter from "typewriter-effect";
 
 //icons
@@ -25,7 +23,6 @@ import { useQueryCall } from "@/hooks";
 //types
 import type { ArticleType, CourseType } from "@/types/shared";
 
-const tailwindConfig = resolveConfig(myTailwindConfig);
 function HomePage() {
   const [searchBoxValue, setSearchBoxValue] = useState("");
 
@@ -47,7 +44,7 @@ function HomePage() {
                 delay: 80,
                 deleteSpeed: 10,
                 strings: [
-                  `<strong style='color:${tailwindConfig.theme.colors["primary-color"]}; font-size: ${tailwindConfig.theme.fontSize["5xl"]}'>سبزلرن</strong> - آکادمی خصوصی برنامه نویسی`,
+                  `<strong class="text-primary-color text-5xl">سبزلرن</strong> - آکادمی خصوصی برنامه نویسی`,
                   "ما به هر قیمتی دوره آموزشی تولید نمیکنیم !",
                 ],
                 autoStart: true,
