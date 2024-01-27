@@ -53,6 +53,7 @@ function Register() {
     defaultValues: {
       name: "",
       username: "",
+      phone:"",
       email: "",
       password: "",
       confirmPassword: "",

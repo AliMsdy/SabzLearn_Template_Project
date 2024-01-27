@@ -17,7 +17,13 @@ type InputItem = {
 };
 
 type RegisterInputItem = InputItem & {
-  name: "email" | "password" | "username" | "name" | "confirmPassword";
+  name:
+    | "email"
+    | "password"
+    | "username"
+    | "phone"
+    | "name"
+    | "confirmPassword";
 };
 
 type LoginInputItem = InputItem & {
@@ -31,6 +37,13 @@ const registerValidationSchema = yup.object().shape({
     .max(21, "حداکثر تعداد کاراکتر 21 عدد میباشد")
     .required("فیلد را تکمیل کنید(الزامی)"),
   username: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  phone: yup
+    .string()
+    .required("فیلد را تکمیل کنید(الزامی)")
+    .matches(
+      /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/,
+      "شماره تلفن شما به درستی وارد نشده است",
+    ),
   email: yup
     .string()
     .email("ایمیل خود را به درستی وارد کنید")
@@ -77,10 +90,12 @@ const contactUsValidationSchema = yup.object().shape({
   phone: yup
     .string()
     .required("فیلد را تکمیل کنید(الزامی)")
-    .matches(/09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/, "شماره تلفن شما به درستی وارد نشده است"),
+    .matches(
+      /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/,
+      "شماره تلفن شما به درستی وارد نشده است",
+    ),
   body: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
 });
-
 
 const sendCommentSchema = yup.object().shape({
   textArea: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
@@ -97,6 +112,7 @@ const registerInputList: RegisterInputItem[] = [
     name: "name",
   },
   { placeholder: "نام کاربری", type: "text", Icon: FaPen, name: "username" },
+  { placeholder: "شماره تلفن", type: "tel", Icon: FaPhoneFlip, name: "phone" },
   { placeholder: "آدرس ایمیل", type: "email", Icon: FaEnvelope, name: "email" },
   {
     placeholder: "رمز عبور",

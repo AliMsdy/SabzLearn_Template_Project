@@ -15,10 +15,16 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> &
     Icon?: IconType;
     element?: string;
     options?: { title: string; value: string; disabled?: boolean }[];
-    isValidationStylesEnabled?:boolean;
+    isValidationStylesEnabled?: boolean;
   };
 
-function Input({ Icon, element, options,isValidationStylesEnabled = true, ...rest }: InputProps) {
+function Input({
+  Icon,
+  element,
+  options,
+  isValidationStylesEnabled = true,
+  ...rest
+}: InputProps) {
   let style;
   const {
     control,
@@ -103,7 +109,7 @@ function Input({ Icon, element, options,isValidationStylesEnabled = true, ...res
         <input
           {...rest}
           {...field}
-          className="w-full p-2 focus:outline-none dark:bg-transparent"
+          className="w-full p-2 focus:outline-none dark:bg-transparent text-right"
         />
         {Icon && (
           <Icon
