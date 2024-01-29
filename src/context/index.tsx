@@ -5,7 +5,7 @@ const isDarkTheme = "dark" === localStorage.getItem("theme");
 //type
 import { Children } from "@/types/shared";
 //contexts
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 import AuthContextProvider from "./AuthContext";
 import ThemeContextProvider from "./ThemeContext";
 function MainContext({ children }: Children) {
@@ -22,6 +22,8 @@ function MainContext({ children }: Children) {
           theme={isDarkTheme ? "dark" : "light"}
           rtl
           toastClassName="dark:bg-dark-theme-secondary w-3/4 sm:w-full"
+          autoClose={2000}
+          transition={Zoom}
         />
       </ThemeContextProvider>
     </AuthContextProvider>
