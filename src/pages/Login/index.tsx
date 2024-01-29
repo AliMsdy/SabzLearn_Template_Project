@@ -38,7 +38,7 @@ function Login() {
         login(accessToken);
         // navigating to the homepage
         navigate("/", { replace: true });
-        toast.success("با موفقیت وارد شدید");
+        toast.success("خوش آمدید");
       },
     },
   );

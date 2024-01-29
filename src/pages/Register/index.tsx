@@ -24,28 +24,29 @@ import type { AxiosError } from "axios";
 function Register() {
   const navigate = useNavigate();
   const { login } = useAuthContext();
-  const { mutate: registerUser, isPending } = useMutateCall(
-    ["registerUser"],
-    {
-      onSuccess: async ({
-        data: { accessToken },
-      }: {
-        data: { accessToken: string };
-      }) => {
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-        login(accessToken);
-        //navigating to the homepage
-        navigate("/", { replace: true });
-        toast.success("کاربر با موفقیت ثبت شد");
-      },
-      onError: (error: AxiosError) => {
-        if (error.response?.status === 409) {
-          //conflict Error
-          toast.error("ایمیل یا نام کاربری قبلا ثبت شده است");
-        }
-      },
+  const { mutate: registerUser, isPending } = useMutateCall(["registerUser"], {
+    onSuccess: async ({
+      data: { accessToken },
+    }: {
+      data: { accessToken: string };
+    }) => {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      login(accessToken);
+      //navigating to the homepage
+      navigate("/", { replace: true });
+      toast.success("حساب کاربری با موفقیت ساخته شد.");
     },
-  );
+    onError: (error: AxiosError) => {
+      if (error.response?.status === 409) {
+        //conflict Error
+        toast.error("ایمیل یا نام کاربری قبلا ثبت شده است");
+      }
+      if (error.response?.status === 403) {
+        //banned User Error
+        toast.error("این شماره تلفن از سایت بن شده است");
+      }
+    },
+  });
 
   const methods = useForm<RegisterInputTypes>({
     resolver: yupResolver(registerValidationSchema),
@@ -53,7 +54,7 @@ function Register() {
     defaultValues: {
       name: "",
       username: "",
-      phone:"",
+      phone: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -61,7 +62,7 @@ function Register() {
   });
   const isFormValid = methods.formState.isValid;
   const onSubmit: SubmitHandler<RegisterInputTypes> = (data) => {
-    registerUser({ url: "/auth/register",data });
+    registerUser({ url: "/auth/register", data });
   };
 
   return (
@@ -132,3 +133,4 @@ function Register() {
 }
 
 export { Register };
+
