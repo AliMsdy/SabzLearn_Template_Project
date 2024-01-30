@@ -102,6 +102,30 @@ const sendCommentSchema = yup.object().shape({
   score: yup.string().required("لطفا امتیاز را وارد کنید"),
 });
 
+const addUserValidationSchema = yup.object().shape({
+  name: yup
+    .string()
+    .max(21, "حداکثر تعداد کاراکتر 21 عدد میباشد")
+    .required("فیلد را تکمیل کنید(الزامی)"),
+  username: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  phone: yup
+    .string()
+    .required("فیلد را تکمیل کنید(الزامی)")
+    .matches(
+      /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/,
+      "شماره تلفن شما به درستی وارد نشده است",
+    ),
+  email: yup
+    .string()
+    .email("ایمیل خود را به درستی وارد کنید")
+    .required("فیلد را تکمیل کنید(الزامی)"),
+  password: yup
+    .string()
+    .min(8, "حداقل تعداد کاراکتر 8 عدد میباشد")
+    .max(12, "حداکثر تعداد کاراکتر 12 عدد میباشد")
+    .required("فیلد را تکمیل کنید(الزامی)"),
+});
+
 //input lists
 
 const registerInputList: RegisterInputItem[] = [
@@ -159,7 +183,46 @@ const loginInputList: LoginInputItem[] = [
   },
 ];
 
+const addUserInputList = [
+  [
+    {
+      placeholder: "نام و نام خانوادگی کاربر را وارد کنید",
+      type: "text",
+      name: "name",
+      label: "نام و نام خانوادگی",
+    },
+    {
+      placeholder: "نام کاربری را وارد کنید",
+      type: "text",
+      name: "username",
+      label: "نام کاربری",
+    },
+    {
+      placeholder: "آدرس ایمیل را وارد کنید",
+      type: "email",
+      name: "email",
+      label: "ایمیل",
+    },
+  ],
+  [
+    {
+      placeholder: "رمز عبور کاربر را وارد کنید",
+      type: "password",
+      name: "password",
+      label: "رمز عبور",
+    },
+    {
+      placeholder: "شماره تلفن را وارد کنید",
+      type: "tel",
+      name: "phone",
+      label: "تلفن",
+    },
+  ],
+];
+
 export {
+  addUserInputList,
+  addUserValidationSchema,
   contactUsInputList,
   contactUsValidationSchema,
   loginInputList,

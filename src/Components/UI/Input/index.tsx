@@ -16,6 +16,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> &
     element?: string;
     options?: { title: string; value: string; disabled?: boolean }[];
     isValidationStylesEnabled?: boolean;
+    label?:string
   };
 
 function Input({
@@ -23,6 +24,7 @@ function Input({
   element,
   options,
   isValidationStylesEnabled = true,
+  label,
   ...rest
 }: InputProps) {
   let style;
@@ -98,7 +100,10 @@ function Input({
   }
 
   return (
-    <>
+    <div className="flex flex-col">
+      {
+        label && <label className="mb-2 pr-2" htmlFor={rest.id}>{label}</label>
+      }
       <div
         className={twMerge(
           "relative flex items-center justify-between  rounded-md border-2 border-solid border-[#e6e6e6] p-1  shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] dark:border-none dark:bg-slate",
@@ -119,7 +124,7 @@ function Input({
         )}
       </div>
       {ErrorMessageElement}
-    </>
+    </div>
   );
 }
 

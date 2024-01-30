@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import {
   ColumnDef,
   flexRender,
@@ -18,17 +19,21 @@ import {
   TableHeader,
   TableRow,
 } from "./table";
+//icons
+import { LuArrowDown, LuArrowUp, LuArrowUpDown } from "react-icons/lu";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   title: React.ReactNode;
+  isPaginatedTable?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   title,
+  isPaginatedTable = true,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
@@ -36,12 +41,20 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     columnResizeMode: "onChange",
-    getPaginationRowModel: getPaginationRowModel(),
+    getPaginationRowModel: isPaginatedTable
+      ? getPaginationRowModel()
+      : undefined,
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
     },
+    initialState: {
+      pagination: {
+        pageSize: 5,
+      },
+    },
+    enableSortingRemoval: true,
   });
   return (
     <>
@@ -58,9 +71,12 @@ export function DataTable<TData, TValue>({
                       boxShadow: "inset 0 0 0 1px #424242",
                     }}
                     key={header.id}
-                    className={`group sticky top-0 bg-[#f2f7fd] text-lg font-bold text-[#67747e] ${
-                      header.column.getIsResizing() ? "cursor-col-resize" : ""
-                    }`}
+                    className={cn(
+                      "group relative top-0 bg-[#f2f7fd] text-lg font-bold text-[#67747e]",
+                      { "cursor-col-resize": header.column.getIsResizing() },
+                      { "cursor-pointer": header.column.getCanSort() },
+                    )}
+                    onClick={header.column.getToggleSortingHandler()}
                   >
                     {header.isPlaceholder
                       ? null
@@ -68,6 +84,36 @@ export function DataTable<TData, TValue>({
                           header.column.columnDef.header,
                           header.getContext(),
                         )}
+                    {(() => {
+                      const isSorted = header.column.getIsSorted();
+                      if (isSorted === "asc") {
+                        return (
+                          <LuArrowDown
+                            className="absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2"
+                            title="صعودی"
+                          />
+                        );
+                      } else if (isSorted === "desc") {
+                        return (
+                          <LuArrowUp
+                            className="absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2"
+                            title="نزولی"
+                          />
+                        );
+                      } else if (
+                        isSorted === false &&
+                        header.column.getCanSort()
+                      ) {
+                        return (
+                          <LuArrowUpDown
+                            className="absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2"
+                            title="پیش فرض"
+                          />
+                        );
+                      }
+                      // Handle other cases if needed
+                      return null; // Default case or when isSorted is not a valid value
+                    })()}
                     <div
                       onMouseDown={header.getResizeHandler()}
                       onTouchStart={header.getResizeHandler()}
@@ -112,24 +158,26 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center gap-4 py-4">
-        <Button onClick={() => table.setPageIndex(0)}>صفحه اول</Button>
-        <Button
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          صفحه قبل
-        </Button>
-        <Button
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          صفحه بعد
-        </Button>
-        <Button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>
-          صفحه آخر
-        </Button>
-      </div>
+      {isPaginatedTable && (
+        <div className="flex items-center gap-4 py-4">
+          <Button onClick={() => table.setPageIndex(0)}>صفحه اول</Button>
+          <Button
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            صفحه قبل
+          </Button>
+          <Button
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            صفحه بعد
+          </Button>
+          <Button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>
+            صفحه آخر
+          </Button>
+        </div>
+      )}
     </>
   );
 }

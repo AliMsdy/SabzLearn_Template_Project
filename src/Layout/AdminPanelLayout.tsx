@@ -17,7 +17,7 @@ function AdminPanelLayout() {
         setToggleCollapse={setToggleCollapse}
       />
       <TopBar />
-      <main className="col-start-2 overflow-y-auto bg-[#f9faff] p-4">
+      <main className="col-start-2 overflow-y-auto bg-[#f9faff] p-4 px-6 font-lalehzar">
         <Outlet />
       </main>
     </div>

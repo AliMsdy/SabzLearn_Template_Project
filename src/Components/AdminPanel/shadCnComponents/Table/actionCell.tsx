@@ -62,12 +62,6 @@ function ActionCell({ row }: { row: Row<UserTable> }) {
       toast.success("کاربر مورد نظر با موفقیت از سایت بن شد.");
     },
   });
-  //   const { mutate: deleteUser } = useMutateCall(["deleteUserFromDB"], {
-  //     onSuccess: async () => {
-  //       await queryClient.invalidateQueries({ queryKey: ["Users"], exact: true });
-  //       toast.success("کاربر مورد نظر با موفقیت حذف شد.");
-  //     },
-  //   });
   const handleDeleteUser = () => {
     deleteUser({
       url: `/users/${row.original._id}`,
@@ -91,12 +85,9 @@ function ActionCell({ row }: { row: Row<UserTable> }) {
         clickHandler={handleDeleteUser}
         AlertTrigger={<Button className="bg-red-600">حذف</Button>}
       />
-      {/* <Alert
-        message="آیا از بن شدن کاربر مطمئن هستید؟"
-        clickHandler={handleEditUser}
-        AlertTrigger={}
-      /> */}
-      <Button className="bg-admin-blue-color" onClick={handleEditUser}>ویرایش</Button>
+      <Button className="bg-admin-blue-color" onClick={handleEditUser}>
+        ویرایش
+      </Button>
       <Alert
         message="آیا از بن شدن کاربر مطمئن هستید؟"
         clickHandler={handleBaneUser}
