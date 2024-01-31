@@ -6,6 +6,7 @@ export * from "./Header";
 export * from "./Footer";
 export * from "./UI/Overlay"
 export * from "./UI/Button"
+export * from "./UI/AlertDialog"
 export * from "./UI/Loading"
 export * from "./UI/Input"
 export * from "./UI/Typography"

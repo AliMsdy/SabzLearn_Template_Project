@@ -1,9 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 //component
-import { ActionCell } from "./actionCell";
-
-
+import { UserActionCell } from "./userActionCell";
 export type UserTable = {
   _id: string;
   name: string;
@@ -46,7 +44,7 @@ export const userColumns: ColumnDef<UserTable>[] = [
   {
     accessorKey: "actions",
     header: "عملیات",
-    cell: ActionCell,
+    cell: UserActionCell,
     enableSorting: false,
   },
 ];

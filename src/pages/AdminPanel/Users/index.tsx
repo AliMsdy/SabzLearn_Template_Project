@@ -52,7 +52,6 @@ function Users() {
     },
   });
   const onSubmit: SubmitHandler<AddUserInputTypes> = (data) => {
-    console.log(data);
     registerUser({
       url: "/auth/register",
       data: { ...data, confirmPassword: data.password },

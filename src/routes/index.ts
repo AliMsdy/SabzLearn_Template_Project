@@ -11,7 +11,7 @@ import { MainLayout } from "@/Layout/MainLayout";
 // import { ContactUs, Login, Register, SearchPage } from "@/pages";
 
 //adminPanelPages
-import { MainPage, Users } from "@/pages/AdminPanel";
+import { MainPage, Users,Courses } from "@/pages/AdminPanel";
 
 
 
@@ -117,6 +117,12 @@ export const routes = [
             title: "admin-panel-users",
             component: Users,
             path: "users",
+          },
+          {
+            name: "admin-panel-courses",
+            title: "admin-panel-courses",
+            component: Courses,
+            path: "courses",
           },
         ],
       },

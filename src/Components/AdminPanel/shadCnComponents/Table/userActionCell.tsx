@@ -8,45 +8,12 @@ import { useAuthContext } from "@/context/AuthContext";
 import { useMutateCall } from "@/hooks";
 
 //components
-import { Button } from "@/Components";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "../AlertDialog";
+import { AlertDialog, Button } from "@/Components";
 
 //type
 import type { UserTable } from "./userColumns";
 
-type AlertProps = {
-  message: string;
-  clickHandler: () => void;
-  AlertTrigger: React.ReactNode;
-};
-
-function Alert({ message, clickHandler, AlertTrigger }: AlertProps) {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>{AlertTrigger}</AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="text-right">{message}</AlertDialogTitle>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={clickHandler}>بله</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-}
-
-function ActionCell({ row }: { row: Row<UserTable> }) {
+function UserActionCell({ row }: { row: Row<UserTable> }) {
   const queryClient = useQueryClient();
   const { token } = useAuthContext();
   const { mutate: deleteUser } = useMutateCall(["deleteUserFromDB"], {
@@ -80,7 +47,7 @@ function ActionCell({ row }: { row: Row<UserTable> }) {
 
   return (
     <div className="flex justify-evenly gap-2">
-      <Alert
+      <AlertDialog
         message="آیا از حذف کاربر مطمئن هستید؟"
         clickHandler={handleDeleteUser}
         AlertTrigger={<Button className="bg-red-600">حذف</Button>}
@@ -88,7 +55,7 @@ function ActionCell({ row }: { row: Row<UserTable> }) {
       <Button className="bg-admin-blue-color" onClick={handleEditUser}>
         ویرایش
       </Button>
-      <Alert
+      <AlertDialog
         message="آیا از بن شدن کاربر مطمئن هستید؟"
         clickHandler={handleBaneUser}
         AlertTrigger={<Button className="bg-lime-800">بن کاربر</Button>}
@@ -97,4 +64,4 @@ function ActionCell({ row }: { row: Row<UserTable> }) {
   );
 }
 
-export { ActionCell };
+export { UserActionCell };

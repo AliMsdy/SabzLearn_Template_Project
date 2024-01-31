@@ -15,6 +15,10 @@ type CourseType = {
   shortName: string;
   isForSlider?: boolean;
   description: string;
+  isComplete: 0 | 1;
+  categoryID:{
+    title:string;
+  }
 };
 
 type ArticleType = {
