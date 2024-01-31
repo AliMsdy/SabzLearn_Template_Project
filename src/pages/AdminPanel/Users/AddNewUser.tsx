@@ -1,6 +1,6 @@
 import {
-    addUserInputList,
-    addUserValidationSchema,
+  addUserInputList,
+  addUserValidationSchema,
 } from "@/constants/formInputsInformation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 //components
 import { Button, Input, SimpleLoading } from "@/Components";
+import { Section } from "@/Components/AdminPanel";
 
 //icons
 import { FaUserPlus } from "react-icons/fa6";
@@ -19,7 +20,6 @@ import type { AxiosError } from "axios";
 //type
 import type { RegisterInputTypes } from "@/types/shared";
 type AddUserInputTypes = Omit<RegisterInputTypes, "confirmPassword">;
-
 
 function AddNewUser() {
   const methods = useForm<AddUserInputTypes>({
@@ -58,7 +58,7 @@ function AddNewUser() {
     });
   };
   return (
-    <section className="mt-3 rounded-md bg-white p-3 shadow-admin-panel-box-shadow">
+    <Section>
       <h2 className="mt-2 text-2xl">
         افزودن <span className="text-admin-blue-color">کاربر</span> جدید
       </h2>
@@ -88,9 +88,8 @@ function AddNewUser() {
           </Button>
         </form>
       </FormProvider>
-    </section>
+    </Section>
   );
 }
 
 export { AddNewUser };
-

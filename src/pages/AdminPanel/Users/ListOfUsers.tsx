@@ -3,7 +3,7 @@ import { userColumns } from "./userColumns";
 import { useAuthContext } from "@/context/AuthContext";
 //components
 import { Loading } from "@/Components";
-import { DataTable } from "@/Components/AdminPanel";
+import { DataTable, Section } from "@/Components/AdminPanel";
 
 //api
 import { useQueryCall } from "@/hooks";
@@ -23,10 +23,10 @@ function ListOfUsers() {
   );
   if (status !== "success") return <Loading />;
   return (
-    <section className="mt-8 rounded-md bg-white p-4 text-lg font-bold shadow-admin-panel-box-shadow ">
+    <Section className="mt-8 font-bold" >
       <DataTable
         columns={userColumns}
-        data={users.reverse()}
+        data={users}
         title={
           <p className="mb-4">
             افراد اخیرا <span className="text-admin-blue-color ">ثبت نام</span>{" "}
@@ -34,7 +34,7 @@ function ListOfUsers() {
           </p>
         }
       />
-    </section>
+    </Section>
   );
 }
 

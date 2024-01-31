@@ -125,6 +125,10 @@ const addUserValidationSchema = yup.object().shape({
     .max(12, "حداکثر تعداد کاراکتر 12 عدد میباشد")
     .required("فیلد را تکمیل کنید(الزامی)"),
 });
+const addCategoryValidationSchema = yup.object().shape({
+  title: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  name: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+});
 
 //input lists
 
@@ -220,7 +224,23 @@ const addUserInputList = [
   ],
 ];
 
+const addCourseCategoryInputList = [
+  {
+    placeholder: "عنوان دسته بندی را وارد کنید",
+    type: "text",
+    name: "title",
+    label: "عنوان",
+  },
+  {
+    type: "text",
+    name: "name",
+    label: "اسم کوتاه",
+  },
+];
+
 export {
+  addCategoryValidationSchema,
+  addCourseCategoryInputList,
   addUserInputList,
   addUserValidationSchema,
   contactUsInputList,

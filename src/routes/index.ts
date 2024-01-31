@@ -1,7 +1,6 @@
 import importLazyPage from "@/utils/importLazyPage";
 import { renderRoutes } from "./generate-routes";
 
-
 // Layouts
 import { AdminPanelLayout } from "@/Layout/AdminPanelLayout";
 import { AnonymousLayout } from "@/Layout/AnonymousLayout";
@@ -11,9 +10,12 @@ import { MainLayout } from "@/Layout/MainLayout";
 // import { ContactUs, Login, Register, SearchPage } from "@/pages";
 
 //adminPanelPages
-import { MainPage, Users,Courses } from "@/pages/AdminPanel";
-
-
+import {
+  CategoryPage as AdminCategoryPage,
+  Courses,
+  MainPage,
+  Users,
+} from "@/pages/AdminPanel";
 
 //code splitting the pages
 //mainPages
@@ -29,7 +31,6 @@ const ContactUs = importLazyPage("ContactUs");
 const Login = importLazyPage("Login");
 const Register = importLazyPage("Register");
 const SearchPage = importLazyPage("SearchPage");
-
 
 export const routes = [
   {
@@ -123,6 +124,12 @@ export const routes = [
             title: "admin-panel-courses",
             component: Courses,
             path: "courses",
+          },
+          {
+            name: "admin-panel-course-categories",
+            title: "admin-panel-course-categories",
+            component: AdminCategoryPage,
+            path: "categories",
           },
         ],
       },

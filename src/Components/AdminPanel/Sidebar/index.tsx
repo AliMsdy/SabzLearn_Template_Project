@@ -5,17 +5,17 @@ import { toast } from "react-toastify";
 import {
   FaCartPlus,
   FaChartBar,
-  FaChartLine,
   FaCommentAlt,
   FaEnvelope,
-  FaExclamationCircle,
   FaHome,
+  FaListAlt,
   FaShoppingCart,
   FaUserPlus,
   FaUsers,
 } from "react-icons/fa";
 import { HiOutlineLogout } from "react-icons/hi";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { RiMacbookLine } from "react-icons/ri";
 
 //types
 import { useAuthContext } from "@/context/AuthContext";
@@ -29,7 +29,8 @@ type SidebarProps = {
 //adminPanelLinks
 const sideBarLinks = [
   { title: "داشبورد", Icon: FaHome, link: "" },
-  { title: "فروش", Icon: FaChartLine, link: "/sales" },
+  // { title: "فروش", Icon: FaChartLine, link: "/sales" },
+  { title: "دوره ها", Icon: RiMacbookLine, link: "/courses" },
   { title: "کاربران", Icon: FaUsers, link: "/users" },
   { title: "افزودن کاربر جدید", Icon: FaUserPlus, link: "/add-user" },
   { title: "محصولات", Icon: FaShoppingCart, link: "/products" },
@@ -37,7 +38,8 @@ const sideBarLinks = [
   { title: "گزارش ها", Icon: FaChartBar, link: "/reports" },
   { title: "ایمیل", Icon: FaEnvelope, link: "/emails" },
   { title: "پیام ها", Icon: FaCommentAlt, link: "/messages" },
-  { title: "گزارش", Icon: FaExclamationCircle, link: "/report" },
+  // { title: "گزارش", Icon: FaExclamationCircle, link: "/report" },
+  { title: "دسته بندی ها", Icon: FaListAlt, link: "/categories" },
 ];
 
 function Sidebar({ toggleCollapse, setToggleCollapse }: SidebarProps) {
@@ -92,7 +94,10 @@ function Sidebar({ toggleCollapse, setToggleCollapse }: SidebarProps) {
           </NavLink>
         ))}
       </div>
-      <div className="mt-auto flex items-center gap-4 cursor-pointer py-3 pr-3 text-sm text-[#8c90a0] hover:bg-sidebar-links-background hover:text-white" onClick={logoutHandler}>
+      <div
+        className="mt-auto flex cursor-pointer items-center gap-4 py-3 pr-3 text-sm text-[#8c90a0] hover:bg-sidebar-links-background hover:text-white"
+        onClick={logoutHandler}
+      >
         <HiOutlineLogout size={20} />
         {!toggleCollapse && <span>خروج</span>}
       </div>

@@ -4,7 +4,7 @@ import { useQueryCall } from "@/hooks";
 
 //components
 import { Loading } from "@/Components";
-import { DataTable } from "@/Components/AdminPanel";
+import { DataTable, Section } from "@/Components/AdminPanel";
 
 function Courses() {
   const { data: courses, isLoading } = useQueryCall(["Courses"], {
@@ -12,7 +12,7 @@ function Courses() {
   });
   if (isLoading) return <Loading />;
   return (
-    <section className="mt-8 rounded-md bg-white p-4 text-lg font-bold shadow-admin-panel-box-shadow ">
+    <Section className="mt-8 font-bold">
       <DataTable
         columns={courseColumns}
         data={courses}
@@ -22,7 +22,7 @@ function Courses() {
           </p>
         }
       />
-    </section>
+    </Section>
   );
 }
 
