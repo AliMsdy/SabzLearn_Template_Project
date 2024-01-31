@@ -8,7 +8,8 @@ import { useAuthContext } from "@/context/AuthContext";
 import { useMutateCall } from "@/hooks";
 
 //components
-import { AlertDialog, Button } from "@/Components";
+import {  Button } from "@/Components";
+import { AlertDialog } from "@/Components/AdminPanel";
 
 //type
 import type { CourseType } from "@/types/shared";

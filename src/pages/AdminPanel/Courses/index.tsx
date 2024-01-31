@@ -1,9 +1,10 @@
+import { courseColumns } from "./courseColumns";
 //api
 import { useQueryCall } from "@/hooks";
 
 //components
 import { Loading } from "@/Components";
-import { DataTable, courseColumns } from "@/Components/AdminPanel";
+import { DataTable } from "@/Components/AdminPanel";
 
 function Courses() {
   const { data: courses, isLoading } = useQueryCall(["Courses"], {

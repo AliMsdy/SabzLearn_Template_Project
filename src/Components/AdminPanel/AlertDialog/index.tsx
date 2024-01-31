@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/Components/AdminPanel";
+} from "@/Components/AdminPanel/shadCnComponents/AlertDialog";
 
 //types
 type AlertProps = {

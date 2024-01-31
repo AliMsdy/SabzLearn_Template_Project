@@ -18,7 +18,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./table";
+} from "../shadCnComponents/Table";
 //icons
 import { LuArrowDown, LuArrowUp, LuArrowUpDown } from "react-icons/lu";
 

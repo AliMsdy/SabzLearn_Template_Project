@@ -3,9 +3,7 @@ import { FaMoneyBillAlt, FaShoppingCart } from "react-icons/fa";
 //context
 import { useAuthContext } from "@/context/AuthContext";
 //component
-import { Loading } from "@/Components";
-import { AdminPanelBox, DataTable, userColumns } from "@/Components/AdminPanel";
-import { useQueryCall } from "@/hooks";
+import { AdminPanelBox } from "@/Components/AdminPanel";
 
 const AdminPanelBoxList = [
   { title: "درآمد", Icon: FaMoneyBillAlt, desc: "درآمد در یک ماه گذشته" },
@@ -14,20 +12,8 @@ const AdminPanelBoxList = [
 ];
 
 function MainPage() {
-  const { userInfos, token } = useAuthContext();
-  const { data: users, status } = useQueryCall(
-    ["Users"],
-    {
-      url: "/users",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !!token,
-    },
-  );
-  if (status !== "success") return <Loading />;
+  const { userInfos } = useAuthContext();
+
   return (
     <>
       <h2 className="mt-4 text-xl font-bold duration-500 ease-out animate-in slide-in-from-bottom">
@@ -38,19 +24,6 @@ function MainPage() {
         {AdminPanelBoxList.map((boxInfo) => (
           <AdminPanelBox key={boxInfo.title} {...boxInfo} />
         ))}
-      </section>
-
-      <section className="mt-8 rounded-md bg-white p-4 text-lg font-bold shadow-admin-panel-box-shadow ">
-        <DataTable
-          columns={userColumns}
-          data={users.reverse()}
-          title={
-            <p className="mb-4">
-              افراد اخیرا{" "}
-              <span className="text-admin-blue-color ">ثبت نام</span> شده
-            </p>
-          }
-        />
       </section>
     </>
   );
