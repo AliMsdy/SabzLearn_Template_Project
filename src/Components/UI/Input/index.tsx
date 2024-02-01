@@ -1,5 +1,5 @@
+import { cn } from "@/lib/utils";
 import { ErrorMessage } from "@hookform/error-message";
-import { twMerge } from "tailwind-merge";
 
 import {
   InputHTMLAttributes,
@@ -16,7 +16,8 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> &
     element?: string;
     options?: { title: string; value: string; disabled?: boolean }[];
     isValidationStylesEnabled?: boolean;
-    label?:string
+    label?: string;
+    showLabelNextToInput?: boolean;
   };
 
 function Input({
@@ -24,6 +25,7 @@ function Input({
   element,
   options,
   isValidationStylesEnabled = true,
+  showLabelNextToInput,
   label,
   ...rest
 }: InputProps) {
@@ -55,7 +57,7 @@ function Input({
         <select
           {...field}
           {...rest}
-          className={twMerge(
+          className={cn(
             "mt-4 block w-full rounded-md p-2 px-4 dark:bg-[#484965] dark:shadow-dark-theme",
             rest.className,
           )}
@@ -88,7 +90,7 @@ function Input({
         <textarea
           {...rest}
           {...field}
-          className={twMerge(
+          className={cn(
             "my-4 w-full rounded-md p-4 text-black shadow-custom focus:outline-none dark:bg-[#484965] dark:text-white dark:shadow-dark-theme",
             style,
             rest.className,
@@ -100,13 +102,23 @@ function Input({
   }
 
   return (
-    <div className="flex flex-col">
-      {
-        label && <label className="mb-2 pr-2" htmlFor={rest.id}>{label}</label>
-      }
+    <div
+      className={`flex ${
+        showLabelNextToInput ? "my-2 items-center gap-4 " : "flex-col"
+      }  `}
+    >
+      {label && (
+        <label
+          className={cn(`mb-2 pr-2`, { "w-14": showLabelNextToInput })}
+          htmlFor={rest.id}
+        >
+          {label}
+        </label>
+      )}
       <div
-        className={twMerge(
-          "relative flex items-center justify-between  rounded-md border-2 border-solid border-[#e6e6e6] p-1  shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] dark:border-none dark:bg-slate",
+        className={cn(
+          "relative flex items-center justify-between  rounded-md border-2 border-solid border-[#e6e6e6] p-1  shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] dark:border-none dark:bg-slate ",
+          { "flex-grow": showLabelNextToInput },
           style,
           rest.className,
         )}
@@ -114,7 +126,8 @@ function Input({
         <input
           {...rest}
           {...field}
-          className="w-full p-2 focus:outline-none dark:bg-transparent text-right"
+          className="w-full p-2 text-right focus:outline-none dark:bg-transparent"
+          spellCheck="false"
         />
         {Icon && (
           <Icon

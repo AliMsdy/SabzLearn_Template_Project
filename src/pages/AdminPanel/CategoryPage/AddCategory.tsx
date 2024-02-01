@@ -46,7 +46,6 @@ function AddCategory() {
         await new Promise((resolve) => setTimeout(resolve, 5000));
         await queryClient.invalidateQueries({
           queryKey: ["Categories"],
-          exact: true,
         });
         toast.success("دسته بندی مورد نظر با موفقیت ساخته شد.");
         methods.reset();
