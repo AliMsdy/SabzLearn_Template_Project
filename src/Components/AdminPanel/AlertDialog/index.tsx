@@ -23,7 +23,7 @@ function Alert({ message, clickHandler, AlertTrigger }: AlertProps) {
       <AlertDialogTrigger asChild>{AlertTrigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-right">{message}</AlertDialogTitle>
+          <AlertDialogTitle>{message}</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
