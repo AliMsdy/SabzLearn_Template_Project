@@ -73,7 +73,10 @@ function ArticlePage() {
             </div>
             {/* ARTICLE DETAIL START */}
 
-            <img src={`/images/blog/${data.cover}`} alt="" />
+            <img
+              src={`${import.meta.env.VITE_SITE_DOMAIN}/blogs/${data.cover}`}
+              alt="article-cover"
+            />
             {/* STARS START */}
             <div className="mt-8 flex items-center gap-x-4">
               <div className="flex items-start">
@@ -104,11 +107,14 @@ function ArticlePage() {
               </div>
             </div>
             {/* LINK ACCESS END */}
-            <img src="/images/blog/1.jpg" alt="" />
+            <img
+              src={`${import.meta.env.VITE_SITE_DOMAIN}/blogs/1.jpg`}
+              alt=""
+            />
 
             <h2>معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:</h2>
             <div dangerouslySetInnerHTML={{ __html: data.body }} />
-            <img src="/images/blog/4.png" alt="" />
+            <img src={`${import.meta.env.VITE_SITE_DOMAIN}/blogs/4.png`} alt="" />
             <h2>معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:</h2>
             <p>
               توجه داشته باشید که تمام وب سایت‌هایی که به عنوان بهترین سایت
@@ -133,7 +139,7 @@ function ArticlePage() {
               بتوانید به واسطه آن به صورت رایگان و به زبان فارسی این زبان را یاد
               بگیرید.
             </p>
-            <img src="/images/blog/3.jpg" alt="" />
+            <img src={`${import.meta.env.VITE_SITE_DOMAIN}/blogs/3.jpg`} alt="" />
 
             {/* SHARE ARTICLE START */}
             <div className="mt-12 flex items-center gap-x-4">

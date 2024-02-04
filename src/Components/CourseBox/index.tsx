@@ -26,7 +26,6 @@ function CourseBox({
   isForSlider,
 }: CourseType) {
   const ShimmerImage = Image as any as React.ComponentClass<ImageProps>;
-
   return (
     <div
       className={`flex min-h-[25rem] translate-y-0 flex-col rounded-xl shadow-xl transition-all duration-300 dark:bg-dark-theme-secondary ${
@@ -37,7 +36,7 @@ function CourseBox({
       
         <ShimmerImage 
           fadeIn={true}
-          src={`/images/courses/${cover}`}
+          src={`${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/${cover}`}
           
           // src="https://picsum.photos/200/300"
           NativeImgProps={{

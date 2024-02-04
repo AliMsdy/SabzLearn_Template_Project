@@ -1,102 +1,11 @@
-// images/courses
-import FreelanceProjects from "/images/courses/freelancer.png";
-import DjangoCourse from "/images/courses/jango.png";
-import JSprojects from "/images/courses/js_project.png";
-import NodeJSCourse from "/images/courses/nodejs.png";
-import PythonCourse from "/images/courses/python.png";
-import YoutuberCourse from "/images/courses/youtuber.png";
-
-//images/articles
-import Pic1 from "/images/blog/1.jpg";
-import Pic3 from "/images/blog/3.jpg";
-import Pic2 from "/images/blog/4.png";
-
-
 //SVG files
 import BookLogo from "/images/svgs/book.svg";
 import ClockLogo from "/images/svgs/clock.svg";
 import StudentLogo from "/images/svgs/student.svg";
 
 //icons
-import {
-  FaGem,
-  FaLeaf,
-  FaRegCopyright,
-} from "react-icons/fa";
-import { FaCrown,FaFacebookF, FaTelegram, FaTwitter } from "react-icons/fa6";
-
-const CourseList = [
-  {
-    title: "تکنیک های قیمت گذاری پروژه های فریلنسری",
-    teacher: "قدیر یلمه",
-    price: 1000000,
-    numberOfStudents: 500,
-    imgSrc: FreelanceProjects,
-    path: "/#",
-  },
-  {
-    title: "دوره پروژه محور متخصص جنگو",
-    teacher: "رضا دولتی",
-    price: 1000000,
-    numberOfStudents: 500,
-    imgSrc: DjangoCourse,
-    path: "/#",
-  },
-  {
-    title: "دوره های پروژه های تخصصی جاوااسکریپت",
-    teacher: "محمد امین سعیدی راد",
-    price: 1000000,
-    numberOfStudents: 500,
-    imgSrc: JSprojects,
-    path: "/#",
-  },
-  {
-    title: "دوره یوتیوبر",
-    teacher: "قدیر یلمه",
-    price: 1000000,
-    numberOfStudents: 500,
-    imgSrc: YoutuberCourse,
-    path: "/#",
-  },
-  {
-    title: " دوره مصور سازی داده ها با پایتون",
-    teacher: "رضا دولتی",
-    price: 1000000,
-    numberOfStudents: 500,
-    imgSrc: PythonCourse,
-    path: "/#",
-  },
-  {
-    title: "دوره API نویسی با Node JS",
-    teacher: "محمد امین سعیدی راد",
-    price: 1000000,
-    numberOfStudents: 500,
-    imgSrc: NodeJSCourse,
-    path: "/#",
-  },
-];
-
-const ArticleList = [
-  {
-    title: "نحوه نصب کتابخانه در پایتون | آموزش نصب کتابخانه پایتون",
-    desc: "زبان پایتون هم مانند دیگر زبان­های برنامه نویسی رایج، دارای کتابخانه های مختلفی برای تسریع",
-    Img: Pic1,
-    path: "/#",
-  },
-  {
-    title: "آموزش کار با لایبرری های مختلف در JS",
-    desc: "در این مقاله به آموزش چندین کتابخانه معروف جاوااسکریپت پرداخته شده است",
-    Img: Pic3,
-    path: "/#",
-  },
-  {
-    title: "آموزش کار با API در جاوااسکریپت",
-    desc: "در این آموزش به نحوه تعامل با سرور و دریافت داده از آن پرداخته شده است",
-    Img: Pic2,
-    path: "/#",
-  },
-];
-
+import { FaGem, FaLeaf, FaRegCopyright } from "react-icons/fa";
+import { FaCrown, FaFacebookF, FaTelegram, FaTwitter } from "react-icons/fa6";
 
 const LandingSvgList = [
   {
@@ -143,14 +52,14 @@ const socialList = [
 const relatedCoursesList = [
   {
     title: "پروژه های تخصصی با جاوااسکریپت",
-    imgSrc: "/images/courses/js_project.png",
+    imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/js_project.png`,
   },
   {
     title: "تعیین قیمت پروژه های فریلنسری",
-    imgSrc: "/images/courses/freelancer.png",
+    imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/freelancer.png`,
   },
-  { title: "دوره Api نویسی", imgSrc: "/images/courses/nodejs.png" },
-  { title: "متخصص جنگو", imgSrc: "/images/courses/jango.png" },
+  { title: "دوره Api نویسی", imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/nodejs.png` },
+  { title: "متخصص جنگو", imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/jango.png` },
 ];
 const navLinks = [
   { title: "صفحه اصلی", children: [], path: "/" },
@@ -192,7 +101,6 @@ const navLinks = [
   { title: "مهارت های نرم", children: [], path: "/#" },
 ];
 
-
 const SendCommentRules = [
   "اگر نیاز به پشتیبانی دوره دارید از قسمت پرسش سوال در قسمت نمایش آنلاین استفاده نمایید و سوالات مربوط به رفع اشکال تایید نخواهید شد",
   "دیدگاه های نامرتبط به دوره تایید نخواهد شد",
@@ -200,5 +108,12 @@ const SendCommentRules = [
   "از درج دیدگاه های تکراری پرهیز نمایید",
 ];
 
+export {
+  LandingSvgList,
+  SabzlearnFeatures,
+  SendCommentRules,
+  navLinks,
+  relatedCoursesList,
+  socialList
+};
 
-export { ArticleList,LandingSvgList,SabzlearnFeatures,socialList,relatedCoursesList,navLinks,SendCommentRules,CourseList };

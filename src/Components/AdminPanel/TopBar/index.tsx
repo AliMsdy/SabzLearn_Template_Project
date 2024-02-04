@@ -87,7 +87,7 @@ function TopBar() {
           <span className="text-sm">{userInfos?.name}</span>
         </div>
         <img
-          src={userInfos?.profile}
+          src={`${import.meta.env.VITE_SITE_DOMAIN}${userInfos?.profile}`}
           className="h-12 w-12 cursor-pointer rounded-full"
           alt="profile-pic"
         />

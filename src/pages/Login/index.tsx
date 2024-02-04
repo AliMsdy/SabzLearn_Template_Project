@@ -64,7 +64,6 @@ function Login() {
   };
   const recaptchaChagneHandler = () => {
     //sending the token we get from recaptcha to backend
-    // console.log(value)
     setIsRecaptchaVerified(true);
   };
 
