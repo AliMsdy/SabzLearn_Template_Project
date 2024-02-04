@@ -31,7 +31,7 @@ function CategoryActionCell({ row }: { row: Row<CategoryType> }) {
       queryKey: ["Categories"],
     });
     toast.success(`دسته بندی مورد نظر با موفقیت ${title} شد.`);
-  }, []);
+  }, []);//eslint-disable-line
   const { mutate: deleteCategory } = useMutateCall(["deleteCourseCategory"], {
     onSuccess: () => refetchCategories("حذف"),
   });

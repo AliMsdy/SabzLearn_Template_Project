@@ -5,6 +5,7 @@ import { CategoryActionCell } from "./CategoryActionCell";
 type CategoryType = {
   _id: string;
   title: string;
+  name:string;
 };
 
 export const categoryColumn: ColumnDef<CategoryType>[] = [
