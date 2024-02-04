@@ -6,18 +6,14 @@ import { AdminPanelLayout } from "@/Layout/AdminPanelLayout";
 import { AnonymousLayout } from "@/Layout/AnonymousLayout";
 import { MainLayout } from "@/Layout/MainLayout";
 
-// Pages
-// import { ContactUs, Login, Register, SearchPage } from "@/pages";
+//code splitting the pages
 
 //adminPanelPages
-import {
-  CategoryPage as AdminCategoryPage,
-  Courses,
-  MainPage,
-  Users,
-} from "@/pages/AdminPanel";
+const AdminMainPage = importLazyPage("MainPage", "MainPage", true);
+const AdminUsersPage = importLazyPage("Users", "Users", true);
+const AdminCoursesPage = importLazyPage("Courses", "Courses", true);
+const AdminCategoryPage = importLazyPage("CategoryPage", "CategoryPage", true);
 
-//code splitting the pages
 //mainPages
 const HomePage = importLazyPage("HomePage");
 const CoursePage = importLazyPage("Course", "CoursePage");
@@ -109,20 +105,20 @@ export const routes = [
       {
         name: "adminPanel",
         title: "AdminPanel",
-        component: MainPage,
+        component: AdminMainPage,
         path: "/admin-panel",
         // isPublic: false,
         routes: [
           {
             name: "admin-panel-users",
             title: "admin-panel-users",
-            component: Users,
+            component: AdminUsersPage,
             path: "users",
           },
           {
             name: "admin-panel-courses",
             title: "admin-panel-courses",
-            component: Courses,
+            component: AdminCoursesPage,
             path: "courses",
           },
           {
