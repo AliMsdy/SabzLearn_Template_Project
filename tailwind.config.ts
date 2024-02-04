@@ -15,12 +15,12 @@ module.exports = {
         "primary-color": "#2bce56",
         "dark-color": "#464749",
         "gray-color": "#f0f2f7",
-        "secondary-color":"#7b868a",
-        "admin-blue-color":"#1943da",
-        "slate":"#4A4B6D",
+        "secondary-color": "#7b868a",
+        "admin-blue-color": "#1943da",
+        slate: "#4A4B6D",
         "white-color": "#fff",
         "dark-theme-primary": "#1C1C28",
-        "dark-theme-secondary":"#28293D",
+        "dark-theme-secondary": "#28293D",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -58,9 +58,9 @@ module.exports = {
       backgroundImage: {
         "landing-pattern":
           "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('/images/background_landing.jfif')",
-          "sidebar-links-background":
-          "linear-gradient(90deg, #353c50  0%, rgba(0, 212, 255, 0) 100%)"
-      },    
+        "sidebar-links-background":
+          "linear-gradient(90deg, #353c50  0%, rgba(0, 212, 255, 0) 100%)",
+      },
       fontSize: {
         xs: "0.75rem", // Extra small screen sizes
         sm: "0.875rem", // Small screen sizes
@@ -72,15 +72,15 @@ module.exports = {
         "4xl": "2.25rem", // 4 extra large screen sizes
         "5xl": "3rem", // 5 extra large screen sizes
       },
-      boxShadow:{
-        "custom": "0 0 13px 1px rgba(70, 72, 77, 0.2)",
+      boxShadow: {
+        custom: "0 0 13px 1px rgba(70, 72, 77, 0.2)",
         "dark-theme": "0 0 13px 1px rgb(47 56 81 / 50%)",
-        "admin-panel-box-shadow":"0px 0px 10px 1px rgba(0, 0, 0, 0.2)"
+        "admin-panel-box-shadow": "0px 0px 10px 1px rgba(0, 0, 0, 0.2)",
       },
-      fontFamily:{
+      fontFamily: {
         lalehzar: "lalehzar",
-        vazir:"vazir",
-        iranSanse:"IRANSans"
+        vazir: "vazir",
+        iranSanse: "IRANSans",
       },
       borderRadius: {
         lg: `var(--radius)`,
@@ -103,7 +103,7 @@ module.exports = {
       },
     },
   },
-  
+
   plugins: [require("tailwindcss-animate")],
   important: true,
   darkMode: "class",

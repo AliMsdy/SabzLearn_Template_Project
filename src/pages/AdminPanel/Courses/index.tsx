@@ -3,26 +3,28 @@ import { courseColumns } from "./courseColumns";
 import { useQueryCall } from "@/hooks";
 
 //components
-import { Loading } from "@/Components";
 import { DataTable, Section } from "@/Components/AdminPanel";
+import { AddNewCourse } from "./AddNewCourse";
 
 function Courses() {
-  const { data: courses, isLoading } = useQueryCall(["Courses"], {
+  const { data: courses = [] } = useQueryCall(["Courses"], {
     url: "/courses",
   });
-  if (isLoading) return <Loading />;
   return (
-    <Section className="mt-8 font-bold">
-      <DataTable
-        columns={courseColumns}
-        data={courses}
-        title={
-          <p className="mb-4">
-            لیست <span className="text-admin-blue-color">دوره ها</span>
-          </p>
-        }
-      />
-    </Section>
+    <>
+      <AddNewCourse />
+      <Section className="mt-8 font-bold">
+        <DataTable
+          columns={courseColumns}
+          data={courses}
+          title={
+            <p className="mb-4">
+              لیست <span className="text-admin-blue-color">دوره ها</span>
+            </p>
+          }
+        />
+      </Section>
+    </>
   );
 }
 

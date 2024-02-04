@@ -84,6 +84,17 @@ type CommentType = {
   createdAt: string;
 };
 
+type AddNewCourseInputTypes = {
+  name: string;
+  description: string;
+  categoryID: string;
+  price: string;
+  shortName: string;
+  cover: File | "";
+  status:"presell" | "start";
+  support: "گروه تلگرامی" | "پرسش و پاسخ سبزلرن" | "";
+};
+
 export type {
   ArticleType,
   Children,
@@ -95,4 +106,5 @@ export type {
   SetState,
   UserType,
   ContactUsInputTypes,
+  AddNewCourseInputTypes,
 };

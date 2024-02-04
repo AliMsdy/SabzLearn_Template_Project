@@ -10,6 +10,7 @@ import {
   FaUser,
 } from "react-icons/fa6";
 import { TbPasswordUser } from "react-icons/tb";
+
 type InputItem = {
   placeholder: string;
   type: string;
@@ -130,6 +131,46 @@ const addCategoryValidationSchema = yup.object().shape({
   name: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
 });
 
+const addCourseValidationSchema = yup.object().shape({
+  name: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  description: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  categoryID: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  price: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  shortName: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  support:yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  cover: yup
+    .mixed()
+    .test(
+      "fileRequired",
+      "عکسی را باید برای دوره انتخاب کنید",
+      function (value) {
+        return value instanceof File || value instanceof FileList;
+      },
+    )
+    .test(
+      "fileType",
+      "فقط فایل‌های تصویری با فرمت (jpg ,jpeg ,png ) مجاز هستند",
+      function (value) {
+        if (value instanceof FileList) {
+          return ["image/jpeg", "image/jpg", "image/png"].includes(
+            value[0].type,
+          );
+        } else if (value instanceof File) {
+          return ["image/jpeg", "image/jpg", "image/png"].includes(value.type);
+        }
+        return false;
+      },
+    )
+    .test("fileSize", "حجم فایل باید کمتر از 2 مگابایت باشد", (value) => {
+      if (value instanceof FileList) {
+        return value[0] && value[0].size <= 2 * 1024 * 1024;
+      } else if (value instanceof File) {
+        return value && value.size <= 2 * 1024 * 1024;
+      }
+      return false;
+    }),
+});
+
 //input lists
 
 const registerInputList: RegisterInputItem[] = [
@@ -238,9 +279,100 @@ const addCourseCategoryInputList = [
   },
 ];
 
+const addNewCourseInputList = [
+  [
+    {
+      name: "name",
+      label: "نام دوره",
+      placeholder: "نام دوره را وارد کنید...",
+      type: "text",
+      id: "name",
+    },
+    {
+      name: "description",
+      label: "توضیحات دوره",
+      element: "textarea",
+      rows: 4,
+      placeholder: "درباره دوره توضیح مختصر دهید...",
+      id: "description",
+    },
+    {
+      name: "categoryID",
+      label: "دسته بندی دوره",
+      element: "select",
+      id: "categoryID",
+      options: [
+        {
+          title: "دسته بندی دوره را انتخاب کنید",
+          value: "",
+          disabled: true,
+        },
+      ],
+    },
+    {
+      name: "support",
+      label: "نحوه پشتیبانی دوره",
+      element: "select",
+      id: "support",
+      options: [
+        {
+          title: "نحوه پشتیبانی را انتخاب کنید",
+          value: "",
+          disabled: true,
+        },
+        {
+          title: "پرسش و پاسخ سبزلرن",
+          value: "پرسش و پاسخ سبزلرن",
+        },
+        {
+          title: "گروه تلگرامی",
+          value: "گروه تلگرامی",
+        },
+      ],
+    },
+    {
+      type: "radio",
+      id: "status",
+      presell: {
+        id: "presell",
+        value: "presell",
+      },
+      start: {
+        id: "start",
+        value: "start",
+      },
+    },
+    
+  ],
+  [
+    {
+      name: "price",
+      label: "قیمت دوره",
+      placeholder: "قیمت دوره را وارد کنید...",
+      type: "number",
+      id: "price",
+    },
+    {
+      name: "shortName",
+      label: "نام کوتاه (URL) دوره",
+      placeholder: "نامی کوتاه برای دوره انتخاب کنید",
+      type: "text",
+      id: "shortName",
+    },
+    {
+      type: "file",
+      id: "cover",
+      className: "hidden",
+      accept: "image/png, image/jpg, image/jpeg",
+    },
+  ],
+];
+
 export {
   addCategoryValidationSchema,
   addCourseCategoryInputList,
+  addCourseValidationSchema,
+  addNewCourseInputList,
   addUserInputList,
   addUserValidationSchema,
   contactUsInputList,
@@ -251,3 +383,20 @@ export {
   registerValidationSchema,
   sendCommentSchema,
 };
+// {
+//   type:"radio",
+//   {
+// name:"presell",
+// label: "پیش فروش",
+// id:"presell",
+// value:"presell",
+//     showLabelNextToInput:true
+//   },
+//   {
+// name:"start",
+// label: "درحال برگذاری",
+// id:"start",
+// value:"start",
+//     showLabelNextToInput:true
+//   },
+// }
