@@ -9,7 +9,8 @@ import { useMutateCall } from "@/hooks";
 
 //components
 import { Button } from "@/Components";
-import { AlertDialog, EditModal } from "@/Components/AdminPanel";
+import { AlertDialog, Modal } from "@/Components/AdminPanel";
+import { EditCategory } from "./EditCategory";
 
 //type
 import type { Row } from "@tanstack/react-table";
@@ -31,7 +32,7 @@ function CategoryActionCell({ row }: { row: Row<CategoryType> }) {
       queryKey: ["Categories"],
     });
     toast.success(`دسته بندی مورد نظر با موفقیت ${title} شد.`);
-  }, []);//eslint-disable-line
+  }, []); //eslint-disable-line
   const { mutate: deleteCategory } = useMutateCall(["deleteCourseCategory"], {
     onSuccess: () => refetchCategories("حذف"),
   });
@@ -57,14 +58,17 @@ function CategoryActionCell({ row }: { row: Row<CategoryType> }) {
 
   return (
     <div className="flex justify-evenly gap-2">
-      <EditModal
+      <Modal
         DialogTriggerElement={
           <Button className="bg-admin-blue-color">ویرایش</Button>
         }
         title="ویرایش دسته بندی"
-        inputList={genereteInputListFromColumnList(categoryColumn, row)}
-        clickHandler={handleEditCategory}
-      />
+      >
+        <EditCategory
+          inputList={genereteInputListFromColumnList(categoryColumn, row)}
+          clickHandler={handleEditCategory}
+        />
+      </Modal>
       <AlertDialog
         message="آیا از حذف دسته بندی مطمئن هستید؟"
         clickHandler={handleDeleteCategory}

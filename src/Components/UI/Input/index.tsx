@@ -69,8 +69,8 @@ function Input({
           </label>
         )}
         <select
-          {...field}
           {...rest}
+          {...field}
           className={cn(
             "mt-4 block w-full rounded-md p-2 px-4  dark:bg-[#484965] dark:shadow-dark-theme",
             {
@@ -153,8 +153,8 @@ function Input({
         )}
       >
         <input
-          {...field}
           {...rest}
+          {...field}
           className={cn(
             "w-full p-2 text-right focus:outline-none dark:bg-transparent",
           )}
