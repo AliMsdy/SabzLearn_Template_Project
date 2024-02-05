@@ -2,18 +2,10 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 //icons
-import {
-  FaCartPlus,
-  FaChartBar,
-  FaEnvelope,
-  FaHome,
-  FaListAlt,
-  FaShoppingCart,
-  FaUsers,
-} from "react-icons/fa";
+import { FaHome, FaListAlt, FaUsers } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
-import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { MdArticle, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiMacbookLine } from "react-icons/ri";
 
 //types
@@ -32,11 +24,12 @@ const sideBarLinks = [
   { title: "دوره ها", Icon: RiMacbookLine, link: "/courses" },
   { title: "کاربران", Icon: FaUsers, link: "/users" },
   { title: "پیام ها", Icon: FaMessage, link: "/contacts" },
+  { title: "مقالات", Icon: MdArticle, link: "/articles" },
   // { title: "افزودن کاربر جدید", Icon: FaUserPlus, link: "/add-user" },
-  { title: "محصولات", Icon: FaShoppingCart, link: "/products" },
-  { title: "افزودن محصول جدید", Icon: FaCartPlus, link: "/add-product" },
-  { title: "گزارش ها", Icon: FaChartBar, link: "/reports" },
-  { title: "ایمیل", Icon: FaEnvelope, link: "/emails" },
+  // { title: "محصولات", Icon: FaShoppingCart, link: "/products" },
+  // { title: "افزودن محصول جدید", Icon: FaCartPlus, link: "/add-product" },
+  // { title: "گزارش ها", Icon: FaChartBar, link: "/reports" },
+  // { title: "ایمیل", Icon: FaEnvelope, link: "/emails" },
   // { title: "پیام ها", Icon: FaCommentAlt, link: "/messages" },
   // { title: "گزارش", Icon: FaExclamationCircle, link: "/report" },
   { title: "دسته بندی ها", Icon: FaListAlt, link: "/categories" },
