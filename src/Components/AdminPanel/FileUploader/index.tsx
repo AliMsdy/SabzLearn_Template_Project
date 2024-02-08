@@ -1,20 +1,27 @@
 import { cn } from "@/lib/utils";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState, type DragEvent, type InputHTMLAttributes } from "react";
-import type { FieldErrors, UseFormReturn } from "react-hook-form";
+import type { FieldErrors } from "react-hook-form";
 
 //types
-import { AddNewCourseInputTypes,SetState } from "@/types/shared";
+import { AddNewCourseInputTypes, SetState } from "@/types/shared";
 
 type FileUploaderProps = InputHTMLAttributes<HTMLInputElement> & {
-  preview:string | ArrayBuffer | null;
-  setPreview:SetState<string | ArrayBuffer | null>;
-  methods: UseFormReturn<AddNewCourseInputTypes, any, undefined>;
+  preview: string | ArrayBuffer | null;
+  setPreview: SetState<string | ArrayBuffer | null>;
+  methods: any;
   errors: FieldErrors<AddNewCourseInputTypes>;
+  isForArticle?: boolean;
 };
 
-function FileUploader({ methods, errors,preview,setPreview, ...rest }: FileUploaderProps) {
-  
+function FileUploader({
+  methods,
+  errors,
+  preview,
+  setPreview,
+  isForArticle,
+  ...rest
+}: FileUploaderProps) {
   const [isDragActive, setIsDragActive] = useState(false);
 
   const convertFileToImage = (acceptedFiles: FileList) => {
@@ -52,7 +59,9 @@ function FileUploader({ methods, errors,preview,setPreview, ...rest }: FileUploa
   };
   return (
     <>
-      <h2 className="text-lg">عکس کاور دوره</h2>
+      <h2 className="text-lg">{`عکس کاور ${
+        isForArticle ? "مقاله" : "دوره"
+      }`}</h2>
       <label
         htmlFor="cover"
         className={cn(
@@ -65,8 +74,11 @@ function FileUploader({ methods, errors,preview,setPreview, ...rest }: FileUploa
           {...rest}
           {...methods.register("cover")}
           onChange={(e) => {
-            methods.register("cover").onChange(e);
-            convertFileToImage(e.target.files!);
+            if (e.target.files?.length !== 0) {
+              methods.register("cover").onChange(e);
+              convertFileToImage(e.target.files!);
+              methods.trigger("cover");
+            }
           }}
         />
         {isDragActive ? (

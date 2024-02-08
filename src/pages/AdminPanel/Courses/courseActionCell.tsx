@@ -14,8 +14,6 @@ import { AlertDialog } from "@/Components/AdminPanel";
 import type { CourseType } from "@/types/shared";
 import { Row } from "@tanstack/react-table";
 
-
-
 function CourseActionCell({ row }: { row: Row<CourseType> }) {
   const queryClient = useQueryClient();
   const { token } = useAuthContext();
@@ -38,7 +36,6 @@ function CourseActionCell({ row }: { row: Row<CourseType> }) {
     });
   };
 
-
   return (
     <div className="flex justify-evenly gap-2">
       <AlertDialog
@@ -46,10 +43,8 @@ function CourseActionCell({ row }: { row: Row<CourseType> }) {
         clickHandler={handleDeleteCourse}
         AlertTrigger={<Button className="bg-red-600">حذف</Button>}
       />
-      
     </div>
   );
 }
 
 export { CourseActionCell };
-

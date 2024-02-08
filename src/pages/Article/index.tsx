@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
+import DOMPurify from 'dompurify';
 //components
-import { BreadCrumb, Loading, SendCommentBox, SidebarBox } from "@/Components";
+import { BreadCrumb, Loading, SendCommentBox, SidebarBox,ArticleDetail } from "@/Components";
 
 //svg
 import StarUnfilled from "/images/svgs/star.svg";
@@ -20,8 +21,7 @@ import {
 //api
 import { useQueryCall } from "@/hooks";
 
-//type
-import type { IconType } from "react-icons";
+
 
 const headingList = [
   { title: "معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:", path: "/#" },
@@ -53,7 +53,7 @@ function ArticlePage() {
         <div className="col-span-12 lg:col-span-8">
           {/* BLOG CONTENT START */}
           <div className="blog-content rounded-lg p-6 px-6 shadow-custom dark:bg-dark-theme-secondary dark:shadow-dark-theme sm:px-8">
-            <h1 className="mb-4 border-b-2 border-solid border-gray-400 pb-4 text-2xl font-bold text-dark-color  dark:text-white">
+            <h1>
               {data.title}
             </h1>
             {/* ARTICLE DETAIL START */}
@@ -74,7 +74,7 @@ function ArticlePage() {
             {/* ARTICLE DETAIL START */}
 
             <img
-              src={`${import.meta.env.VITE_SITE_DOMAIN}/blogs/${data.cover}`}
+              src={`${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/${data.cover}`}
               alt="article-cover"
             />
             {/* STARS START */}
@@ -107,39 +107,7 @@ function ArticlePage() {
               </div>
             </div>
             {/* LINK ACCESS END */}
-            <img
-              src={`${import.meta.env.VITE_SITE_DOMAIN}/blogs/1.jpg`}
-              alt=""
-            />
-
-            <h2>معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:</h2>
-            <div dangerouslySetInnerHTML={{ __html: data.body }} />
-            <img src={`${import.meta.env.VITE_SITE_DOMAIN}/blogs/4.png`} alt="" />
-            <h2>معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:</h2>
-            <p>
-              توجه داشته باشید که تمام وب سایت‌هایی که به عنوان بهترین سایت
-              آموزش جاوا اسکریپت در ادامه معرفی می‌کنیم، بین‌المللی هستند و
-              منابع موجود در آن‌ها به زبان انگلیسی است. در نتیجه شما باید یا
-              تسلط متوسط و حداقلی به زبان انگلیسی داشته باشید و یا اینکه با
-              استفاده از گوگل ترنسلیت منابع موجود را ترجمه کرده و از آن‌ها
-              استفاده کنید. به همین دلیل در انتهای محتوا به شما خواهیم گفت که
-              راه آسان دیگری برای یادگیری زبان جاوا اسکریپت وجود دارد که شما
-              بتوانید به واسطه آن به صورت رایگان و به زبان فارسی این زبان را یاد
-              بگیرید.
-            </p>
-            <h2>معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:</h2>
-            <p>
-              توجه داشته باشید که تمام وب سایت‌هایی که به عنوان بهترین سایت
-              آموزش جاوا اسکریپت در ادامه معرفی می‌کنیم، بین‌المللی هستند و
-              منابع موجود در آن‌ها به زبان انگلیسی است. در نتیجه شما باید یا
-              تسلط متوسط و حداقلی به زبان انگلیسی داشته باشید و یا اینکه با
-              استفاده از گوگل ترنسلیت منابع موجود را ترجمه کرده و از آن‌ها
-              استفاده کنید. به همین دلیل در انتهای محتوا به شما خواهیم گفت که
-              راه آسان دیگری برای یادگیری زبان جاوا اسکریپت وجود دارد که شما
-              بتوانید به واسطه آن به صورت رایگان و به زبان فارسی این زبان را یاد
-              بگیرید.
-            </p>
-            <img src={`${import.meta.env.VITE_SITE_DOMAIN}/blogs/3.jpg`} alt="" />
+            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.body) }} />
 
             {/* SHARE ARTICLE START */}
             <div className="mt-12 flex items-center gap-x-4">
@@ -295,13 +263,6 @@ function ArticlePage() {
   );
 }
 
-function ArticleDetail({ title, Icon }: { title: string; Icon: IconType }) {
-  return (
-    <div key={title} className="flex items-center gap-x-2">
-      <Icon size={18} className="text-[#c7c7c7] dark:text-white" />
-      <span className="text-[#8f8f8f] dark:text-white">{title}</span>
-    </div>
-  );
-}
+
 
 export { ArticlePage };

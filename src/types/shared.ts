@@ -1,4 +1,9 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, {
+  Dispatch, SetStateAction,
+  type InputHTMLAttributes,
+  type SelectHTMLAttributes,
+  type TextareaHTMLAttributes
+} from "react";
 
 type Children = {
   children: React.ReactNode;
@@ -95,17 +100,39 @@ type AddNewCourseInputTypes = {
   status:"presell" | "start";
   support: "گروه تلگرامی" | "پرسش و پاسخ سبزلرن" | "";
 };
+type AddNewArticleInputTypes = {
+  title: string;
+  description: string;
+  categoryID: string;
+  shortName: string;
+  cover: File | "";
+  body:string;
+};
+
+
+type InputListType = InputHTMLAttributes<HTMLInputElement> &
+  TextareaHTMLAttributes<HTMLTextAreaElement> &
+  SelectHTMLAttributes<HTMLSelectElement> & {
+    label?: string;
+    element?: string;
+    options?: { title: string; value: string; disabled?: boolean }[];
+    presell?: {
+      id: string;
+      value: string;
+    };
+    start?: {
+      id: string;
+      value: string;
+    };
+  };
 
 export type {
-  ArticleType,
+  AddNewArticleInputTypes, AddNewCourseInputTypes, ArticleType,
   Children,
-  CommentType,
-  CourseType,
-  LinkType,
+  CommentType, ContactUsInputTypes, CourseType, InputListType, LinkType,
   LoginInputTypes,
   RegisterInputTypes,
   SetState,
-  UserType,
-  ContactUsInputTypes,
-  AddNewCourseInputTypes,
+  UserType
 };
+

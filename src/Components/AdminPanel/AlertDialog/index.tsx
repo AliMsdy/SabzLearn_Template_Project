@@ -11,15 +11,19 @@ import {
 } from "@/Components/AdminPanel/shadCnComponents/AlertDialog";
 
 //types
+import { SetState } from "@/types/shared";
 type AlertProps = {
   message: string;
   clickHandler: () => void;
   AlertTrigger: React.ReactNode;
+  open?: boolean;
+  setOpen?:SetState<boolean>;
 };
 
-function Alert({ message, clickHandler, AlertTrigger }: AlertProps) {
+function Alert({ message, clickHandler, AlertTrigger,open,setOpen }: AlertProps) {
+  const AlertDialogState = open ? {open:open,setOpen:setOpen} : {}
   return (
-    <AlertDialog>
+    <AlertDialog {...AlertDialogState}>
       <AlertDialogTrigger asChild>{AlertTrigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

@@ -171,6 +171,46 @@ const addCourseValidationSchema = yup.object().shape({
     }),
 });
 
+const addArticleValidationSchema = yup.object().shape({
+  title: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  description: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  categoryID: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  shortName: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  cover: yup
+    .mixed()
+    .test(
+      "fileRequired",
+      "عکسی را باید برای مقاله انتخاب کنید",
+      function (value) {
+        return value instanceof File || value instanceof FileList;
+      },
+    )
+    .test(
+      "fileType",
+      "فقط فایل‌های تصویری با فرمت (jpg ,jpeg ,png ) مجاز هستند",
+      function (value) {
+        if (value instanceof FileList) {
+          return ["image/jpeg", "image/jpg", "image/png"].includes(
+            value[0].type,
+          );
+        } else if (value instanceof File) {
+          return ["image/jpeg", "image/jpg", "image/png"].includes(value.type);
+        }
+        return false;
+      },
+    )
+    .test("fileSize", "حجم فایل باید کمتر از 2 مگابایت باشد", (value) => {
+      if (value instanceof FileList) {
+        return value[0] && value[0].size <= 2 * 1024 * 1024;
+      } else if (value instanceof File) {
+        return value && value.size <= 2 * 1024 * 1024;
+      }
+      return false;
+    }),
+    body:yup.string().required("مقاله نمیتواند بدون محتوا باشد..."),
+});
+
+
 //input lists
 
 const registerInputList: RegisterInputItem[] = [
@@ -368,6 +408,56 @@ const addNewCourseInputList = [
   ],
 ];
 
+const addNewArticleInputList = [
+  [
+    {
+      name: "title",
+      label: "عنوان مقاله",
+      placeholder: "عنوان مقاله را وارد کنید",
+      type: "text",
+      id: "title",
+      isValidationStylesEnabled:false
+    },
+    {
+      name: "description",
+      label: "چکیده مقاله",
+      element: "textarea",
+      rows: 4,
+      placeholder: "خلاصه یا توضیحی مختصر درباره مقاله...",
+      id: "description",
+      isValidationStylesEnabled:false
+    },
+    {
+      name: "categoryID",
+      label: "دسته بندی مقاله",
+      element: "select",
+      id: "categoryID",
+      options: [
+        {
+          title: "دسته بندی مقاله را انتخاب کنید",
+          value: "",
+          disabled: true,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      name: "shortName",
+      label: "لینک مقاله",
+      placeholder: "لینک کوتاه برای مقاله را وارد کنید",
+      type: "text",
+      id: "shortName",
+      isValidationStylesEnabled:false
+    },
+    {
+      type: "file",
+      id: "cover",
+      className: "hidden",
+      accept: "image/png, image/jpg, image/jpeg",
+    },
+  ],
+];
 export {
   addCategoryValidationSchema,
   addCourseCategoryInputList,
@@ -382,21 +472,6 @@ export {
   registerInputList,
   registerValidationSchema,
   sendCommentSchema,
+  addNewArticleInputList,
+  addArticleValidationSchema
 };
-// {
-//   type:"radio",
-//   {
-// name:"presell",
-// label: "پیش فروش",
-// id:"presell",
-// value:"presell",
-//     showLabelNextToInput:true
-//   },
-//   {
-// name:"start",
-// label: "درحال برگذاری",
-// id:"start",
-// value:"start",
-//     showLabelNextToInput:true
-//   },
-// }

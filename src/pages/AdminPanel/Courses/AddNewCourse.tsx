@@ -5,15 +5,8 @@ import {
 } from "@/constants/formInputsInformation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  Fragment,
-  useEffect,
-  useState,
-  type InputHTMLAttributes,
-  type SelectHTMLAttributes,
-  type TextareaHTMLAttributes,
-} from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { Fragment, useEffect, useState } from "react";
+import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 
 //components
@@ -30,24 +23,8 @@ import { useMutateCall, useQueryCall } from "@/hooks";
 import { useAuthContext } from "@/context/AuthContext";
 
 //type
-import { AddNewCourseInputTypes } from "@/types/shared";
+import { AddNewCourseInputTypes, InputListType } from "@/types/shared";
 import type { ObjectSchema } from "yup";
-
-type InputListType = InputHTMLAttributes<HTMLInputElement> &
-  TextareaHTMLAttributes<HTMLTextAreaElement> &
-  SelectHTMLAttributes<HTMLSelectElement> & {
-    label?: string;
-    element?: string;
-    options?: { title: string; value: string; disabled?: boolean }[];
-    presell?: {
-      id: string;
-      value: string;
-    };
-    start?: {
-      id: string;
-      value: string;
-    };
-  };
 
 function AddNewCourse() {
   const [completeInputList, setCompleteInputList] = useState<InputListType[][]>(
@@ -142,7 +119,6 @@ function AddNewCourse() {
       setCompleteInputList(updatedInputList);
     }
   }, [isLoading, categories]);
-  console.log("watch", methods.watch());
   const radioInputsMarkUp = (inputInfo: InputListType) => {
     return (
       <div>

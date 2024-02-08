@@ -114,6 +114,7 @@ function Input({
           </label>
         )}
         <textarea
+          spellCheck={false}
           {...rest}
           {...field}
           className={cn(
