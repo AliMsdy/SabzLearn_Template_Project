@@ -10,7 +10,7 @@ function AdminPanelBox({ title, Icon, desc }: AdminPanelBoxProps) {
   const titleStyle =
     "after:absolute before:absolute after:bg-admin-blue-color before:bg-admin-blue-color after:shadow-[0px_0px_5px_1px_#1943da81] before:shadow-[0px_0px_5px_1px_#1943da81] after:top-1/2 before:top-1/2 after:w-[20px] before:w-[20px] after:h-[3px] before:h-[3px] after:rounded-full before:rounded-full before:-right-8 after:-left-8";
   return (
-    <div className="rounded-md bg-white p-4 shadow-admin-panel-box-shadow">
+    <div className="rounded-md bg-white dark:bg-dark-theme-primary p-4 shadow-admin-panel-box-shadow">
       <h3 className={`mr-7 text-2xl font-bold `}>
         <span className={`relative ${titleStyle}`}>{title}</span>
       </h3>

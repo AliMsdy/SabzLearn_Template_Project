@@ -157,7 +157,7 @@ function Input({
           {...rest}
           {...field}
           className={cn(
-            "w-full p-2 text-right focus:outline-none dark:bg-transparent",
+            "w-full p-2 text-right focus:outline-none dark:bg-transparent dark:text-white",
           )}
           spellCheck="false"
         />

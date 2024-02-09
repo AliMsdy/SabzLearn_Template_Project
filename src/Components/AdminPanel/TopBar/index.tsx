@@ -2,14 +2,19 @@ import { useState } from "react";
 //icons
 import { FaRegBell } from "react-icons/fa";
 import { FaAngleDown } from "react-icons/fa6";
+import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 //context
 import { useAuthContext } from "@/context/AuthContext";
+import { useThemeContext } from "@/context/ThemeContext";
 //components
 import { Button, Overlay } from "@/Components";
 //api
 import { useMutateCall } from "@/hooks";
+//utils
+import darkModeHandler from "@/utils/darkmodeHandler";
 
 function TopBar() {
+  const { theme, setTheme } = useThemeContext();
   const { userInfos, token, login } = useAuthContext();
   const [showNotifs, setShowNotifs] = useState(false);
   const { mutateAsync: seeNotificationHandler } = useMutateCall([
@@ -32,7 +37,7 @@ function TopBar() {
   };
 
   return (
-    <header className="flex items-center justify-between p-2 py-4 lg:px-6">
+    <header className="dark:bg-admin-topBar-dark-color flex items-center justify-between p-2 py-4 dark:text-white lg:px-6">
       <div className="hidden items-center gap-5 sm:flex">
         <form>
           <input
@@ -54,7 +59,7 @@ function TopBar() {
             className="cursor-pointer text-[#a3abb1]"
           />
           <ul
-            className={`absolute right-1/2 z-20 mt-1 w-max translate-x-1/2 rounded-md bg-gray-color p-1 opacity-0 transition-all duration-500 ${
+            className={`absolute right-1/2 z-20 mt-1 w-max translate-x-1/2 rounded-md bg-gray-color dark:bg-dark-theme-secondary p-1 opacity-0 transition-all duration-500 ${
               showNotifs && "opacity-100"
             }`}
           >
@@ -80,6 +85,16 @@ function TopBar() {
             )}
           </ul>
         </span>
+        <Button
+          onClick={() => setTheme(darkModeHandler())}
+          className="bg-transparent px-2"
+        >
+          {theme === "light" ? (
+            <IoMoonOutline className="text-[#a3abb1]" size={25} />
+          ) : (
+            <IoSunnyOutline className="text-[#a3abb1]" size={25} />
+          )}
+        </Button>
       </div>
       <div className="flex w-full items-center justify-between gap-4 sm:w-auto">
         <div className="flex items-center gap-1">

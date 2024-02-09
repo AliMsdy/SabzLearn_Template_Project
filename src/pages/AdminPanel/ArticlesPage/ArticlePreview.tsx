@@ -6,9 +6,6 @@ import { ArticleDetail } from "@/Components";
 //context
 import { useAuthContext } from "@/context/AuthContext";
 
-//utils
-import { formatDate } from "@/utils/formatDate";
-
 //icons
 import { FaClock, FaFolder, FaUser } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
@@ -44,7 +41,7 @@ function ArticlePreview({
 
   return (
     <div className="absolute right-1/2 top-1 z-20 mt-8 h-[90%] w-[80%] translate-x-1/2 overflow-auto rounded-lg border-2 border-solid p-2">
-      <div className="mb-4 flex justify-between rounded-md bg-[#cccccc] p-2">
+      <div className="mb-4 flex justify-between rounded-md bg-[#cccccc] p-2 dark:bg-admin-secondary-dark-color">
         <span>پیش نمایش مقاله شما....</span>
         <IoClose
           size={25}
@@ -52,7 +49,7 @@ function ArticlePreview({
           onClick={() => setShowArticlePreview(false)}
         />
       </div>
-      <div className="rounded-md border-2 border-solid border-[#c1c1c1] bg-white p-8 font-iranSanse blog-content">
+      <div className="rounded-md border-2 border-solid border-[#c1c1c1] bg-white dark:bg-dark-theme-secondary p-8 font-iranSanse blog-content">
         <h1 className="mb-4 border-b-2 border-solid border-gray-400 pb-4 text-2xl font-bold text-dark-color  dark:text-white">
           {methods.getValues("title")}
         </h1>
@@ -64,17 +61,15 @@ function ArticlePreview({
           />
           <ArticleDetail
             Icon={FaClock}
-            title={`تاریخ انتشار: ${formatDate(new Date())}`}
+            title={`تاریخ انتشار: ${new Date().toLocaleString("fa-IR")}`}
           />
         </div>
         {preview && (
-          // <div className="mx-auto mb-4 mt-8 flex w-1/3 justify-center rounded-lg">
             <img
               src={preview as string}
               className="rounded-lg"
               alt="article-cover"
             />
-          // </div> 
         )}
         <p>{methods.getValues("description")}</p>
         <FroalaEditorView model={model} />
@@ -84,3 +79,4 @@ function ArticlePreview({
 }
 
 export { ArticlePreview };
+

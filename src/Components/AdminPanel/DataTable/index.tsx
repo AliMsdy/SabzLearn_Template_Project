@@ -72,7 +72,7 @@ export function DataTable<TData, TValue>({
                     }}
                     key={header.id}
                     className={cn(
-                      "group relative top-0 bg-[#f2f7fd] text-lg font-bold text-[#67747e]",
+                      "group relative top-0 bg-[#f2f7fd] text-lg font-bold text-[#67747e] dark:bg-slate dark:text-[#f5f3f3]",
                       { "cursor-col-resize": header.column.getIsResizing() },
                       { "cursor-pointer": header.column.getCanSort() },
                     )}
@@ -142,6 +142,7 @@ export function DataTable<TData, TValue>({
                       width: cell.column.getSize(),
                       boxShadow: "inset 0 0 0 1px #424242",
                     }}
+                    className="dark:bg-admin-secondary-dark-color"
                     key={cell.id}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
