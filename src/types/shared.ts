@@ -40,6 +40,17 @@ type ArticleType = {
   };
 };
 
+type SessionType = {
+  _id:string;
+  title:string;
+  course:{
+    _id:string;
+    name:string;
+  }
+  time:string;
+  free:"0" | "1"
+}
+
 type RegisterInputTypes = {
   name: string;
   username: string;
@@ -150,4 +161,5 @@ export type {
   RegisterInputTypes,
   SetState,
   UserType,
+  SessionType
 };
