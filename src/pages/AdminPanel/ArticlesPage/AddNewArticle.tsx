@@ -19,13 +19,16 @@ import { useAuthContext } from "@/context/AuthContext";
 import { useMutateCall, useQueryCall } from "@/hooks";
 //components
 import { Button, Input, Overlay, SimpleLoading } from "@/Components";
-import { AlertDialog, FileUploader, Section } from "@/Components/AdminPanel";
+import { AlertDialog, FileUploader, Section,TextEditor } from "@/Components/AdminPanel";
 import { ArticlePreview } from "./ArticlePreview";
-import { TextEditor } from "./TextEditor";
+
 
 //type
 import { AddNewArticleInputTypes, InputListType } from "@/types/shared";
 import type { ObjectSchema } from "yup";
+
+//utils
+import { fetchAndUpdateInputList } from "@/utils/fetchAndSetInputListData";
 
 function AddNewArticle() {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
@@ -105,38 +108,9 @@ function AddNewArticle() {
       },
     });
   };
-
-  //fetching the categories and include it in form...
   useEffect(() => {
     //adding the categories fetched from api to the select input list
-    if (!isLoading) {
-      const updatedInputList = addNewArticleInputList.map(
-        (inputArray, index) => {
-          if (index === 0) {
-            const categoryOptions = categories.map(
-              ({ title, _id }: { title: string; _id: string }) => ({
-                title,
-                value: _id,
-              }),
-            );
-            const updatedSelectInput = {
-              ...inputArray[2],
-              options: [
-                {
-                  title: "دسته بندی دوره را انتخاب کنید",
-                  value: "",
-                  disabled: true,
-                },
-                ...categoryOptions,
-              ],
-            };
-            return [inputArray[0], inputArray[1], updatedSelectInput];
-          }
-          return inputArray;
-        },
-      );
-      setCompleteInputList(updatedInputList);
-    }
+    fetchAndUpdateInputList(isLoading,categories,addNewArticleInputList,setCompleteInputList)
   }, [isLoading, categories]);
   return (
     <Section>
@@ -155,10 +129,11 @@ function AddNewArticle() {
                       <FileUploader
                         key={input.id}
                         methods={methods}
+                        title="عکس کاور مقاله"
                         errors={methods.formState.errors}
                         preview={preview}
                         setPreview={setPreview}
-                        isForArticle
+                        fieldValue="cover"
                         {...input}
                       />
                     ) : (

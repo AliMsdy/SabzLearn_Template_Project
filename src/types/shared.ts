@@ -1,8 +1,9 @@
 import React, {
-  Dispatch, SetStateAction,
+  Dispatch,
+  SetStateAction,
   type InputHTMLAttributes,
   type SelectHTMLAttributes,
-  type TextareaHTMLAttributes
+  type TextareaHTMLAttributes,
 } from "react";
 
 type Children = {
@@ -21,9 +22,9 @@ type CourseType = {
   isForSlider?: boolean;
   description: string;
   isComplete: 0 | 1;
-  categoryID:{
-    title:string;
-  }
+  categoryID: {
+    title: string;
+  };
 };
 
 type ArticleType = {
@@ -42,7 +43,7 @@ type ArticleType = {
 type RegisterInputTypes = {
   name: string;
   username: string;
-  phone:string;
+  phone: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -55,7 +56,7 @@ type LoginInputTypes = {
 };
 
 type ContactUsInputTypes = {
-  _id?:string;
+  _id?: string;
   name: string;
   email: string;
   phone: string;
@@ -67,7 +68,7 @@ type UserType = {
   email: string;
   password: string;
   username: string;
-  profile:string;
+  profile: string;
   role: string;
   courses: [];
   notifications: [];
@@ -97,7 +98,7 @@ type AddNewCourseInputTypes = {
   price: string;
   shortName: string;
   cover: File | "";
-  status:"presell" | "start";
+  status: "presell" | "start";
   support: "گروه تلگرامی" | "پرسش و پاسخ سبزلرن" | "";
 };
 type AddNewArticleInputTypes = {
@@ -106,9 +107,20 @@ type AddNewArticleInputTypes = {
   categoryID: string;
   shortName: string;
   cover: File | "";
-  body:string;
+  body: string;
+};
+type AddNewSessionInputTypes = {
+  title: string;
+  relatedCourse: string;
+  time: string;
+  video: File | "";
+  free: "0" | "1";
 };
 
+type radioInputProps = {
+  id: string;
+  value: string;
+};
 
 type InputListType = InputHTMLAttributes<HTMLInputElement> &
   TextareaHTMLAttributes<HTMLTextAreaElement> &
@@ -116,23 +128,26 @@ type InputListType = InputHTMLAttributes<HTMLInputElement> &
     label?: string;
     element?: string;
     options?: { title: string; value: string; disabled?: boolean }[];
-    presell?: {
-      id: string;
-      value: string;
-    };
-    start?: {
-      id: string;
-      value: string;
-    };
+    presell?: radioInputProps;
+    start?: radioInputProps;
+    withMoney?: radioInputProps;
+    free?: radioInputProps;
+    isValidationStylesEnabled?:boolean;
   };
 
 export type {
-  AddNewArticleInputTypes, AddNewCourseInputTypes, ArticleType,
+  AddNewArticleInputTypes,
+  AddNewCourseInputTypes,
+  AddNewSessionInputTypes,
+  ArticleType,
   Children,
-  CommentType, ContactUsInputTypes, CourseType, InputListType, LinkType,
+  CommentType,
+  ContactUsInputTypes,
+  CourseType,
+  InputListType,
+  LinkType,
   LoginInputTypes,
   RegisterInputTypes,
   SetState,
-  UserType
+  UserType,
 };
-

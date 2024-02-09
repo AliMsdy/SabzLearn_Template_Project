@@ -1,0 +1,11 @@
+.dark-theme .fr-wrapper {
+  background: #aba5a5 !important;
+}
+
+.dark-theme .fr-second-toolbar {
+  background: #353535 !important;
+}
+.dark-theme.fr-box.fr-basic .fr-element {
+  text-align: right !important;
+  font-family:IRANSans,vazir;
+}

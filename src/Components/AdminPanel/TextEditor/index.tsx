@@ -1,6 +1,9 @@
 //styles
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
+import "froala-editor/css/themes/gray.min.css";
+import "froala-editor/css/themes/dark.min.css";
+import "./style.css";
 //plugins
 import "froala-editor/js/plugins/align.min.js";
 import "froala-editor/js/plugins/colors.min.js";
@@ -23,7 +26,11 @@ import FroalaTextEditor from "react-froala-wysiwyg";
 
 //type
 import { AddNewArticleInputTypes, SetState } from "@/types/shared";
+import FroalaEditor from "froala-editor";
 import { UseFormReturn } from "react-hook-form";
+
+//context
+import { useThemeContext } from "@/context/ThemeContext";
 
 type TextEditorProps = {
   model: string;
@@ -31,6 +38,7 @@ type TextEditorProps = {
   methods: UseFormReturn<AddNewArticleInputTypes, any, undefined>;
 };
 
+//customButtonAddedToEditor(with custom functionality)
 const changeDirection: (
   this: FroalaEditor,
   dir: string,
@@ -63,10 +71,6 @@ const changeDirection: (
   // Restore selection.
   this.selection.restore();
 };
-
-//customButtonAddedToEditor(with custom functionality)
-
-import FroalaEditor from "froala-editor";
 FroalaEditor.DefineIcon("clear", { NAME: "remove", SVG_KEY: "remove" });
 FroalaEditor.RegisterCommand("clear", {
   title: "حذف محتوای ادیتور",
@@ -108,8 +112,9 @@ FroalaEditor.RegisterCommand("leftToRight", {
 });
 
 function TextEditor({ model, setModel, methods }: TextEditorProps) {
+  const { theme } = useThemeContext();
   return (
-    <div id="editor" className="blog-content font-vazir">
+    <div id="editor" className="blog-content editor">
       <FroalaTextEditor
         config={{
           placeholderText: "متن مقاله خود را وارد کنید...",
@@ -122,7 +127,8 @@ function TextEditor({ model, setModel, methods }: TextEditorProps) {
             vazir: "Vazir",
             IRANSans: "IranSanse",
           },
-          fontFamilyDefaultSelection: "sans-serif",
+          theme: theme === "light" ? "gray" : "dark",
+          fontFamilyDefaultSelection: "Lalehzar",
           fontFamilySelection: true,
           fontSizeSelection: true,
           paragraphFormat: {

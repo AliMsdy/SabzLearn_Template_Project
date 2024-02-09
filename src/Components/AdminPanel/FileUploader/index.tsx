@@ -11,7 +11,8 @@ type FileUploaderProps = InputHTMLAttributes<HTMLInputElement> & {
   setPreview: SetState<string | ArrayBuffer | null>;
   methods: any;
   errors: FieldErrors<AddNewCourseInputTypes>;
-  isForArticle?: boolean;
+  fieldValue: string;
+  title: string;
 };
 
 function FileUploader({
@@ -19,10 +20,12 @@ function FileUploader({
   errors,
   preview,
   setPreview,
-  isForArticle,
+  fieldValue,
+  title,
   ...rest
 }: FileUploaderProps) {
   const [isDragActive, setIsDragActive] = useState(false);
+  let previewElement = null;
 
   const convertFileToImage = (acceptedFiles: FileList) => {
     // Do something with the files
@@ -52,32 +55,61 @@ function FileUploader({
     e.stopPropagation();
     setIsDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      methods.setValue("cover", e.dataTransfer.files[0]);
-      methods.trigger("cover");
+      methods.setValue(fieldValue, e.dataTransfer.files[0]);
+      methods.trigger(fieldValue);
       convertFileToImage(e.dataTransfer.files);
     }
   };
+  if (
+    preview &&
+    Object.keys(errors[fieldValue as keyof typeof errors] || {}).length === 0
+  ) {
+    if (fieldValue === "cover") {
+      previewElement = (
+        <>
+          <div className="pr-8 font-iranSanse text-lg">پیش نمایش تصویر</div>
+          <div className="my-5 flex justify-center">
+            <img
+              src={preview as string}
+              className="max-h-[350px] rounded-md"
+              alt="Upload preview"
+            />
+          </div>
+        </>
+      );
+    } else if (fieldValue === "video") {
+      previewElement = (
+        <>
+          <div className="pr-8 font-iranSanse text-lg">پیش نمایش ویدیو</div>
+          <div className="my-5 flex justify-center">
+            <video controls>
+              <source src={preview as string} />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </>
+      );
+    }
+  }
   return (
     <>
-      <h2 className="text-lg">{`عکس کاور ${
-        isForArticle ? "مقاله" : "دوره"
-      }`}</h2>
+      <div className="text-lg">{title}</div>
       <label
-        htmlFor="cover"
+        htmlFor={fieldValue}
         className={cn(
-          "relative flex h-40 w-full cursor-pointer items-center justify-center rounded-lg border-4 border-dashed bg-[#f8fafc] p-4",
+          "relative flex h-40 w-full cursor-pointer items-center justify-center rounded-lg border-4 border-dashed bg-[#f8fafc] p-4 dark:bg-slate",
           { "bg-white": isDragActive },
         )}
         onDragEnter={handleDrag}
       >
         <input
           {...rest}
-          {...methods.register("cover")}
+          {...methods.register(fieldValue)}
           onChange={(e) => {
             if (e.target.files?.length !== 0) {
-              methods.register("cover").onChange(e);
+              methods.register(fieldValue).onChange(e);
               convertFileToImage(e.target.files!);
-              methods.trigger("cover");
+              methods.trigger(fieldValue);
             }
           }}
         />
@@ -96,23 +128,12 @@ function FileUploader({
           />
         )}
       </label>
-      {preview && Object.keys(errors.cover || {}).length === 0 && (
-        <>
-          <div className="pr-8 font-iranSanse text-lg">پیش نمایش تصویر</div>
-          <div className="my-5 flex justify-center">
-            <img
-              src={preview as string}
-              className="max-h-[350px] rounded-md"
-              alt="Upload preview"
-            />
-          </div>
-        </>
-      )}
+      {previewElement}
       <ErrorMessage
         errors={errors}
-        name="cover"
+        name={fieldValue}
         render={({ message }) => (
-          <div className="pr-4 text-red-700">{message}</div>
+          <div className="pr-4 text-red-700 ">{message}</div>
         )}
       />
     </>

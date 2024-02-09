@@ -137,7 +137,7 @@ const addCourseValidationSchema = yup.object().shape({
   categoryID: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
   price: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
   shortName: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
-  support:yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  support: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
   cover: yup
     .mixed()
     .test(
@@ -171,6 +171,42 @@ const addCourseValidationSchema = yup.object().shape({
     }),
 });
 
+const addSessionValidationSchema = yup.object().shape({
+  title: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  relatedCourse: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  time: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  free: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  video: yup
+    .mixed()
+    .test(
+      "fileRequired",
+      "ویدیویی را باید برای جلسه انتخاب کنید",
+      function (value) {
+        return value instanceof File || value instanceof FileList;
+      },
+    )
+    .test(
+      "fileType",
+      "فقط فایل‌های ویدیویی با فرمت (mp4 ,mkv ) مجاز هستند",
+      function (value) {
+        console.log("value", value);
+        if (value instanceof FileList) {
+          return ["video/mp4", "video/mkv"].includes(value[0].type);
+        } else if (value instanceof File) {
+          return ["video/mp4", "video/mkv"].includes(value.type);
+        }
+        return false;
+      },
+    )
+    .test("fileSize", "حجم فایل باید کمتر از 2 مگابایت باشد", (value) => {
+      if (value instanceof FileList) {
+        return value[0] && value[0].size <= 2 * 1024 * 1024;
+      } else if (value instanceof File) {
+        return value && value.size <= 2 * 1024 * 1024;
+      }
+      return false;
+    }),
+});
 const addArticleValidationSchema = yup.object().shape({
   title: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
   description: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
@@ -207,9 +243,8 @@ const addArticleValidationSchema = yup.object().shape({
       }
       return false;
     }),
-    body:yup.string().required("مقاله نمیتواند بدون محتوا باشد..."),
+  body: yup.string().required("مقاله نمیتواند بدون محتوا باشد..."),
 });
-
 
 //input lists
 
@@ -382,7 +417,6 @@ const addNewCourseInputList = [
         value: "start",
       },
     },
-    
   ],
   [
     {
@@ -416,7 +450,7 @@ const addNewArticleInputList = [
       placeholder: "عنوان مقاله را وارد کنید",
       type: "text",
       id: "title",
-      isValidationStylesEnabled:false
+      isValidationStylesEnabled: false,
     },
     {
       name: "description",
@@ -425,7 +459,7 @@ const addNewArticleInputList = [
       rows: 4,
       placeholder: "خلاصه یا توضیحی مختصر درباره مقاله...",
       id: "description",
-      isValidationStylesEnabled:false
+      isValidationStylesEnabled: false,
     },
     {
       name: "categoryID",
@@ -448,7 +482,7 @@ const addNewArticleInputList = [
       placeholder: "لینک کوتاه برای مقاله را وارد کنید",
       type: "text",
       id: "shortName",
-      isValidationStylesEnabled:false
+      isValidationStylesEnabled: false,
     },
     {
       type: "file",
@@ -458,11 +492,67 @@ const addNewArticleInputList = [
     },
   ],
 ];
+const addNewSessionInputList = [
+  [
+    {
+      name: "title",
+      label: "عنوان جلسه",
+      placeholder: "عنوان جلسه را وارد کنید",
+      type: "text",
+      id: "title",
+      isValidationStylesEnabled: false,
+    },
+    {
+      name: "relatedCourse",
+      label: "دوره مربوطه",
+      element: "select",
+      id: "relatedCourse",
+      options: [
+        {
+          title: "دوره مربوطه را وارد کنید...",
+          value: "",
+          disabled: true,
+        },
+      ],
+    },
+    {
+      type: "radio",
+      id: "free",
+      withMoney: {
+        id: "withMoney",
+        value: 0,
+      },
+      free: {
+        id: "free",
+        value: 1,
+      },
+    },
+  ],
+  [
+    {
+      name: "time",
+      label: "مدت زمان جلسه",
+      placeholder: "مدت زمان جلسه را با فرمت  mm ss  وارد کنید",
+      id: "time",
+      isValidationStylesEnabled: false,
+    },
+    {
+      type: "file",
+      id: "video",
+      className: "hidden",
+      accept: "video/mp4, video/mkv",
+    },
+  ],
+];
 export {
+  addArticleValidationSchema,
   addCategoryValidationSchema,
   addCourseCategoryInputList,
   addCourseValidationSchema,
+  addNewArticleInputList,
   addNewCourseInputList,
+  addNewSessionInputList,
+  addSessionValidationSchema,
   addUserInputList,
   addUserValidationSchema,
   contactUsInputList,
@@ -472,6 +562,4 @@ export {
   registerInputList,
   registerValidationSchema,
   sendCommentSchema,
-  addNewArticleInputList,
-  addArticleValidationSchema
 };

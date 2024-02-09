@@ -15,6 +15,7 @@ const AdminCoursesPage = importLazyPage("Courses", "Courses", true);
 const AdminCategoryPage = importLazyPage("CategoryPage", "CategoryPage", true);
 const AdminContactPage = importLazyPage("ContactPage", "ContactPage", true);
 const AdminArticlesPage = importLazyPage("ArticlesPage", "ArticlesPage", true);
+const AdminSessionsPage = importLazyPage("Sessions", "Sessions", true);
 
 //mainPages
 const HomePage = importLazyPage("HomePage");
@@ -140,6 +141,12 @@ export const routes = [
             title: "admin-panel-articles-page",
             component: AdminArticlesPage,
             path: "articles",
+          },
+          {
+            name: "admin-panel-sessions-page",
+            title: "admin-panel-sessions-page",
+            component: AdminSessionsPage,
+            path: "sessions",
           },
         ],
       },

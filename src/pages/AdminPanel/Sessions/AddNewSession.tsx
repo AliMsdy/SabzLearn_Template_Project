@@ -1,88 +1,87 @@
-//components
-import {
-  addCourseValidationSchema,
-  addNewCourseInputList,
-} from "@/constants/formInputsInformation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useQueryClient } from "@tanstack/react-query";
 import { Fragment, useEffect, useState } from "react";
-import {
-  FormProvider,
-  useForm,
-  type SubmitHandler
-} from "react-hook-form";
+import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
+
+//constants
+import {
+  addNewSessionInputList,
+  addSessionValidationSchema,
+} from "@/constants/formInputsInformation";
 
 //components
 import { Button, Input, SimpleLoading } from "@/Components";
 import { FileUploader, Section } from "@/Components/AdminPanel";
 
-//icons
-import { FaPlus } from "react-icons/fa6";
-
 //api
 import { useMutateCall, useQueryCall } from "@/hooks";
-
-//context
-import { useAuthContext } from "@/context/AuthContext";
 
 //utils
 import { fetchAndUpdateInputList } from "@/utils/fetchAndSetInputListData";
 
-//type
-import { AddNewCourseInputTypes, InputListType } from "@/types/shared";
+//context
+import { useAuthContext } from "@/context/AuthContext";
+
+
+//icons
+import { FaPlus } from "react-icons/fa6";
+
+//types
+import { AddNewSessionInputTypes, InputListType } from "@/types/shared";
 import type { ObjectSchema } from "yup";
 
-
-function AddNewCourse() {
+function AddNewSession() {
+  const {token} = useAuthContext()
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
   const [completeInputList, setCompleteInputList] = useState<InputListType[][]>(
     [],
   );
-  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
-  const { token } = useAuthContext();
-  const queryClient = useQueryClient();
-  const methods = useForm<AddNewCourseInputTypes>({
+
+  const methods = useForm<AddNewSessionInputTypes>({
     resolver: yupResolver(
-      addCourseValidationSchema as ObjectSchema<AddNewCourseInputTypes>,
+      addSessionValidationSchema as ObjectSchema<AddNewSessionInputTypes>,
     ),
     defaultValues: {
-      name: "",
-      description: "",
-      categoryID: "",
-      price: "",
-      shortName: "",
-      cover: "",
-      status: "presell",
-      support: "",
+      title: "",
+      relatedCourse: "",
+      time: "",
+      video: "",
+      free: "0",
     },
   });
-  const { data: categories = [], isLoading } = useQueryCall(["Categories"], {
-    url: "/category",
+
+  const { data: courses = [], isLoading } = useQueryCall(["Courses"], {
+    url: "/courses",
   });
-  const { mutate: addNewCourse, isPending } = useMutateCall(["registerUser"], {
-    onSuccess: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-      await queryClient.invalidateQueries({
-        queryKey: ["Courses"],
-      });
-      toast.success("دوره مورد نظر با موفقیت ساخته شد.");
-      setPreview(null);
-      methods.reset();
+  const { mutate: addNewSession, isPending } = useMutateCall(
+    ["registerNewSession"],
+    {
+      onSuccess: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        //   await queryClient.invalidateQueries({
+        //     queryKey: ["Courses"],
+        //   });
+        toast.success("جلسه جدید با موفقیت ساخته شد.");
+        setPreview(null)
+        methods.reset();
+      },
+      onError: () => {
+        toast.error("اضافه کردن جلسه با مشکلی مواجه شد.");
+      },
     },
-    onError: () => {
-      toast.error("اضافه کردن دوره با مشکلی مواجه شد.");
-    },
-  });
-  const onSubmit: SubmitHandler<AddNewCourseInputTypes> = (data) => {
+  );
+
+  const onSubmit: SubmitHandler<AddNewSessionInputTypes> = (data) => {
     const formData = new FormData();
     for (const key in data) {
-      const value = data[key as keyof AddNewCourseInputTypes];
+      if(key === "relatedCourse") continue;
+      const value = data[key as keyof AddNewSessionInputTypes];
       value instanceof FileList
         ? formData.append(key, value[0])
         : formData.append(key, value as string);
     }
-    addNewCourse({
-      url: "/courses",
+    addNewSession({
+      url: `/courses/${data.relatedCourse}/sessions`,
       data: formData,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -90,29 +89,25 @@ function AddNewCourse() {
     });
   };
 
-  useEffect(() => {
-    //adding the categories fetched from api to the select input list
-    fetchAndUpdateInputList(isLoading,categories,addNewCourseInputList,setCompleteInputList)
-  }, [isLoading, categories]);
   const radioInputsMarkUp = (inputInfo: InputListType) => {
     return (
       <div>
-        <h2 className="mb-2">وضعیت دوره</h2>
+        <h2 className="mb-2">وضعیت پولی یا رایگان بودن جلسه</h2>
         <div className="flex gap-7">
           <div className="flex items-center gap-2">
-            <label htmlFor={inputInfo.presell?.id}>پیش فروش</label>
+            <label htmlFor={inputInfo.withMoney?.id}>پولی</label>
             <input
               type="radio"
-              {...inputInfo.presell}
-              {...methods.register("status")}
+              {...inputInfo["withMoney"]}
+              {...methods.register("free")}
             />
           </div>
           <div className="flex items-center gap-2">
-            <label htmlFor={inputInfo.start?.id}>در حال برگذاری</label>
+            <label htmlFor={inputInfo.free?.id}>رایگان</label>
             <input
               type="radio"
-              {...inputInfo.start}
-              {...methods.register("status")}
+              {...inputInfo["free"]}
+              {...methods.register("free")}
             />
           </div>
         </div>
@@ -120,10 +115,19 @@ function AddNewCourse() {
     );
   };
 
+  useEffect(() => {
+    //adding the courses fetched from api to the select input list
+    fetchAndUpdateInputList(
+      isLoading,
+      courses,
+      addNewSessionInputList as InputListType[][],
+      setCompleteInputList,
+    );
+  }, [isLoading, courses]);
   return (
     <Section>
       <h2 className="mt-2 text-2xl">
-        افزودن <span className="text-admin-blue-color">دوره</span> جدید
+        افزودن <span className="text-admin-blue-color">جلسه</span> جدید
       </h2>
       <FormProvider {...methods}>
         <form className="p-5" onSubmit={methods.handleSubmit(onSubmit)}>
@@ -135,11 +139,9 @@ function AddNewCourse() {
                     return input.type === "file" ? (
                       <FileUploader
                         key={input.id}
-                        methods={
-                          methods
-                        }
-                        title="عکس کاور دوره"
-                        fieldValue="cover"
+                        methods={methods}
+                        title="آپلود ویدیو جلسه"
+                        fieldValue="video"
                         errors={methods.formState.errors}
                         preview={preview}
                         setPreview={setPreview}
@@ -166,7 +168,7 @@ function AddNewCourse() {
             ) : (
               <FaPlus size={18} className="absolute right-4" />
             )}
-            <div>{isPending ? "در حال ارسال اطلاعات " : "افزودن دوره"}</div>
+            <div>{isPending ? "در حال ارسال اطلاعات " : "افزودن جلسه"}</div>
           </Button>
         </form>
       </FormProvider>
@@ -174,5 +176,4 @@ function AddNewCourse() {
   );
 }
 
-export { AddNewCourse };
-
+export { AddNewSession };
