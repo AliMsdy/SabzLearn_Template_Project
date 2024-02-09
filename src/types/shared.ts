@@ -11,6 +11,13 @@ type Children = {
 };
 type SetState<T> = Dispatch<SetStateAction<T>>;
 
+type LandingCountUptype = {
+  numberValue: number;
+  subTitle: string;
+  svgSrc: string;
+  key:string;
+};
+
 type CourseType = {
   _id: string;
   cover: string;
@@ -161,5 +168,6 @@ export type {
   RegisterInputTypes,
   SetState,
   UserType,
-  SessionType
+  SessionType,
+  LandingCountUptype
 };

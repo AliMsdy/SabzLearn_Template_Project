@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Typewriter from "typewriter-effect";
 
@@ -21,11 +22,27 @@ import { LandingSvgList, SabzlearnFeatures } from "@/shared/Lists";
 import { useQueryCall } from "@/hooks";
 
 //types
-import type { ArticleType, CourseType } from "@/types/shared";
+import type {
+  ArticleType,
+  CourseType,
+  LandingCountUptype,
+} from "@/types/shared";
+
+type generalDataType = {
+  coursesCount: number;
+  usersCount: number;
+  totalTime: number;
+};
 
 function HomePage() {
   const [searchBoxValue, setSearchBoxValue] = useState("");
-
+  const [landingFullSvgList, setLandingFullSvgList] = useState<
+    LandingCountUptype[]
+  >([]);
+  const queryClient = useQueryClient();
+  const generalSiteData: generalDataType | undefined = queryClient.getQueryData(
+    ["generalSiteData"],
+  );
   const { data: courses = [] } = useQueryCall(["Courses"], {
     url: "/courses",
   });
@@ -33,6 +50,18 @@ function HomePage() {
     url: "/articles",
   });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (generalSiteData !== undefined) {
+      const updateLandingSvgList = LandingSvgList.map((item) => {
+        return {
+          ...item,
+          numberValue: generalSiteData?.[item.key as keyof generalDataType],
+        };
+      });
+      setLandingFullSvgList(updateLandingSvgList);
+    }
+  }, [generalSiteData]);
   return (
     <>
       {/* HERO SECTION START */}
@@ -75,8 +104,8 @@ function HomePage() {
             </Button>
           </form>
           <div className="mt-10 hidden justify-between gap-x-32 px-4 sm:flex">
-            {LandingSvgList.map((item) => (
-              <LandingCountUp {...item} key={item.numberValue} />
+            {landingFullSvgList.map((item) => (
+              <LandingCountUp {...item} key={item.key} />
             ))}
           </div>
         </div>

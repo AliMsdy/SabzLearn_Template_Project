@@ -9,15 +9,15 @@ import { FaCrown, FaFacebookF, FaTelegram, FaTwitter } from "react-icons/fa6";
 
 const LandingSvgList = [
   {
-    numberValue: 5_071,
     subTitle: "کاربر توی سبزلرن ثبت نام کردن",
     svgSrc: StudentLogo,
+    key: "usersCount",
   },
-  { numberValue: 40, subTitle: "دوره آموزشی داریم", svgSrc: BookLogo },
+  { subTitle: "دوره آموزشی داریم", svgSrc: BookLogo, key: "coursesCount" },
   {
-    numberValue: 31_320,
     subTitle: "دقیقه آموزش تولید کردیم",
     svgSrc: ClockLogo,
+    key: "totalTime",
   },
 ];
 
@@ -58,8 +58,14 @@ const relatedCoursesList = [
     title: "تعیین قیمت پروژه های فریلنسری",
     imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/freelancer.png`,
   },
-  { title: "دوره Api نویسی", imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/nodejs.png` },
-  { title: "متخصص جنگو", imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/jango.png` },
+  {
+    title: "دوره Api نویسی",
+    imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/nodejs.png`,
+  },
+  {
+    title: "متخصص جنگو",
+    imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/jango.png`,
+  },
 ];
 const navLinks = [
   { title: "صفحه اصلی", children: [], path: "/" },
@@ -114,6 +120,5 @@ export {
   SendCommentRules,
   navLinks,
   relatedCoursesList,
-  socialList
+  socialList,
 };
-

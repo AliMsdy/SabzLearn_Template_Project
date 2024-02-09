@@ -1,11 +1,8 @@
 import { useEffect, useRef } from "react";
 import { Odometer } from "odometer_countup"
 
-type LandingCountUptype = {
-  numberValue: number;
-  subTitle: string;
-  svgSrc: string;
-};
+//types
+import type { LandingCountUptype } from "@/types/shared";
 
 function LandingCountUp({ numberValue, subTitle, svgSrc }: LandingCountUptype) {
   const countupRef = useRef<HTMLParagraphElement | null>(null);

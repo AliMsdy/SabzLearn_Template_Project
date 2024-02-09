@@ -6,14 +6,16 @@ import { FaHome, FaListAlt, FaUsers } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
 import { MdArticle, MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { RiMacbookLine } from "react-icons/ri";
 import { PiVideoFill } from "react-icons/pi";
+import { RiMacbookLine } from "react-icons/ri";
 
 //types
 import { useAuthContext } from "@/context/AuthContext";
 import { SetState } from "@/types/shared";
 
 //components
+import { AlertDialog } from "..";
+//types
 type SidebarProps = {
   toggleCollapse: boolean;
   setToggleCollapse: SetState<boolean>;
@@ -89,13 +91,16 @@ function Sidebar({ toggleCollapse, setToggleCollapse }: SidebarProps) {
           </NavLink>
         ))}
       </div>
-      <div
-        className="mt-auto flex cursor-pointer items-center gap-4 py-3 pr-3 text-sm text-[#8c90a0] hover:bg-sidebar-links-background hover:text-white"
-        onClick={logoutHandler}
-      >
-        <HiOutlineLogout size={20} />
-        {!toggleCollapse && <span>خروج</span>}
-      </div>
+      <AlertDialog
+        message="آیا مطمئن هستید که خارج شوید؟"
+        clickHandler={logoutHandler}
+        AlertTrigger={
+          <div className="mt-auto flex cursor-pointer items-center gap-4 py-3 pr-3 text-sm text-[#8c90a0] hover:bg-sidebar-links-background hover:text-white">
+            <HiOutlineLogout size={20} />
+            {!toggleCollapse && <span>خروج</span>}
+          </div>
+        }
+      />
     </aside>
   );
 }

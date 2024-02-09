@@ -9,6 +9,10 @@ function TopBar() {
   const { data: TopBarLinks = [] } = useQueryCall(["TopBarLinks"], {
     url: "/menus/topbar",
   });
+
+  const { data: generaData = {} } = useQueryCall(["generalSiteData"], {
+    url: "/infos/index",
+  });
   const getRandomItemFromArray = (arr: [], itemNumber: number) => {
     const shuffled = [...arr].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, itemNumber);
@@ -31,11 +35,11 @@ function TopBar() {
       </div>
       <div className="hidden gap-x-4 lg:flex">
         <div className="flex items-center gap-x-2">
-          <Link to="mailto:sabzlearn@gmail.com">sabzlearn@gmail.com</Link>
+          <Link to={`mailto:${generaData?.email}`}>{generaData?.email}</Link>
           <FaEnvelope size={20} className="text-primary-color" />
         </div>
         <div className="flex items-center gap-x-2">
-          <Link to="tel:+989330065800">09921558293</Link>
+          <Link to={`tel:+98${generaData?.phone}`}>{generaData?.phone}</Link>
           <FaPhoneAlt size={20} className="text-primary-color" />
         </div>
       </div>
