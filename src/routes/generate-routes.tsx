@@ -47,17 +47,18 @@ export const renderRoutes = (mainRoutes: Routes) => {
   const Routes = ({ isAuthorized }: { isAuthorized: boolean }) => {
     const layouts = mainRoutes.map(({ layout: Layout, routes }, index) => {
       const subRoutes = generateFlattenRoutes(routes);
-
       return (
         <ReactRoute key={index} element={<Layout />}>
           {subRoutes.map(({ component: Component, path, name, isPublic }) => {
+            const isAdminPanelPage = path?.includes("/admin-panel");
             return (
               <ReactRoute
                 key={name}
                 element={
                   <ProtectedRoute
-                    isPublic={isPublic}
+                    isPublic={isAdminPanelPage ? false : isPublic}
                     isAuthorized={isAuthorized}
+                    path={path as string}
                   />
                 }
               >

@@ -105,6 +105,7 @@ export const routes = [
         name: "sessions page",
         title: "sessions page",
         component: SessionsPage,
+        isPublic:false,
         path: "/:courseName/:sessionID",
       },
     ],

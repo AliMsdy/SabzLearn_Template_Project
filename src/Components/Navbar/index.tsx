@@ -13,13 +13,13 @@ import { Button, NavigationSection, Overlay } from "..";
 import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
 import { HiMenu } from "react-icons/hi";
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
+import { RiAdminFill } from "react-icons/ri";
 
 function Navbar() {
   const { theme, setTheme } = useThemeContext();
   const { isLoggedIn, userInfos } = useAuthContext();
   const [sidebar, setSidebar] = useState(false);
   const [showUserInfo, setShowUserInfo] = useState(false);
-
 
   return (
     <section className=" mb-8  flex items-center justify-between px-3 lg:justify-normal lg:px-0 ">
@@ -69,13 +69,26 @@ function Navbar() {
               <IoSunnyOutline size={25} />
             )}
           </Button>
-          <Button
-            component="link"
-            to="/#"
-            className="bg-gray-color px-2 text-dark-color"
-          >
-            <FaCartShopping size={25} />
-          </Button>
+          {isLoggedIn ? (
+            userInfos?.role === "ADMIN" ? (
+              <Button
+                component="link"
+                to="/admin-panel"
+                className="bg-gray-color px-2 text-dark-color"
+              >
+                <RiAdminFill size={25} />
+              </Button>
+            ) : (
+              <Button
+                component="link"
+                to="#"
+                className="bg-gray-color px-2 text-dark-color"
+              >
+                <FaCartShopping size={25} />
+              </Button>
+            )
+          ) : null}
+
           {isLoggedIn ? (
             <Button
               variant="unfilled"
