@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useQueryClient } from "@tanstack/react-query";
 import { Fragment, useEffect, useState } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -22,7 +23,6 @@ import { fetchAndUpdateInputList } from "@/utils/fetchAndSetInputListData";
 //context
 import { useAuthContext } from "@/context/AuthContext";
 
-
 //icons
 import { FaPlus } from "react-icons/fa6";
 
@@ -31,7 +31,8 @@ import { AddNewSessionInputTypes, InputListType } from "@/types/shared";
 import type { ObjectSchema } from "yup";
 
 function AddNewSession() {
-  const {token} = useAuthContext()
+  const { token } = useAuthContext();
+  const queryClient = useQueryClient();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
   const [completeInputList, setCompleteInputList] = useState<InputListType[][]>(
     [],
@@ -58,11 +59,11 @@ function AddNewSession() {
     {
       onSuccess: async () => {
         await new Promise((resolve) => setTimeout(resolve, 5000));
-        //   await queryClient.invalidateQueries({
-        //     queryKey: ["Courses"],
-        //   });
+        await queryClient.invalidateQueries({
+          queryKey: ["Sessions"],
+        });
         toast.success("جلسه جدید با موفقیت ساخته شد.");
-        setPreview(null)
+        setPreview(null);
         methods.reset();
       },
       onError: () => {
@@ -74,7 +75,7 @@ function AddNewSession() {
   const onSubmit: SubmitHandler<AddNewSessionInputTypes> = (data) => {
     const formData = new FormData();
     for (const key in data) {
-      if(key === "relatedCourse") continue;
+      if (key === "relatedCourse") continue;
       const value = data[key as keyof AddNewSessionInputTypes];
       value instanceof FileList
         ? formData.append(key, value[0])

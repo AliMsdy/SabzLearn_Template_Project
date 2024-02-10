@@ -189,7 +189,6 @@ const addSessionValidationSchema = yup.object().shape({
       "fileType",
       "فقط فایل‌های ویدیویی با فرمت (mp4 ,mkv ) مجاز هستند",
       function (value) {
-        console.log("value", value);
         if (value instanceof FileList) {
           return ["video/mp4", "video/mkv"].includes(value[0].type);
         } else if (value instanceof File) {
@@ -198,14 +197,14 @@ const addSessionValidationSchema = yup.object().shape({
         return false;
       },
     )
-    .test("fileSize", "حجم فایل باید کمتر از 2 مگابایت باشد", (value) => {
-      if (value instanceof FileList) {
-        return value[0] && value[0].size <= 2 * 1024 * 1024;
-      } else if (value instanceof File) {
-        return value && value.size <= 2 * 1024 * 1024;
-      }
-      return false;
-    }),
+    // .test("fileSize", "حجم فایل باید کمتر از 2 مگابایت باشد", (value) => {
+    //   if (value instanceof FileList) {
+    //     return value[0] && value[0].size <= 2 * 1024 * 1024;
+    //   } else if (value instanceof File) {
+    //     return value && value.size <= 2 * 1024 * 1024;
+    //   }
+    //   return false;
+    // }),
 });
 const addArticleValidationSchema = yup.object().shape({
   title: yup.string().required("فیلد را تکمیل کنید(الزامی)"),

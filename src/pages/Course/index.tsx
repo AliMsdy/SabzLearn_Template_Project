@@ -47,7 +47,6 @@ function CoursePage() {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
-
   if (isLoading) {
     return <Loading />;
   }
@@ -198,7 +197,7 @@ function CoursePage() {
 
               {/* COURSE VIDEOS START */}
               <div className="mt-8">
-                <VideoAccordion sessions={data.sessions} />
+                <VideoAccordion sessions={data.sessions} isUserRegistered={data.isUserRegisteredToThisCourse} />
               </div>
               {/* COURSE VIDEOS END */}
             </div>

@@ -24,6 +24,7 @@ const ArticlePage = importLazyPage("Article", "ArticlePage");
 const CategoryPage = importLazyPage("Category", "CategoryPage");
 const AllCoursesPage = importLazyPage("AllCourses", "AllCoursesPage");
 const AllArticlesPage = importLazyPage("AllArticles", "AllArticlesPage");
+const SessionsPage = importLazyPage("Sessions", "Sessions");
 
 //other pages
 const ContactUs = importLazyPage("ContactUs");
@@ -99,6 +100,12 @@ export const routes = [
         title: "search page",
         component: SearchPage,
         path: "/search/:searchedValue",
+      },
+      {
+        name: "sessions page",
+        title: "sessions page",
+        component: SessionsPage,
+        path: "/:courseName/:sessionID",
       },
     ],
   },
