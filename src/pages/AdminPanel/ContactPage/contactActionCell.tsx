@@ -43,6 +43,9 @@ function ContactActionCell({ row }: { row: Row<ContactUsInputTypes> }) {
   });
   const { mutate: sendResponse } = useMutateCall(["sendResponseToUserEmail"], {
     onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["Contacts"],
+      });
       toast.success("پیام با موفقیت برای کاربر ایمیل شد.");
     },
     onError: () => {

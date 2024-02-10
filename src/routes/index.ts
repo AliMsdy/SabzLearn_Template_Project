@@ -118,7 +118,6 @@ export const routes = [
         title: "AdminPanel",
         component: AdminMainPage,
         path: "/admin-panel",
-        // isPublic: false,
         routes: [
           {
             name: "admin-panel-users",

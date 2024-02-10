@@ -12,12 +12,12 @@ function ContactPage() {
   const { data: messages = [] } = useQueryCall(["Contacts"], {
     url: "/contact",
   });
-
   return (
     <Section>
       <DataTable
         columns={contactColumns}
         data={messages}
+        isLimitedPaddingEnabled={true}
         title={
           <p className="mb-4">
             لیست <span className="text-admin-blue-color">پیام ها</span>

@@ -6,14 +6,27 @@ import { ContactActionCell } from "./contactActionCell";
 //type
 import type { ContactUsInputTypes } from "@/types/shared";
 
+//utils
+import { cn } from "@/lib/utils";
+
 export const contactColumns: ColumnDef<ContactUsInputTypes>[] = [
   {
     accessorKey: "_id",
     header: "شناسه",
     cell: ({ row }) => {
+      // console.log(row.original.answer);
       const amount = parseFloat(row.id);
       const formatted = new Intl.NumberFormat("fa").format(amount + 1);
-      return <div className="text-lg font-medium">{formatted}</div>;
+      return (
+        <div
+          className={cn("text-lg font-medium", {
+            "bg-primary-color": row.original.answer,
+            "bg-red-400": !row.original.answer,
+          })}
+        >
+          {formatted}
+        </div>
+      );
     },
     sortingFn: (a, b) => {
       const aValue = a.index + 1;
@@ -38,13 +51,11 @@ export const contactColumns: ColumnDef<ContactUsInputTypes>[] = [
     accessorKey: "phone",
     header: "شماره تلفن",
     enableSorting: false,
-
   },
   {
     accessorKey: "actions",
     header: "عملیات",
     cell: ContactActionCell,
     enableSorting: false,
-
   },
 ];

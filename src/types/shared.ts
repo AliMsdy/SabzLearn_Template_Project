@@ -79,6 +79,7 @@ type ContactUsInputTypes = {
   email: string;
   phone: string;
   body: string;
+  answer: number;
 };
 
 type UserType = {

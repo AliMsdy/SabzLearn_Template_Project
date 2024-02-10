@@ -27,6 +27,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   title: React.ReactNode;
   isPaginatedTable?: boolean;
+  isLimitedPaddingEnabled:boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -34,6 +35,7 @@ export function DataTable<TData, TValue>({
   data,
   title,
   isPaginatedTable = true,
+  isLimitedPaddingEnabled = false
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
@@ -142,7 +144,10 @@ export function DataTable<TData, TValue>({
                       width: cell.column.getSize(),
                       boxShadow: "inset 0 0 0 1px #424242",
                     }}
-                    className="dark:bg-admin-secondary-dark-color"
+                    className={cn(
+                      "dark:bg-admin-secondary-dark-color",
+                      {" p-1.5": isLimitedPaddingEnabled}
+                    )}
                     key={cell.id}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

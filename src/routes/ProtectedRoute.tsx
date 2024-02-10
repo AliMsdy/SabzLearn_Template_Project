@@ -30,7 +30,7 @@ const ProtectedRoute = ({
   // } else {
   //   return <Navigate to="/login" />;
   // }
-  return isPublic || isAuthorized ? <Outlet /> : <Navigate to="login" />
+  return isPublic || isAuthorized ? <Outlet /> : <Navigate to="/login" />
 };
 
 export { ProtectedRoute };
