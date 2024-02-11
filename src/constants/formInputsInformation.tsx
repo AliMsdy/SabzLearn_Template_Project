@@ -249,6 +249,12 @@ const addMenuValidationSchema = yup.object().shape({
   href: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
   parent: yup.string()
 });
+const addDiscountValidationSchema = yup.object().shape({
+  code: yup.string().min(5,"حداقل تعداد کاراکتر 5 میباشد").required("فیلد را تکمیل کنید(الزامی)"),
+  percent: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  max: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  course:yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+});
 
 //input lists
 
@@ -584,6 +590,50 @@ const addNewMenuInputList = [
     },
   ]
 ]
+const addNewDiscountInputList = [
+  [
+    {
+      name: "code",
+      label: "کد تخفیف",
+      placeholder: "کد تخفیف دلخواه خود را وارد کنید",
+      type: "text",
+      id: "code",
+      isValidationStylesEnabled: false,
+    },
+    
+    {
+      name: "course",
+      label: "دوره مربوطه",
+      element: "select",
+      id: "course",
+      options: [
+        {
+          title: "دروه را انتخاب کنید",
+          value: "",
+          disabled:true,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      name: "percent",
+      label: "درصد تخفیف",
+      placeholder: "درصد تخفیف را وارد کنید",
+      type: "text",
+      id: "percent",
+      isValidationStylesEnabled: false,
+    },
+    {
+      name: "max",
+      label: "حداکثر استفاده",
+      placeholder: "حد اکثر تعداد استفاده از کد  تخفیف را وارد کنید",
+      type: "text",
+      id: "max",
+      isValidationStylesEnabled: false,
+    },
+  ]
+]
 export {
   addArticleValidationSchema,
   addCategoryValidationSchema,
@@ -602,5 +652,7 @@ export {
   registerInputList,
   registerValidationSchema,
   sendCommentSchema,
-  addNewMenuInputList,addMenuValidationSchema
+  addNewMenuInputList,addMenuValidationSchema,
+  addNewDiscountInputList,
+  addDiscountValidationSchema
 };

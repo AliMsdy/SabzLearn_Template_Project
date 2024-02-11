@@ -43,6 +43,15 @@ type CreatorType = {
   username: string;
 };
 
+type DiscountType = {
+  _id:string;
+  code:string;
+  percent:string;
+  max:string;
+  uses:string;
+  creator:string;
+}
+
 type ArticleType = {
   cover: string;
   shortName: string;
@@ -148,6 +157,12 @@ type AddNewSessionInputTypes = {
   video: File | "";
   free: "0" | "1";
 };
+type AddNewDiscountInputTypes = {
+  code: string;
+  percent: string;
+  max: string;
+  course: string;
+};
 
 type radioInputProps = {
   id: string;
@@ -185,4 +200,6 @@ export type {
   SessionType,
   SetState,
   UserType,
+  AddNewDiscountInputTypes,
+  DiscountType
 };

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { FaHome, FaListAlt, FaUsers } from "react-icons/fa";
 import { FaMessage,FaComments  } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
-import { MdArticle, MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { MdArticle, MdKeyboardDoubleArrowRight,MdDiscount  } from "react-icons/md";
 import { PiVideoFill } from "react-icons/pi";
 import { RiMacbookLine } from "react-icons/ri";
 import { BsFillMenuButtonWideFill } from "react-icons/bs";
@@ -32,6 +32,7 @@ const sideBarLinks = [
   { title: "منوها", Icon: BsFillMenuButtonWideFill, link: "/menus" },
   { title: "کامنت ها", Icon: FaComments, link: "/comments" },
   { title: "دسته بندی ها", Icon: FaListAlt, link: "/categories" },
+  { title: "کد های تخفیف", Icon: MdDiscount, link: "/discounts" },
 ];
 
 function Sidebar({ toggleCollapse, setToggleCollapse }: SidebarProps) {
