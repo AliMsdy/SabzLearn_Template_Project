@@ -32,9 +32,6 @@ function UserActionCell({ row }: { row: Row<UserTable> }) {
     onSuccess: () =>
       refetchUsersData("کاربر مورد نظر با موفقیت از سایت بن شد."),
   });
-  // const { mutate: editUserInfo } = useMutateCall(["editUserInfo"], {
-  //   onSuccess: () => refetchUsersData("اطلاعات کاربر با موفقیت آپدیت شد.")
-  // });
   const handleDeleteUser = () => {
     deleteUser({
       url: `/users/${row.original._id}`,
@@ -42,13 +39,6 @@ function UserActionCell({ row }: { row: Row<UserTable> }) {
       headers: { Authorization: `Bearer ${token}` },
     });
   };
-  // const handleEditUser = (data:any) => {
-  //   editUserInfo({
-  //     url: `/users/ban/${row.original._id}`,
-  //     method: "PUT",
-  //     headers: { Authorization: `Bearer ${token}` },
-  //   })
-  // };
   const handleBaneUser = () => {
     banUser({
       url: `/users/ban/${row.original._id}`,

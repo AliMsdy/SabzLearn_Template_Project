@@ -14,7 +14,6 @@ export const contactColumns: ColumnDef<ContactUsInputTypes>[] = [
     accessorKey: "_id",
     header: "شناسه",
     cell: ({ row }) => {
-      // console.log(row.original.answer);
       const amount = parseFloat(row.id);
       const formatted = new Intl.NumberFormat("fa").format(amount + 1);
       return (

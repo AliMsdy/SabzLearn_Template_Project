@@ -4,4 +4,6 @@ export * from "./ContactPage";
 export * from "./Courses";
 export * from "./MainPage";
 export * from "./Users";
+export * from "./Sessions";
 export * from "./Menus";
+export * from "./Comments";

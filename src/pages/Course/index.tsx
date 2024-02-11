@@ -51,7 +51,7 @@ function CoursePage() {
     return <Loading />;
   }
   return (
-      <section className="custom-container">
+      <section className="custom-container px-0 sm:px-8">
         {/* BREADCRUMB START */}
         <BreadCrumb />
         {/* BREADCRUMB END */}
@@ -125,7 +125,7 @@ function CoursePage() {
             </div>
             {/* COURSE PROGRESS END */}
 
-            <div className="course-details mt-8 rounded-md p-6 px-6 shadow-custom dark:bg-dark-theme-secondary dark:shadow-dark-theme sm:px-8">
+            <div className="course-details mt-8 rounded-md p-6 px-3 shadow-custom dark:bg-dark-theme-secondary dark:shadow-dark-theme sm:px-8">
               {/* COURSE DETAILS START */}
               <div>
                 <SectionHeader
@@ -203,7 +203,7 @@ function CoursePage() {
             </div>
 
             {/* COURSE TEACHER START */}
-            <div className="mt-5 rounded-md p-5 shadow-custom dark:bg-dark-theme-secondary dark:shadow-dark-theme">
+            <div className="mt-5 rounded-md p-2 sm:p-5 shadow-custom dark:bg-dark-theme-secondary dark:shadow-dark-theme">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-x-4">
                   <img
@@ -239,9 +239,9 @@ function CoursePage() {
               </p>
             </div>
             {/* COURSE TEACHER END */}
-            {/* COMMENT SECTION START */}
 
-            <div className="mt-8 rounded-md p-5 shadow-custom dark:bg-dark-theme-secondary dark:shadow-dark-theme">
+            {/* COMMENT SECTION START */}
+            <div className="mt-8 rounded-md p-2 sm:p-5 shadow-custom dark:bg-dark-theme-secondary dark:shadow-dark-theme">
               <div className="flex items-center gap-3">
                 <Button>
                   <FaRegComment size={25} />

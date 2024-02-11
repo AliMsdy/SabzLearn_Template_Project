@@ -18,7 +18,7 @@ function Sessions() {
         <Section className="mt-8 font-bold">
         <DataTable
           columns={sessionColumns}
-          data={sessions.reverse()}
+          data={sessions}
           title={
             <p className="mb-4">
               لیست <span className="text-admin-blue-color">آخرین جلسات </span> افزوده شده 

@@ -79,7 +79,6 @@ function ContactActionCell({ row }: { row: Row<ContactUsInputTypes> }) {
       <Modal
         DialogTriggerElement={<Button>مشاهده پیام</Button>}
         title="پیغام ارسالی از سوی کاربر"
-        // clickHandler={handleResponseToMessage}
       >
         <mark className="-mb-2 w-fit rounded-md bg-admin-blue-color p-1 text-white">
           پیغام ارسالی:{" "}

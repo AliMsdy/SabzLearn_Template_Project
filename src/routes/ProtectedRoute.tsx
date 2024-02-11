@@ -19,7 +19,6 @@ const ProtectedRoute = ({
   // if (isPublic) {
   //   return <Outlet />;
   // } else if (isAuthorized) { // isAuthorized means if user logged In or not...
-  //   console.log("hello");
   //   if (!isAdminPanelPage) {
   //     return <Outlet />;
   //   } else if (userRole === "ADMIN") {

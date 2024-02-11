@@ -15,7 +15,7 @@ type LandingCountUptype = {
   numberValue: number;
   subTitle: string;
   svgSrc: string;
-  key:string;
+  key: string;
 };
 
 type CourseType = {
@@ -34,7 +34,14 @@ type CourseType = {
   };
 };
 
-
+type CreatorType = {
+  _id: string;
+  name: string;
+  role: string;
+  profile: string;
+  email: string;
+  username: string;
+};
 
 type ArticleType = {
   cover: string;
@@ -42,23 +49,19 @@ type ArticleType = {
   title: string;
   description: string;
   _id: string;
-  creator: {
-    name: string;
-    role: string;
-    profile: string;
-  };
+  creator: CreatorType;
 };
 
 type SessionType = {
-  _id:string;
-  title:string;
-  course:{
-    _id:string;
-    name:string;
-  }
-  time:string;
-  free:"0" | "1"
-}
+  _id: string;
+  title: string;
+  course: {
+    _id: string;
+    name: string;
+  };
+  time: string;
+  free: "0" | "1";
+};
 
 type RegisterInputTypes = {
   name: string;
@@ -102,21 +105,22 @@ type LinkType = {
 };
 
 type MenusType = {
-  _id:string;
-  title:string;
-  href:string;
-  parent:MenusType
-}
+  _id: string;
+  title: string;
+  href: string;
+  parent: MenusType;
+};
 
 type CommentType = {
   _id: string;
   title: string;
-  creator: {
-    name: string;
-    role: string;
-  };
+  course: string;
+  creator: CreatorType;
+  answerContent: (Omit<CommentType, "course"> & { course: CourseType }) | null;
   body: string;
   createdAt: string;
+  answer: number;
+  isAnswer: number;
 };
 
 type AddNewCourseInputTypes = {
@@ -160,7 +164,7 @@ type InputListType = InputHTMLAttributes<HTMLInputElement> &
     start?: radioInputProps;
     withMoney?: radioInputProps;
     free?: radioInputProps;
-    isValidationStylesEnabled?:boolean;
+    isValidationStylesEnabled?: boolean;
   };
 
 export type {
@@ -173,12 +177,12 @@ export type {
   ContactUsInputTypes,
   CourseType,
   InputListType,
+  LandingCountUptype,
   LinkType,
   LoginInputTypes,
+  MenusType,
   RegisterInputTypes,
+  SessionType,
   SetState,
   UserType,
-  SessionType,
-  LandingCountUptype,
-  MenusType
 };

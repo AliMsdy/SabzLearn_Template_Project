@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 //icons
 import { FaHome, FaListAlt, FaUsers } from "react-icons/fa";
-import { FaMessage } from "react-icons/fa6";
+import { FaMessage,FaComments  } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
 import { MdArticle, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { PiVideoFill } from "react-icons/pi";
@@ -24,20 +24,13 @@ type SidebarProps = {
 //adminPanelLinks
 const sideBarLinks = [
   { title: "داشبورد", Icon: FaHome, link: "" },
-  // { title: "فروش", Icon: FaChartLine, link: "/sales" },
   { title: "دوره ها", Icon: RiMacbookLine, link: "/courses" },
   { title: "کاربران", Icon: FaUsers, link: "/users" },
   { title: "پیام ها", Icon: FaMessage, link: "/contacts" },
   { title: "مقالات", Icon: MdArticle, link: "/articles" },
   { title: "جلسات", Icon: PiVideoFill, link: "/sessions" },
   { title: "منوها", Icon: BsFillMenuButtonWideFill, link: "/menus" },
-  // { title: "افزودن کاربر جدید", Icon: FaUserPlus, link: "/add-user" },
-  // { title: "محصولات", Icon: FaShoppingCart, link: "/products" },
-  // { title: "افزودن محصول جدید", Icon: FaCartPlus, link: "/add-product" },
-  // { title: "گزارش ها", Icon: FaChartBar, link: "/reports" },
-  // { title: "ایمیل", Icon: FaEnvelope, link: "/emails" },
-  // { title: "پیام ها", Icon: FaCommentAlt, link: "/messages" },
-  // { title: "گزارش", Icon: FaExclamationCircle, link: "/report" },
+  { title: "کامنت ها", Icon: FaComments, link: "/comments" },
   { title: "دسته بندی ها", Icon: FaListAlt, link: "/categories" },
 ];
 
