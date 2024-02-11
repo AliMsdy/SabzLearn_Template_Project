@@ -27,7 +27,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   title: React.ReactNode;
   isPaginatedTable?: boolean;
-  isLimitedPaddingEnabled:boolean;
+  isLimitedPaddingEnabled?:boolean;
 }
 
 export function DataTable<TData, TValue>({

@@ -8,6 +8,7 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { MdArticle, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { PiVideoFill } from "react-icons/pi";
 import { RiMacbookLine } from "react-icons/ri";
+import { BsFillMenuButtonWideFill } from "react-icons/bs";
 
 //types
 import { useAuthContext } from "@/context/AuthContext";
@@ -29,6 +30,7 @@ const sideBarLinks = [
   { title: "پیام ها", Icon: FaMessage, link: "/contacts" },
   { title: "مقالات", Icon: MdArticle, link: "/articles" },
   { title: "جلسات", Icon: PiVideoFill, link: "/sessions" },
+  { title: "منوها", Icon: BsFillMenuButtonWideFill, link: "/menus" },
   // { title: "افزودن کاربر جدید", Icon: FaUserPlus, link: "/add-user" },
   // { title: "محصولات", Icon: FaShoppingCart, link: "/products" },
   // { title: "افزودن محصول جدید", Icon: FaCartPlus, link: "/add-product" },

@@ -34,6 +34,8 @@ type CourseType = {
   };
 };
 
+
+
 type ArticleType = {
   cover: string;
   shortName: string;
@@ -98,6 +100,13 @@ type LinkType = {
   href: string;
   submenus: LinkType[] | [];
 };
+
+type MenusType = {
+  _id:string;
+  title:string;
+  href:string;
+  parent:MenusType
+}
 
 type CommentType = {
   _id: string;
@@ -170,5 +179,6 @@ export type {
   SetState,
   UserType,
   SessionType,
-  LandingCountUptype
+  LandingCountUptype,
+  MenusType
 };

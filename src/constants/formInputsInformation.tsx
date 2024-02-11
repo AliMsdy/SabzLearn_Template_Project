@@ -244,6 +244,11 @@ const addArticleValidationSchema = yup.object().shape({
     }),
   body: yup.string().required("مقاله نمیتواند بدون محتوا باشد..."),
 });
+const addMenuValidationSchema = yup.object().shape({
+  title: yup.string().min(5,"حداقل تعداد کاراکتر 5 میباشد").required("فیلد را تکمیل کنید(الزامی)"),
+  href: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  parent: yup.string()
+});
 
 //input lists
 
@@ -543,6 +548,42 @@ const addNewSessionInputList = [
     },
   ],
 ];
+
+const addNewMenuInputList = [
+  [
+    {
+      name: "title",
+      label: "عنوان منو",
+      placeholder: "عنوان منو را وارد کنید",
+      type: "text",
+      id: "title",
+      isValidationStylesEnabled: false,
+    },
+    {
+      name: "parent",
+      label: "منوی اصلی",
+      element: "select",
+      id: "parent",
+      options: [
+        {
+          title: "منوی اصلی را انتخاب کنید",
+          value: "",
+          disabled:true,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      name: "href",
+      label: "آدرس منو",
+      placeholder: "عنوان منو را وارد کنید",
+      type: "text",
+      id: "href",
+      isValidationStylesEnabled: false,
+    },
+  ]
+]
 export {
   addArticleValidationSchema,
   addCategoryValidationSchema,
@@ -561,4 +602,5 @@ export {
   registerInputList,
   registerValidationSchema,
   sendCommentSchema,
+  addNewMenuInputList,addMenuValidationSchema
 };
