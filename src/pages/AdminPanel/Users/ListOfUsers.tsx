@@ -27,8 +27,7 @@ function ListOfUsers() {
         data={users}
         title={
           <p className="mb-4">
-            افراد اخیرا <span className="text-admin-blue-color ">ثبت نام</span>{" "}
-            شده
+            افراد<span className="text-admin-blue-color ">ثبت نام</span> شده
           </p>
         }
       />

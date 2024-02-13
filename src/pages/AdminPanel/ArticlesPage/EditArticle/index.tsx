@@ -202,7 +202,6 @@ function EditArticle() {
       setModel(fetchedArticleData.body);
     }
   }, [fetchedArticleData, isArticleDataFetching]); //eslint-disable-line
-  console.log("this is formData", methods.watch());
   useEffect(() => {
     //adding the categories fetched from api to the select input list
     fetchAndUpdateInputList(
