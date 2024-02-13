@@ -33,11 +33,6 @@ function Modal({
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
         {children}
-        {/* <DialogFooter className="mt-4">
-          <DialogClose asChild>
-          <Button type="submit">ذخیره تغییرات</Button>
-          </DialogClose>
-        </DialogFooter> */}
       </DialogContent>
     </Dialog>
   );

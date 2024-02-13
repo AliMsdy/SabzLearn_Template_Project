@@ -65,7 +65,7 @@ function VideoAccordion({
                     {title}
                   </Link>
                 ) : (
-                  <span className=" text-xs sm:text-base">{title}</span>
+                  <span className=" text-xs sm:text-base text-[#464749]">{title}</span>
                 )}
               </div>
               <span className="flex items-center justify-between  gap-1 text-[#7a7a7a] dark:text-white sm:gap-3 ">

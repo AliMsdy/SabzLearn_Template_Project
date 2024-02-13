@@ -256,6 +256,11 @@ const addDiscountValidationSchema = yup.object().shape({
   course:yup.string().required("فیلد را تکمیل کنید(الزامی)"),
 });
 
+const registerToCourseWithOffCodeValidationSchema =  yup.object().shape({ 
+  offCode:yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+
+})
+
 //input lists
 
 const registerInputList: RegisterInputItem[] = [
@@ -654,5 +659,6 @@ export {
   sendCommentSchema,
   addNewMenuInputList,addMenuValidationSchema,
   addNewDiscountInputList,
-  addDiscountValidationSchema
+  addDiscountValidationSchema,
+  registerToCourseWithOffCodeValidationSchema
 };
