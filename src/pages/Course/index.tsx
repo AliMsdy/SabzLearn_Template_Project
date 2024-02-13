@@ -1,6 +1,7 @@
 import { registerToCourseWithOffCodeValidationSchema } from "@/constants/formInputsInformation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -45,13 +46,11 @@ import {
 //api
 import { useMutateCall, useQueryCall } from "@/hooks";
 
-//list
-import { relatedCoursesList } from "@/shared/Lists";
 //context
 import { useAuthContext } from "@/context/AuthContext";
 
 //type
-import { CommentType } from "@/types/shared";
+import { CommentType, CourseType } from "@/types/shared";
 import { AxiosError } from "axios";
 type registerToCourseInputType = {
   offCode: string;
@@ -61,6 +60,7 @@ function CoursePage() {
   const { courseName } = useParams();
   const { token } = useAuthContext();
   const queryClient = useQueryClient();
+  const [isShortLinkCopied, setIsShortLinkCopied] = useState(false);
   const methods = useForm<registerToCourseInputType>({
     resolver: yupResolver(registerToCourseWithOffCodeValidationSchema),
     defaultValues: {
@@ -78,8 +78,8 @@ function CoursePage() {
   const { mutate: checkOffCode } = useMutateCall(
     ["checkOffCodeForRegistration"],
     {
-      onSuccess: async (data:any) => {
-        const offCodePercent = +data.data.percent
+      onSuccess: async (data: any) => {
+        const offCodePercent = +data.data.percent;
         registerToCourse({
           url: `/courses/${courseData._id}/register`,
           data: { price: courseData.price * (offCodePercent / 100) },
@@ -88,13 +88,13 @@ function CoursePage() {
           },
         });
       },
-      onError: (error:AxiosError) => {
-        if(error.status === 404){
-          toast.error("کد وارد شده معتبر نیست")
-        }else if(error.status === 409){
-          toast.error("کد وارد شده قبلا استفاده شده است")
-        }else{
-          toast.error((error.response?.data as any).message)
+      onError: (error: AxiosError) => {
+        if (error.status === 404) {
+          toast.error("کد وارد شده معتبر نیست");
+        } else if (error.status === 409) {
+          toast.error("کد وارد شده قبلا استفاده شده است");
+        } else {
+          toast.error((error.response?.data as any).message);
         }
         console.log("errorData", error);
       },
@@ -109,6 +109,12 @@ function CoursePage() {
       },
     },
   );
+  const { data: relatedCourses = [] } = useQueryCall(
+    ["RelatedCourses", courseName],
+    {
+      url: `/courses/related/${courseName}`,
+    },
+  );
 
   const handleRegisterToCourse = () => {
     registerToCourse({
@@ -120,7 +126,9 @@ function CoursePage() {
     });
   };
 
-  const handleRegisterUserToCourseWithOffCode: SubmitHandler<registerToCourseInputType> = (data) => {
+  const handleRegisterUserToCourseWithOffCode: SubmitHandler<
+    registerToCourseInputType
+  > = (data) => {
     checkOffCode({
       url: `/offs/${data.offCode}`,
       data: { course: courseData._id },
@@ -408,21 +416,19 @@ function CoursePage() {
                         isValidationStylesEnabled={false}
                       />
                       <div className="mt-4 flex justify-around gap-x-2">
-                        <Button
-                          className="bg-cyan-700"
-                        >
+                        <Button className="bg-cyan-700">
                           ثبت نام با کد تخفیف
                         </Button>
                         <DialogFooter>
-                        <DialogClose asChild>
-                        <Button
-                          type="button"
-                          onClick={handleRegisterToCourse}
-                          className="bg-teal-600"
-                        >
-                          ثبت نام
-                        </Button>
-                        </DialogClose>
+                          <DialogClose asChild>
+                            <Button
+                              type="button"
+                              onClick={handleRegisterToCourse}
+                              className="bg-teal-600"
+                            >
+                              ثبت نام
+                            </Button>
+                          </DialogClose>
                         </DialogFooter>
                       </div>
                     </form>
@@ -469,9 +475,24 @@ function CoursePage() {
                 </>
               }
             >
-              <div className="rounded-lg border border-solid border-gray-400 p-2">
+              <div className="flex items-center justify-between rounded-lg border border-solid border-gray-400 p-2">
+                <Button
+                  variant="unfilled"
+                  className="p-2"
+                  onClick={() => {
+                    navigator.clipboard
+                      .writeText(
+                        `https://sabzlearn.ir/course-info/${courseData.shortName}`,
+                      )
+                      .then(() => {
+                        setIsShortLinkCopied(true);
+                      });
+                  }}
+                >
+                  {isShortLinkCopied ? "کپی شد" : "کپی لینک"}
+                </Button>
                 <span className="text-sm text-[#a7a7a7] dark:text-white">
-                  https://sabzlearn.ir/?p=117472
+                  https://sabzlearn.ir/course-info/{courseData.shortName}
                 </span>
               </div>
             </SidebarBox>
@@ -481,7 +502,7 @@ function CoursePage() {
             <SidebarBox title="سرفصل های دوره">
               <p>
                 برای مشاهده و یا دانلود دوره روی کلمه{" "}
-                <Link className="text-[#0000ff]" to="/#">
+                <Link className="text-[#0000ff]" to="/">
                   لینک
                 </Link>{" "}
                 کلیک کنید
@@ -490,22 +511,33 @@ function CoursePage() {
             {/* COURSE SEASONS END */}
 
             {/* RELATED COURSES START  */}
-            <SidebarBox title="دوره های مرتبط">
-              <div className="flex flex-col gap-y-5">
-                {relatedCoursesList.map(({ title, imgSrc }) => (
-                  <Link
-                    key={title}
-                    to="/#"
-                    className="flex items-center gap-x-3"
-                  >
-                    <img className="w-20 rounded-lg" src={imgSrc} alt="" />
-                    <span className="text-sm text-[#8d8d8d] dark:text-white">
-                      {title}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </SidebarBox>
+            {relatedCourses.length !== 0 && (
+              <SidebarBox title="دوره های مرتبط">
+                <div className="flex flex-col gap-y-5">
+                  {relatedCourses.map(
+                    ({ name, cover, shortName }: CourseType) => (
+                      <Link
+                        key={name}
+                        to={`/course-info/${shortName}`}
+                        className="flex items-center gap-x-3"
+                      >
+                        <img
+                          className="w-20 rounded-lg"
+                          src={`${
+                            import.meta.env.VITE_SITE_DOMAIN
+                          }/courses/covers/${cover}`}
+                          alt="related-courses"
+                        />
+                        <span className="text-sm text-[#8d8d8d] dark:text-white">
+                          {name}
+                        </span>
+                      </Link>
+                    ),
+                  )}
+                </div>
+              </SidebarBox>
+            )}
+
             {/* RELATED COURSES END  */}
           </div>
         </aside>

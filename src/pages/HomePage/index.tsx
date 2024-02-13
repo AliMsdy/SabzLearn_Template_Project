@@ -49,6 +49,12 @@ function HomePage() {
   const { data: articles = [] } = useQueryCall(["Articles"], {
     url: "/articles",
   });
+  const { data: popularCourses = [] } = useQueryCall(["PopularCourses"], {
+    url: `/courses/popular`,
+  });
+  const { data: presellCourses = [] } = useQueryCall(["PresellCourses"], {
+    url: `/courses/presell`,
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -168,7 +174,7 @@ function HomePage() {
           <div className="mt-16">
             <SectionHeader title="محبوبترین دوره ها" />
           </div>
-          <Slider list={courses} />
+          <Slider list={popularCourses} />
         </section>
         {/* MOST POPULAR COURSES START */}
         {/* PRE-SALE COURSES START */}
@@ -176,7 +182,7 @@ function HomePage() {
           <div className="mt-16">
             <SectionHeader title="دوره های در حال پیش فروش" />
           </div>
-          <Slider list={courses} />
+          <Slider list={presellCourses} />
         </section>
         {/* PRE-SALE COURSES END */}
 
@@ -198,9 +204,12 @@ function HomePage() {
           </div>
 
           <div className="mt-8 grid grid-cols-1  gap-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.filter((article:ArticleType) => article.publish).slice(0, 3).map((article: ArticleType) => (
-              <ArticleBox key={article._id} {...article} />
-            ))}
+            {articles
+              .filter((article: ArticleType) => article.publish)
+              .slice(0, 3)
+              .map((article: ArticleType) => (
+                <ArticleBox key={article._id} {...article} />
+              ))}
           </div>
         </section>
         {/* ARTICLE SECTION END */}
@@ -210,4 +219,3 @@ function HomePage() {
 }
 
 export { HomePage };
-

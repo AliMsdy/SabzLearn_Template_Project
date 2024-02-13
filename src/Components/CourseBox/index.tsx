@@ -23,7 +23,6 @@ function CourseBox({
   courseAverageScore,
   isForSlider,
 }: CourseType) {
-  console.log("courseAverageScore",courseAverageScore)
   const ShimmerImage = Image as any as React.ComponentClass<ImageProps>;
   return (
     <div

@@ -1,14 +1,20 @@
+import DOMPurify from "dompurify";
 import { Link, useParams } from "react-router-dom";
-import DOMPurify from 'dompurify';
 //components
-import { BreadCrumb, Loading, SendCommentBox, SidebarBox,ArticleDetail } from "@/Components";
+import {
+  ArticleDetail,
+  BreadCrumb,
+  Loading,
+  SendCommentBox,
+  SidebarBox,
+} from "@/Components";
 
 //svg
 import StarUnfilled from "/images/svgs/star.svg";
 import StarFilled from "/images/svgs/star_fill.svg";
 
 //icons
-import { navLinks, relatedCoursesList, socialList } from "@/shared/Lists";
+import { socialList } from "@/shared/Lists";
 import {
   FaAngleLeft,
   FaArrowLeft,
@@ -21,7 +27,8 @@ import {
 //api
 import { useQueryCall } from "@/hooks";
 
-
+//type
+import { CourseType, LinkType } from "@/types/shared";
 
 const headingList = [
   { title: "معرفی بهترین سایت ‌های آموزش جاوا اسکریپت:", path: "/#" },
@@ -38,6 +45,14 @@ function ArticlePage() {
   const { data, isLoading } = useQueryCall(["ArticleInfo", articleName], {
     url: `/articles/${articleName}`,
   });
+
+  const { data: popularCourses = [] } = useQueryCall(["PopularCourses"], {
+    url: `/courses/popular`,
+  });
+  const { data: mainMenus = [] } = useQueryCall(["MainMenus"], {
+    url: `/menus`,
+  });
+
   if (isLoading) {
     return <Loading />;
   }
@@ -53,9 +68,7 @@ function ArticlePage() {
         <div className="col-span-12 lg:col-span-8">
           {/* BLOG CONTENT START */}
           <div className="blog-content rounded-lg p-6 px-6 shadow-custom dark:bg-dark-theme-secondary dark:shadow-dark-theme sm:px-8">
-            <h1>
-              {data.title}
-            </h1>
+            <h1>{data.title}</h1>
             {/* ARTICLE DETAIL START */}
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-4 text-[0.8rem]">
               <ArticleDetail
@@ -74,7 +87,9 @@ function ArticlePage() {
             {/* ARTICLE DETAIL START */}
 
             <img
-              src={`${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/${data.cover}`}
+              src={`${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/${
+                data.cover
+              }`}
               alt="article-cover"
             />
             {/* STARS START */}
@@ -107,7 +122,11 @@ function ArticlePage() {
               </div>
             </div>
             {/* LINK ACCESS END */}
-            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.body) }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(data.body),
+              }}
+            />
 
             {/* SHARE ARTICLE START */}
             <div className="mt-12 flex items-center gap-x-4">
@@ -167,20 +186,28 @@ function ArticlePage() {
         <div className="col-span-4 hidden lg:block">
           <div className="sticky top-4 space-y-6">
             {/* BEST COURSES SECTION START  */}
-            <SidebarBox badge title="پر امتیازترین دوره ها">
+            <SidebarBox badge title="دوره های محبوب">
               <div className="flex flex-col gap-y-5">
-                {relatedCoursesList.map(({ title, imgSrc }) => (
-                  <Link
-                    key={title}
-                    to="/#"
-                    className="flex items-center gap-x-3"
-                  >
-                    <img className="w-20 rounded-lg" src={imgSrc} alt="" />
-                    <span className="text-sm text-[#8d8d8d] dark:text-white">
-                      {title}
-                    </span>
-                  </Link>
-                ))}
+                {popularCourses
+                  .slice(0, 5)
+                  .map(({ name, cover, shortName }: CourseType) => (
+                    <Link
+                      key={name}
+                      to={`/course-info/${shortName}`}
+                      className="flex items-center gap-x-3"
+                    >
+                      <img
+                        className="w-20 rounded-lg"
+                        src={`${
+                          import.meta.env.VITE_SITE_DOMAIN
+                        }/courses/covers/${cover}`}
+                        alt="course-image"
+                      />
+                      <span className="text-sm text-[#8d8d8d] dark:text-white">
+                        {name}
+                      </span>
+                    </Link>
+                  ))}
               </div>
             </SidebarBox>
             {/* BEST COURSES SECTION END  */}
@@ -188,11 +215,11 @@ function ArticlePage() {
             {/* QUICK ACCESS START */}
             <SidebarBox title="دسترسی سریع" badge>
               <div className="mt-1">
-                {navLinks.map(({ title }) => (
+                {mainMenus.map(({ title, href }: LinkType) => (
                   <Link
                     className="group flex items-center gap-x-4 border-b-[1.5px] border-solid border-[#eeeeee;] py-2 text-sm transition-all duration-300 last:border-b-0 hover:bg-[#f8f9fa] hover:pr-3 dark:rounded-md dark:border-b-0 dark:hover:bg-dark-theme-primary"
                     key={title}
-                    to="/#"
+                    to={`/category-info/${href}`}
                   >
                     <FaAngleLeft className="group-hover:text-primary-color " />
                     {title}
@@ -211,7 +238,6 @@ function ArticlePage() {
                     key={i}
                     to="/#"
                   >
-                    {/* <FaAngleLeft className="group-hover:text-primary-color " /> */}
                     <span>
                       نحوه نصب کتابخانه در پایتون | آموزش نصب کتابخانه پایتون
                     </span>
@@ -224,11 +250,11 @@ function ArticlePage() {
             {/* ARTICLE CATEGORY START */}
             <SidebarBox title="دسته بندی مقالات" badge>
               <div className="mt-1">
-                {navLinks.map(({ title }) => (
+                {mainMenus.map(({ title, href }: LinkType) => (
                   <Link
                     className="group flex items-center gap-x-4 border-b-[1.5px] border-solid border-[#eeeeee;] py-2 text-sm transition-all duration-300 last:border-b-0 hover:bg-[#f8f9fa] hover:pr-3 dark:rounded-md dark:border-b-0 dark:hover:bg-dark-theme-primary"
                     key={title}
-                    to="/#"
+                    to={`/category-info/${href}`}
                   >
                     <FaAngleLeft className="group-hover:text-primary-color " />
                     {title}
@@ -237,23 +263,6 @@ function ArticlePage() {
               </div>
             </SidebarBox>
             {/* ARTICLE CATEGORY END */}
-
-            {/* NEW COURSES START */}
-            <SidebarBox title="دوره های جدید" badge>
-              <div className="mt-1">
-                {navLinks.map(({ title }) => (
-                  <Link
-                    className="group flex items-center gap-x-4 border-b-[1.5px] border-solid border-[#eeeeee;] py-2 text-sm transition-all duration-300 last:border-b-0 hover:bg-[#f8f9fa] hover:pr-3 dark:rounded-md dark:border-b-0 dark:hover:bg-dark-theme-primary"
-                    key={title}
-                    to="/#"
-                  >
-                    <FaAngleLeft className="group-hover:text-primary-color " />
-                    {title}
-                  </Link>
-                ))}
-              </div>
-            </SidebarBox>
-            {/* NEW COURSES END */}
           </div>
         </div>
         {/* LEFT SECTION END */}
@@ -262,7 +271,5 @@ function ArticlePage() {
     </section>
   );
 }
-
-
 
 export { ArticlePage };

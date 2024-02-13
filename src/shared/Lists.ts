@@ -49,63 +49,6 @@ const socialList = [
   { Icon: FaTwitter, path: "/#" },
   { Icon: FaFacebookF, path: "/#" },
 ];
-const relatedCoursesList = [
-  {
-    title: "پروژه های تخصصی با جاوااسکریپت",
-    imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/js_project.png`,
-  },
-  {
-    title: "تعیین قیمت پروژه های فریلنسری",
-    imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/freelancer.png`,
-  },
-  {
-    title: "دوره Api نویسی",
-    imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/nodejs.png`,
-  },
-  {
-    title: "متخصص جنگو",
-    imgSrc: `${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/jango.png`,
-  },
-];
-const navLinks = [
-  { title: "صفحه اصلی", children: [], path: "/" },
-  {
-    title: "فرانت اند",
-    children: [
-      { title: "آموزش Html", path: "/html-course" },
-      { title: "آموزش Css", path: "/css/course" },
-      { title: "آموزش جاوااسکریپت", path: "/#" },
-      { title: "آموزش FlexBox", path: "/#" },
-      { title: "آموزش جامع ریکت", path: "/#" },
-    ],
-  },
-  {
-    title: "امنیت",
-    children: [
-      { title: "آموزش کالی لینوکس", path: "/#" },
-      { title: "آموزش پایتون سیاه", path: "/#" },
-      { title: "آموزش جاوااسکریپت سیاه", path: "/#" },
-      { title: "آموزش شبکه", path: "/#" },
-    ],
-  },
-  {
-    title: "مقالات",
-    children: [
-      { title: "توسعه وب ", path: "/#" },
-      { title: "جاوااسکریپت", path: "/#" },
-      { title: "فرانت اند", path: "/#" },
-    ],
-  },
-  {
-    title: "پایتون",
-    children: [
-      { title: "دوره متخصص پایتون", path: "/#" },
-      { title: "دوره هوش مصنوعی با پایتون", path: "/#" },
-      { title: "دوره متخصص جنگو", path: "/#" },
-    ],
-  },
-  { title: "مهارت های نرم", children: [], path: "/#" },
-];
 
 const SendCommentRules = [
   "اگر نیاز به پشتیبانی دوره دارید از قسمت پرسش سوال در قسمت نمایش آنلاین استفاده نمایید و سوالات مربوط به رفع اشکال تایید نخواهید شد",
@@ -118,7 +61,5 @@ export {
   LandingSvgList,
   SabzlearnFeatures,
   SendCommentRules,
-  navLinks,
-  relatedCoursesList,
   socialList,
 };
