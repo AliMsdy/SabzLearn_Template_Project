@@ -40,6 +40,11 @@ export const articleColumns: ColumnDef<ArticleType>[] = [
     header: "نویسنده",
   },
   {
+    accessorKey: "publish",
+    header: "وضعیت مقاله",
+    cell: ({row}) => row.original.publish === 1 ? "منتشر شده" : "پیش نویس" 
+  },
+  {
     accessorKey: "actions",
     header: "عملیات",
     cell: ArticleActionCell,

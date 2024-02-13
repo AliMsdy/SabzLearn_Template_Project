@@ -37,13 +37,14 @@ function ArticleActionCell({ row }: { row: Row<ArticleType> }) {
   };
 
   return (
-    <div className="flex justify-evenly gap-2">
-      <AlertDialog
-        message="آیا از حذف مقاله مطمئن هستید؟"
-        clickHandler={handleDeleteArticle}
-        AlertTrigger={<Button className="bg-red-600">حذف</Button>}
-      />
-    </div>
+      <div className="flex justify-evenly gap-2">
+        <AlertDialog
+          message="آیا از حذف مقاله مطمئن هستید؟"
+          clickHandler={handleDeleteArticle}
+          AlertTrigger={<Button className="bg-red-600">حذف</Button>}
+        />
+        <Button className="bg-sky-700" component="link" to={`/admin-panel/articles/${row.original.shortName}`}>ویرایش</Button>
+      </div>
   );
 }
 

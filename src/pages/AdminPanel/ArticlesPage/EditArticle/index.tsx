@@ -4,10 +4,9 @@ import {
 } from "@/constants/formInputsInformation";
 import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
-import useFormPersist from "react-hook-form-persist";
+// import useFormPersist from "react-hook-form-persist";
 import { toast } from "react-toastify";
 //icons
 import { FaPlus } from "react-icons/fa6";
@@ -25,7 +24,7 @@ import {
   Section,
   TextEditor,
 } from "@/Components/AdminPanel";
-import { ArticlePreview } from "./ArticlePreview";
+import { ArticlePreview } from "../ArticlePreview";
 
 //type
 import { AddNewArticleInputTypes, InputListType } from "@/types/shared";
@@ -33,34 +32,75 @@ import type { ObjectSchema } from "yup";
 
 //utils
 import { fetchAndUpdateInputList } from "@/utils/fetchAndSetInputListData";
+import { useNavigate, useParams } from "react-router-dom";
 
-function AddNewArticle() {
+const convertImageSourceToDataUrlAndFile = async (
+  imageUrl: string,
+  fileName: string,
+) => {
+  try {
+    // Fetch the image data
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+
+    // Convert the image blob to data URL
+    const dataUrl = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(blob);
+    });
+
+    // Convert blob to File
+    const file = new File([blob], fileName || "image", { type: blob.type });
+
+    return { dataUrl, file };
+  } catch (error) {
+    console.error("Error converting image source to data URL and File:", error);
+    throw error;
+  }
+};
+
+function EditArticle() {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
   const [open, setOpen] = useState(false);
-  const [model, setModel] = useState(() => {
-    return JSON.parse(localStorage.getItem("formData")!)?.body || "";
+  const navigate = useNavigate();
+  const methods = useForm<AddNewArticleInputTypes>({
+    resolver: yupResolver(
+      addArticleValidationSchema as ObjectSchema<AddNewArticleInputTypes>,
+    ),
+    defaultValues: {
+      title: "",
+      description: "",
+      categoryID: "",
+      shortName: "",
+      cover: "",
+      body: "",
+    },
   });
+  const [model, setModel] = useState("");
   const [showArticlePreview, setShowArticlePreview] = useState(false);
   const [completeInputList, setCompleteInputList] = useState<InputListType[][]>(
     [],
   );
   const { token } = useAuthContext();
-  const queryClient = useQueryClient();
-  const { data: categories = [], isLoading } = useQueryCall(["Categories"], {
+  const { shortName } = useParams();
+  const { data: categories = [], isLoading:isCategoriesFetching } = useQueryCall(["Categories"], {
     url: "/category",
   });
+  const { data: fetchedArticleData = {}, isLoading: isArticleDataFetching } =
+    useQueryCall(["Article", shortName], {
+      url: `/articles/${shortName}`,
+    });
   const { mutate: addNewArticle, isPending } = useMutateCall(
     ["publishArticle"],
     {
       onSuccess: async () => {
         await new Promise((resolve) => setTimeout(resolve, 5000));
-        await queryClient.invalidateQueries({
-          queryKey: ["Articles"],
-        });
         toast.success("مقاله مورد نظر با موفقیت ساخته شد.");
         setPreview(null); // delete article preview image
-        clear(); // remove article data from localStorage
         setModel(""); // set the TextEditor state to empty state
+        navigate("/admin-panel/articles");
         methods.reset();
       },
       onError: () => {
@@ -75,27 +115,6 @@ function AddNewArticle() {
     onError: () => {
       toast.error("پیش نویس کردن مقاله با مشکلی مواجه شد.");
     },
-  });
-  const methods = useForm<AddNewArticleInputTypes>({
-    resolver: yupResolver(
-      addArticleValidationSchema as ObjectSchema<AddNewArticleInputTypes>,
-    ),
-    defaultValues: {
-      title: "",
-      description: "",
-      categoryID: "",
-      shortName: "",
-      cover: "",
-      body: "",
-    },
-  });
-
-  const { watch, setValue } = methods;
-  const { clear } = useFormPersist("formData", {
-    watch,
-    setValue,
-    storage: window.localStorage, // default window.sessionStorage
-    exclude: ["cover"],
   });
   const handleAddArticle = () => {
     if (methods.formState.isValid) {
@@ -113,7 +132,9 @@ function AddNewArticle() {
       const value = data[key as keyof AddNewArticleInputTypes];
       value instanceof FileList
         ? formData.append(key, value[0])
-        : formData.append(key, value as string);
+        : value instanceof File
+          ? formData.append(key, value)
+          : formData.append(key, value as string);
     }
     addNewArticle({
       url: "/articles",
@@ -132,7 +153,9 @@ function AddNewArticle() {
         const value = formInputsData[key as keyof AddNewArticleInputTypes];
         value instanceof FileList
           ? formData.append(key, value[0])
-          : formData.append(key, value as string);
+          : value instanceof File
+            ? formData.append(key, value)
+            : formData.append(key, value as string);
       }
       saveArticleAsDraft({
         url: "/articles/draft",
@@ -148,14 +171,47 @@ function AddNewArticle() {
   };
 
   useEffect(() => {
+    if (!isArticleDataFetching) {
+      for (const key in methods.getValues()) {
+        if (key === "categoryID") {
+          methods.setValue(
+            key as keyof AddNewArticleInputTypes,
+            fetchedArticleData[key]._id,
+          );
+          continue;
+        }
+        if (key === "cover") {
+          const imageUrl = `${
+            import.meta.env.VITE_SITE_DOMAIN
+          }/courses/covers/${fetchedArticleData["cover"]}`;
+          convertImageSourceToDataUrlAndFile(imageUrl, "image.jpg")
+            .then(({ dataUrl, file }) => {
+              setPreview(dataUrl as string);
+              methods.setValue("cover", file);
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+          continue;
+        }
+        methods.setValue(
+          key as keyof AddNewArticleInputTypes,
+          fetchedArticleData[key],
+        );
+      }
+      setModel(fetchedArticleData.body);
+    }
+  }, [fetchedArticleData, isArticleDataFetching]); //eslint-disable-line
+  console.log("this is formData", methods.watch());
+  useEffect(() => {
     //adding the categories fetched from api to the select input list
     fetchAndUpdateInputList(
-      isLoading,
+      isCategoriesFetching,
       categories,
       addNewArticleInputList,
       setCompleteInputList,
     );
-  }, [isLoading, categories]);
+  }, [isCategoriesFetching, categories]);
   return (
     <Section>
       <h2 className="mt-2 text-2xl">
@@ -250,6 +306,8 @@ function AddNewArticle() {
           preview={preview}
           model={model}
           categories={categories}
+          creator={fetchedArticleData.creator.name}
+          createdAt={fetchedArticleData.createdAt}
         />
       )}
       <Overlay
@@ -260,4 +318,4 @@ function AddNewArticle() {
   );
 }
 
-export { AddNewArticle };
+export { EditArticle };

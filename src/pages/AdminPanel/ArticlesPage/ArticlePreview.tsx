@@ -20,6 +20,8 @@ type ArticlePreviewPropsType = {
   preview: string | ArrayBuffer | null;
   model: string;
   categories: any;
+  creator?: string;
+  createdAt?: string;
 };
 
 function ArticlePreview({
@@ -28,6 +30,8 @@ function ArticlePreview({
   preview,
   model,
   categories,
+  creator,
+  createdAt,
 }: ArticlePreviewPropsType) {
   const [category, setCategory] = useState("");
   const { userInfos } = useAuthContext();
@@ -49,7 +53,7 @@ function ArticlePreview({
           onClick={() => setShowArticlePreview(false)}
         />
       </div>
-      <div className="rounded-md border-2 border-solid border-[#c1c1c1] bg-white dark:bg-dark-theme-secondary p-8 font-iranSanse blog-content">
+      <div className="blog-content rounded-md border-2 border-solid border-[#c1c1c1] bg-white p-8 font-iranSanse dark:bg-dark-theme-secondary">
         <h1 className="mb-4 border-b-2 border-solid border-gray-400 pb-4 text-2xl font-bold text-dark-color  dark:text-white">
           {methods.getValues("title")}
         </h1>
@@ -57,19 +61,23 @@ function ArticlePreview({
           <ArticleDetail Icon={FaFolder} title={`دسته بندی: ${category}`} />
           <ArticleDetail
             Icon={FaUser}
-            title={`ارسال شده توسط: ${userInfos?.name}`}
+            title={`ارسال شده توسط: ${creator ? creator : userInfos?.name}`}
           />
           <ArticleDetail
             Icon={FaClock}
-            title={`تاریخ انتشار: ${new Date().toLocaleString("fa-IR")}`}
+            title={`تاریخ انتشار: ${
+              createdAt
+                ? new Date(createdAt).toLocaleString("fa-IR")
+                : new Date().toLocaleString("fa-IR")
+            }`}
           />
         </div>
         {preview && (
-            <img
-              src={preview as string}
-              className="rounded-lg"
-              alt="article-cover"
-            />
+          <img
+            src={preview as string}
+            className="rounded-lg"
+            alt="article-cover"
+          />
         )}
         <p>{methods.getValues("description")}</p>
         <FroalaEditorView model={model} />
@@ -79,4 +87,3 @@ function ArticlePreview({
 }
 
 export { ArticlePreview };
-

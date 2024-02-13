@@ -5,6 +5,7 @@ import { renderRoutes } from "./generate-routes";
 import { AdminPanelLayout } from "@/Layout/AdminPanelLayout";
 import { AnonymousLayout } from "@/Layout/AnonymousLayout";
 import { MainLayout } from "@/Layout/MainLayout";
+import { lazy } from "react";
 
 //code splitting the pages
 
@@ -15,10 +16,18 @@ const AdminCoursesPage = importLazyPage("Courses", "Courses", true);
 const AdminCategoryPage = importLazyPage("CategoryPage", "CategoryPage", true);
 const AdminContactPage = importLazyPage("ContactPage", "ContactPage", true);
 const AdminArticlesPage = importLazyPage("ArticlesPage", "ArticlesPage", true);
+
+const AdminEditArticlePage = lazy(() =>
+import(`@/pages/AdminPanel/ArticlesPage/EditArticle`).then((module) => ({
+  default: module["EditArticle"],
+})),
+) as unknown as () => JSX.Element;
+
 const AdminSessionsPage = importLazyPage("Sessions", "Sessions", true);
 const AdminMenusPage = importLazyPage("Menus", "Menus", true);
 const AdminCommentsPage = importLazyPage("Comments", "Comments", true);
 const AdminDiscountsPage = importLazyPage("Discounts", "Discounts", true);
+
 
 //mainPages
 const HomePage = importLazyPage("HomePage");
@@ -151,6 +160,14 @@ export const routes = [
             title: "admin-panel-articles-page",
             component: AdminArticlesPage,
             path: "articles",
+            routes:[
+              {
+                name: "admin-panel-editArticle",
+                title: "admin-panel-editArticle",
+                component: AdminEditArticlePage,
+                path: ":shortName",
+              },
+            ]
           },
           {
             name: "admin-panel-sessions-page",

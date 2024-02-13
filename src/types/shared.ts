@@ -57,6 +57,7 @@ type ArticleType = {
   shortName: string;
   title: string;
   description: string;
+  publish: 0 | 1;
   _id: string;
   creator: CreatorType;
 };

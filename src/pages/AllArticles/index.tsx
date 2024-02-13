@@ -8,12 +8,9 @@ import { useQueryCall } from "@/hooks";
 import { ArticleType } from "@/types/shared";
 
 function AllArticlesPage() {
-  const { data: articles = [], isLoading } = useQueryCall(
-    ["Articles"],
-    {
-      url: "/articles",
-    },
-  );
+  const { data: articles = [], isLoading } = useQueryCall(["Articles"], {
+    url: "/articles",
+  });
   const [shownArticles, setShownArticles] = useState([]);
 
   if (isLoading) return <Loading />;
@@ -32,7 +29,10 @@ function AllArticlesPage() {
       {/* COURSE BOXES END */}
 
       {/* PAGINATION START */}
-      <Pagination items={articles} setShowedItems={setShownArticles} />
+      <Pagination
+        items={articles.filter((article: ArticleType) => article.publish)}
+        setShowedItems={setShownArticles}
+      />
       {/* PAGINATION END */}
     </section>
   );

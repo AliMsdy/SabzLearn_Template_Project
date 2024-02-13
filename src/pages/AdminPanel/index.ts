@@ -8,3 +8,4 @@ export * from "./Sessions";
 export * from "./Menus";
 export * from "./Comments";
 export * from "./Discounts";
+export * from "./ArticlesPage/EditArticle";
