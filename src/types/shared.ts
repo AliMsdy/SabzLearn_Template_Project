@@ -32,6 +32,7 @@ type CourseType = {
   categoryID: {
     title: string;
   };
+  courseAverageScore:number;
 };
 
 type CreatorType = {
@@ -131,6 +132,7 @@ type CommentType = {
   createdAt: string;
   answer: number;
   isAnswer: number;
+  score:number;
 };
 
 type AddNewCourseInputTypes = {

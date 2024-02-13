@@ -15,11 +15,11 @@ import { useMutateCall } from "@/hooks";
 
 const optionsList = [
   { title: "امتیاز خود را وارد کنید", value: "", disabled: true },
-  { title: "1", value: "1" },
-  { title: "2", value: "2" },
-  { title: "3", value: "3" },
-  { title: "4", value: "4" },
-  { title: "5", value: "5" },
+  { title: "عالی", value: "5" },
+  { title: "خیلی خوب", value: "4" },
+  { title: "خوب", value: "3" },
+  { title: "ضعیف", value: "2" },
+  { title: "بد", value: "1" },
 ];
 
 type InputTypes = {

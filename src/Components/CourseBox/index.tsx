@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 
 //icons
@@ -10,11 +9,9 @@ import StarFilled from "/images/svgs/star_fill.svg";
 
 //components
 // import { Breathing, Image } from ;
-import { Breathing, Image, ImageProps  } from "react-shimmer";
+import { Breathing, Image, ImageProps } from "react-shimmer";
 //types
 import { CourseType } from "@/types/shared";
-
-
 
 function CourseBox({
   cover,
@@ -23,8 +20,10 @@ function CourseBox({
   creator,
   name,
   shortName,
+  courseAverageScore,
   isForSlider,
 }: CourseType) {
+  console.log("courseAverageScore",courseAverageScore)
   const ShimmerImage = Image as any as React.ComponentClass<ImageProps>;
   return (
     <div
@@ -33,17 +32,19 @@ function CourseBox({
       }`}
     >
       <Link to={`/course-info/${shortName}`}>
-      
-        <ShimmerImage 
+        <ShimmerImage
           fadeIn={true}
           src={`${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/${cover}`}
-          
           // src="https://picsum.photos/200/300"
           NativeImgProps={{
             className: "max-h-[200px] w-full rounded-t-xl",
           }}
-          fallback={         
-            <Breathing width={"100%" as unknown as number} height={200} className="rounded-t-xl" />
+          fallback={
+            <Breathing
+              width={"100%" as unknown as number}
+              height={200}
+              className="rounded-t-xl"
+            />
           }
         />
       </Link>
@@ -57,10 +58,17 @@ function CourseBox({
             {creator}
           </span>
           <div className="flex">
-            <img src={StarUnfilled} alt="rating-star" />
-            {Array.from(Array(4)).map((_, i) => (
-              <img key={i} src={StarFilled} alt="rating-star" />
-            ))}
+            {Array(5 - courseAverageScore)
+              .fill(0)
+              .map((_, i) => (
+                <img src={StarUnfilled} alt="score" key={i} />
+              ))}
+
+            {Array(courseAverageScore)
+              .fill(0)
+              .map((_, i) => (
+                <img src={StarFilled} alt="score" key={i} />
+              ))}
           </div>
         </div>
         <div className="my-4 flex justify-between">
@@ -69,9 +77,7 @@ function CourseBox({
             {registers}
           </span>
           <p className="text-[#6c757d] dark:text-white">
-            {
-              price === 0 ? "رایگان" : price.toLocaleString()
-            }
+            {price === 0 ? "رایگان" : price.toLocaleString()}
           </p>
         </div>
       </div>
