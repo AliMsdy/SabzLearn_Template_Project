@@ -35,6 +35,14 @@ type CourseType = {
   courseAverageScore:number;
 };
 
+type OrderType = {
+  _id: string;
+  course: CourseType;
+  price: number;
+  createdAt:string;
+  user:string;
+};
+
 type CreatorType = {
   _id: string;
   name: string;
@@ -105,6 +113,7 @@ type UserType = {
   username: string;
   profile: string;
   role: string;
+  phone:string;
   courses: [];
   notifications: [];
 };
@@ -204,5 +213,6 @@ export type {
   SetState,
   UserType,
   AddNewDiscountInputTypes,
-  DiscountType
+  DiscountType,
+  OrderType
 };

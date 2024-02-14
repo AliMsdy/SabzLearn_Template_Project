@@ -40,7 +40,11 @@ const AdminDiscountsPage = importLazyPage("Discounts", "Discounts", "admin");
 //userPanelPages
 const UserMainPage = importLazyPage("MainPage", "MainPage", "user");
 const UserOrdersPage = importLazyPage("Orders", "Orders", "user");
-
+const UserOrderDetailPage = lazy(() =>
+  import(`@/pages/UserPanel/Orders/OrderDetail`).then((module) => ({
+    default: module["OrderDetail"],
+  })),
+) as unknown as () => JSX.Element;
 //mainPages
 const HomePage = importLazyPage("HomePage");
 const CoursePage = importLazyPage("Course", "CoursePage");
@@ -223,6 +227,14 @@ export const routes = [
             title: "user-orders-page",
             component: UserOrdersPage,
             path: "orders",
+            routes: [
+              {
+                name: "user-order-detail-page",
+                title: "user-order-detail-page",
+                component: UserOrderDetailPage,
+                path: ":orderID",
+              },
+            ],
           },
         ],
       },

@@ -27,7 +27,9 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   title: React.ReactNode;
   isPaginatedTable?: boolean;
-  isLimitedPaddingEnabled?:boolean;
+  isLimitedPaddingEnabled?: boolean;
+  paginationSize?: number;
+  isForUserPanel?:boolean
 }
 
 export function DataTable<TData, TValue>({
@@ -35,7 +37,9 @@ export function DataTable<TData, TValue>({
   data,
   title,
   isPaginatedTable = true,
-  isLimitedPaddingEnabled = false
+  isLimitedPaddingEnabled = false,
+  paginationSize = 5,
+  isForUserPanel = false,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
@@ -53,11 +57,12 @@ export function DataTable<TData, TValue>({
     },
     initialState: {
       pagination: {
-        pageSize: 5,
+        pageSize: paginationSize,
       },
     },
     enableSortingRemoval: true,
   });
+  const hasPagination = data.length > paginationSize;
   return (
     <>
       {title && title}
@@ -70,11 +75,12 @@ export function DataTable<TData, TValue>({
                   <TableHead
                     style={{
                       width: header.getSize(),
-                      boxShadow: "inset 0 0 0 1px #424242",
+                      borderBottom:isForUserPanel ? "1px solid #424242" : "",
+                      boxShadow: isForUserPanel ? "" : "inset 0 0 0 1px #424242",
                     }}
                     key={header.id}
                     className={cn(
-                      "group relative top-0 bg-[#f2f7fd] text-lg font-bold text-[#67747e] dark:bg-slate dark:text-[#f5f3f3]",
+                      "group relative top-0 bg-[#f2f7fd] text-sm font-bold text-[#67747e] dark:bg-slate dark:text-[#f5f3f3] sm:text-lg",
                       { "cursor-col-resize": header.column.getIsResizing() },
                       { "cursor-pointer": header.column.getCanSort() },
                     )}
@@ -91,14 +97,14 @@ export function DataTable<TData, TValue>({
                       if (isSorted === "asc") {
                         return (
                           <LuArrowDown
-                            className="absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2"
+                            className="absolute right-0.5 top-1/2 h-4 w-4 -translate-y-1/2 sm:right-3 sm:h-6  sm:w-6"
                             title="صعودی"
                           />
                         );
                       } else if (isSorted === "desc") {
                         return (
                           <LuArrowUp
-                            className="absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2"
+                            className="absolute right-0.5 top-1/2 h-4 w-4 -translate-y-1/2 sm:right-3 sm:h-6  sm:w-6"
                             title="نزولی"
                           />
                         );
@@ -108,7 +114,7 @@ export function DataTable<TData, TValue>({
                       ) {
                         return (
                           <LuArrowUpDown
-                            className="absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2"
+                            className="absolute right-0.5 top-1/2 h-4 w-4 -translate-y-1/2 sm:right-3 sm:h-6  sm:w-6"
                             title="پیش فرض"
                           />
                         );
@@ -142,12 +148,12 @@ export function DataTable<TData, TValue>({
                   <TableCell
                     style={{
                       width: cell.column.getSize(),
-                      boxShadow: "inset 0 0 0 1px #424242",
+                      borderBottom:isForUserPanel ? "1px solid #424242" : "",
+                      boxShadow: isForUserPanel ? "" : "inset 0 0 0 1px #424242",
                     }}
-                    className={cn(
-                      "dark:bg-admin-secondary-dark-color",
-                      {" p-1.5": isLimitedPaddingEnabled}
-                    )}
+                    className={cn("dark:bg-admin-secondary-dark-color", {
+                      " p-1.5": isLimitedPaddingEnabled,
+                    })}
                     key={cell.id}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -164,7 +170,7 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      {isPaginatedTable && (
+      {isPaginatedTable && hasPagination && (
         <div className="flex items-center gap-4 py-4">
           <Button onClick={() => table.setPageIndex(0)}>صفحه اول</Button>
           <Button
