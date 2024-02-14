@@ -67,7 +67,7 @@ a:hover {
 }
 
 .custom-container {
-  @apply container mx-auto max-w-[90%] md:max-w-[85%];
+  @apply container mx-auto max-w-[90%] md:max-w-[85%] px-0 sm:px-8;
 }
 
 /* COURSE PAGE STYLES */

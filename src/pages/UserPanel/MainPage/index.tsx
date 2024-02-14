@@ -14,7 +14,7 @@ function MainPage() {
   const { userInfos } = useAuthContext();
   return (
     <section>
-      <p>
+      <p className="mt-7 sm:mt-0">
         سلام{" "}
         <span className="text-primary-color">
           <b>{userInfos?.name}</b>

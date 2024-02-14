@@ -7,23 +7,21 @@ import { CourseType } from "@/types/shared";
 import { FaChalkboardTeacher } from "react-icons/fa";
 
 //svg
-import { FaUsers } from "react-icons/fa6";
 import StarUnfilled from "/images/svgs/star.svg";
 import StarFilled from "/images/svgs/star_fill.svg";
 
-function RowCourseBox({
+function UserPanelCourseBox({
   cover,
-  registers,
   price,
-  creator,
+  isComplete,
   name,
   shortName,
-  description,
+  support,
 }: CourseType) {
   const ShimmerImage = Image as any as React.ComponentClass<ImageProps>;
 
   return (
-    <div className="col-span-3 flex rounded-xl text-xs shadow-xl dark:bg-dark-theme-secondary sm:text-sm lg:text-base">
+    <div className="col-span-3 my-10 flex rounded-xl text-xs shadow-xl dark:bg-dark-theme-secondary sm:text-sm lg:text-base">
       <div className="max-h-[200px] w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4">
         <Link className="w-full" to={`/course-info/${shortName}`}>
           <ShimmerImage
@@ -53,9 +51,10 @@ function RowCourseBox({
         <div className="flex items-center justify-between">
           <span className="flex items-center gap-x-3 text-[#6c757d] dark:text-white">
             <FaChalkboardTeacher size={20} />
-            {creator}
+            وضعیت دوره :
+            {isComplete === 0 ? "در حال برگزاری" : "تکمیل شده"}
           </span>
-          <div className="flex">
+          <div className="hidden sm:flex">
             <img
               className="w-3 sm:w-full"
               src={StarUnfilled}
@@ -71,18 +70,17 @@ function RowCourseBox({
             ))}
           </div>
         </div>
-
-        <p className="my-2 text-[#6c757d] dark:text-white md:my-4">
-          {description}
-        </p>
-
         <div className="my-4 flex items-center justify-between">
-          <span className="flex items-center gap-x-3 text-[#6c757d] dark:text-white">
-            <FaUsers size={20} />
-            تعداد شرکت کننده: {registers}
+          <span className="hidden items-center gap-x-3 text-[#6c757d] dark:text-white sm:flex">
+            <span>نحوه پشتیبانی : </span>
+            <span className="text-primary-color">{support}</span>
           </span>
-          <p className="text-[#6c757d] dark:text-white">
-            {price === 0 ? "رایگان" : price.toLocaleString()}
+          <p className="flex text-[#6c757d] dark:text-white">
+            <span className="text-primary-color">مبلغ : </span>
+            <span>
+              {" "}
+              {price === 0 ? "رایگان" : `${price.toLocaleString("fa-IR")} تومان`}
+            </span>
           </p>
         </div>
       </div>
@@ -90,4 +88,4 @@ function RowCourseBox({
   );
 }
 
-export { RowCourseBox };
+export { UserPanelCourseBox };

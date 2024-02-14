@@ -32,6 +32,7 @@ type CourseType = {
   categoryID: {
     title: string;
   };
+  support:string;
   courseAverageScore:number;
 };
 

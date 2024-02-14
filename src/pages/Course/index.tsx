@@ -142,7 +142,7 @@ function CoursePage() {
     return <Loading />;
   }
   return (
-    <section className="custom-container px-0 sm:px-8">
+    <section className="custom-container">
       {/* BREADCRUMB START */}
       <BreadCrumb />
       {/* BREADCRUMB END */}

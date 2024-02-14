@@ -27,7 +27,7 @@ function UserPanelLayout() {
         <div className="col-span-12 sm:col-span-3">
           <Sidebar />
         </div>
-        <div className="col-span-12 p-4 sm:col-span-9">
+        <div className="col-span-12 sm:p-4 sm:col-span-9">
           <Outlet />
         </div>
       </main>

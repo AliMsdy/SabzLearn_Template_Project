@@ -45,6 +45,8 @@ const UserOrderDetailPage = lazy(() =>
     default: module["OrderDetail"],
   })),
 ) as unknown as () => JSX.Element;
+const UserCoursesPage = importLazyPage("UserCourses", "UserCourses", "user");
+
 //mainPages
 const HomePage = importLazyPage("HomePage");
 const CoursePage = importLazyPage("Course", "CoursePage");
@@ -235,6 +237,12 @@ export const routes = [
                 path: ":orderID",
               },
             ],
+          },
+          {
+            name: "user-courses-page",
+            title: "user-courses-page",
+            component: UserCoursesPage,
+            path: "user-courses",
           },
         ],
       },
