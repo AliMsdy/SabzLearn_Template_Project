@@ -3,11 +3,17 @@ import { lazy } from "react";
 const importLazyPage = (
   path: string,
   moduleName = path,
-  isForAdminPanel?: boolean,
+  ForAdminOrUser?:string,
 ) => {
-  if (isForAdminPanel) {
+  if (ForAdminOrUser === "admin") {
     return lazy(() =>
       import(`../pages/AdminPanel/${path}/index.tsx`).then((module) => ({
+        default: module[moduleName],
+      })),
+    ) as unknown as () => JSX.Element;
+  }else if(ForAdminOrUser === "user"){
+    return lazy(() =>
+      import(`../pages/UserPanel/${path}/index.tsx`).then((module) => ({
         default: module[moduleName],
       })),
     ) as unknown as () => JSX.Element;

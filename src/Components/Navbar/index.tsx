@@ -10,10 +10,10 @@ import Logo from "/images/logo/Logo.png";
 import { Button, NavigationSection, Overlay } from "..";
 
 //icon
-import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
+import { FaUserLarge } from "react-icons/fa6";
 import { HiMenu } from "react-icons/hi";
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
-import { RiAdminFill } from "react-icons/ri";
+import { RiAccountBoxLine, RiAdminFill } from "react-icons/ri";
 
 function Navbar() {
   const { theme, setTheme } = useThemeContext();
@@ -81,10 +81,10 @@ function Navbar() {
             ) : (
               <Button
                 component="link"
-                to="#"
+                to="/my-account"
                 className="bg-gray-color px-2 text-dark-color"
               >
-                <FaCartShopping size={25} />
+                <RiAccountBoxLine size={25} />
               </Button>
             )
           ) : null}
@@ -93,7 +93,9 @@ function Navbar() {
             <Button
               variant="unfilled"
               component="link"
-              to="/#"
+              to={`${
+                userInfos?.role === "ADMIN" ? "/admin-panel" : "/my-account"
+              }`}
               className="px-0 lg:px-4"
             >
               {userInfos?.name}

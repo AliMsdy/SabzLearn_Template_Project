@@ -1,33 +1,45 @@
 import importLazyPage from "@/utils/importLazyPage";
+import { lazy } from "react";
 import { renderRoutes } from "./generate-routes";
 
 // Layouts
 import { AdminPanelLayout } from "@/Layout/AdminPanelLayout";
 import { AnonymousLayout } from "@/Layout/AnonymousLayout";
 import { MainLayout } from "@/Layout/MainLayout";
-import { lazy } from "react";
+import { UserPanelLayout } from "@/Layout/UserPanelLayout";
 
 //code splitting the pages
 
 //adminPanelPages
-const AdminMainPage = importLazyPage("MainPage", "MainPage", true);
-const AdminUsersPage = importLazyPage("Users", "Users", true);
-const AdminCoursesPage = importLazyPage("Courses", "Courses", true);
-const AdminCategoryPage = importLazyPage("CategoryPage", "CategoryPage", true);
-const AdminContactPage = importLazyPage("ContactPage", "ContactPage", true);
-const AdminArticlesPage = importLazyPage("ArticlesPage", "ArticlesPage", true);
+const AdminMainPage = importLazyPage("MainPage", "MainPage", "admin");
+const AdminUsersPage = importLazyPage("Users", "Users", "admin");
+const AdminCoursesPage = importLazyPage("Courses", "Courses", "admin");
+const AdminCategoryPage = importLazyPage(
+  "CategoryPage",
+  "CategoryPage",
+  "admin",
+);
+const AdminContactPage = importLazyPage("ContactPage", "ContactPage", "admin");
+const AdminArticlesPage = importLazyPage(
+  "ArticlesPage",
+  "ArticlesPage",
+  "admin",
+);
 
 const AdminEditArticlePage = lazy(() =>
-import(`@/pages/AdminPanel/ArticlesPage/EditArticle`).then((module) => ({
-  default: module["EditArticle"],
-})),
+  import(`@/pages/AdminPanel/ArticlesPage/EditArticle`).then((module) => ({
+    default: module["EditArticle"],
+  })),
 ) as unknown as () => JSX.Element;
 
-const AdminSessionsPage = importLazyPage("Sessions", "Sessions", true);
-const AdminMenusPage = importLazyPage("Menus", "Menus", true);
-const AdminCommentsPage = importLazyPage("Comments", "Comments", true);
-const AdminDiscountsPage = importLazyPage("Discounts", "Discounts", true);
+const AdminSessionsPage = importLazyPage("Sessions", "Sessions", "admin");
+const AdminMenusPage = importLazyPage("Menus", "Menus", "admin");
+const AdminCommentsPage = importLazyPage("Comments", "Comments", "admin");
+const AdminDiscountsPage = importLazyPage("Discounts", "Discounts", "admin");
 
+//userPanelPages
+const UserMainPage = importLazyPage("MainPage", "MainPage", "user");
+const UserOrdersPage = importLazyPage("Orders", "Orders", "user");
 
 //mainPages
 const HomePage = importLazyPage("HomePage");
@@ -117,7 +129,7 @@ export const routes = [
         name: "sessions page",
         title: "sessions page",
         component: SessionsPage,
-        isPublic:false,
+        isPublic: false,
         path: "/:courseName/:sessionID",
       },
     ],
@@ -160,14 +172,14 @@ export const routes = [
             title: "admin-panel-articles-page",
             component: AdminArticlesPage,
             path: "articles",
-            routes:[
+            routes: [
               {
                 name: "admin-panel-editArticle",
                 title: "admin-panel-editArticle",
                 component: AdminEditArticlePage,
                 path: ":shortName",
               },
-            ]
+            ],
           },
           {
             name: "admin-panel-sessions-page",
@@ -192,6 +204,25 @@ export const routes = [
             title: "admin-panel-discounts-page",
             component: AdminDiscountsPage,
             path: "discounts",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    layout: UserPanelLayout,
+    routes: [
+      {
+        name: "userPanel page",
+        title: "userPanel page",
+        component: UserMainPage,
+        path: "/my-account",
+        routes: [
+          {
+            name: "user-orders-page",
+            title: "user-orders-page",
+            component: UserOrdersPage,
+            path: "orders",
           },
         ],
       },

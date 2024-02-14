@@ -57,9 +57,19 @@ const SendCommentRules = [
   "از درج دیدگاه های تکراری پرهیز نمایید",
 ];
 
+const userPanelLinks = [
+  { title: "پیش خوان", href: "" },
+  { title: "سفارش ها", href: "/orders" },
+  { title: "کیف پول من", href: "/my-wallet" },
+  { title: "جزئیات حساب کاربری", href: "/user-profile" },
+  { title: "دوره های خریداری شده", href: "/user-courses" },
+  { title: "تیکت های پشتیبانی", href: "/user-tickets" },
+];
+
 export {
   LandingSvgList,
   SabzlearnFeatures,
   SendCommentRules,
   socialList,
+  userPanelLinks,
 };

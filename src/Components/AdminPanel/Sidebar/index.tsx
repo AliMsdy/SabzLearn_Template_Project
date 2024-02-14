@@ -2,13 +2,17 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 //icons
+import { BsFillMenuButtonWideFill } from "react-icons/bs";
 import { FaHome, FaListAlt, FaUsers } from "react-icons/fa";
-import { FaMessage,FaComments  } from "react-icons/fa6";
+import { FaComments, FaMessage } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
-import { MdArticle, MdKeyboardDoubleArrowRight,MdDiscount  } from "react-icons/md";
+import {
+  MdArticle,
+  MdDiscount,
+  MdKeyboardDoubleArrowRight,
+} from "react-icons/md";
 import { PiVideoFill } from "react-icons/pi";
 import { RiMacbookLine } from "react-icons/ri";
-import { BsFillMenuButtonWideFill } from "react-icons/bs";
 
 //types
 import { useAuthContext } from "@/context/AuthContext";
@@ -16,6 +20,8 @@ import { SetState } from "@/types/shared";
 
 //components
 import { AlertDialog } from "..";
+//utils
+import { cn } from "@/lib/utils";
 //types
 type SidebarProps = {
   toggleCollapse: boolean;
@@ -74,11 +80,13 @@ function Sidebar({ toggleCollapse, setToggleCollapse }: SidebarProps) {
             to={`admin-panel${link}`}
             end
             className={({ isActive }) =>
-              `relative flex items-center gap-4 py-3 pr-3 text-sm text-[#8c90a0] hover:bg-sidebar-links-background hover:text-white ${
-                isActive
-                  ? "bg-sidebar-links-background text-white after:absolute after:left-0 after:top-0 after:h-full after:w-1.5 after:rounded-md after:bg-[#4869ff]"
-                  : ""
-              }`
+              cn(
+                "relative flex items-center gap-4 py-3 pr-3 text-sm text-[#8c90a0] hover:bg-sidebar-links-background hover:text-white",
+                {
+                  "bg-sidebar-links-background text-white after:absolute after:left-0 after:top-0 after:h-full after:w-1.5 after:rounded-md after:bg-[#4869ff]":
+                    isActive,
+                },
+              )
             }
             key={title}
           >
@@ -100,5 +108,4 @@ function Sidebar({ toggleCollapse, setToggleCollapse }: SidebarProps) {
     </aside>
   );
 }
-//onClick={logoutHandler}
 export { Sidebar };

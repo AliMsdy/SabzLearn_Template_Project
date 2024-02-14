@@ -51,12 +51,13 @@ export const renderRoutes = (mainRoutes: Routes) => {
         <ReactRoute key={index} element={<Layout />}>
           {subRoutes.map(({ component: Component, path, name, isPublic }) => {
             // const isAdminPanelPage = path?.includes("/admin-panel");
+            // const isUserPanelPage = path?.includes("/my-account");
             return (
               <ReactRoute
                 key={name}
                 element={
                   <ProtectedRoute
-                    // isPublic={isAdminPanelPage ? false : isPublic}
+                    // isPublic={isAdminPanelPage || isUserPanelPage ? false : isPublic}
                     isPublic={isPublic}
                     isAuthorized={isAuthorized}
                     path={path as string}
