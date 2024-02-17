@@ -36,6 +36,7 @@ const AdminSessionsPage = importLazyPage("Sessions", "Sessions", "admin");
 const AdminMenusPage = importLazyPage("Menus", "Menus", "admin");
 const AdminCommentsPage = importLazyPage("Comments", "Comments", "admin");
 const AdminDiscountsPage = importLazyPage("Discounts", "Discounts", "admin");
+const AdminTicketsPage = importLazyPage("Tickets", "Tickets", "admin");
 
 //userPanelPages
 const UserMainPage = importLazyPage("MainPage", "MainPage", "user");
@@ -43,6 +44,17 @@ const UserOrdersPage = importLazyPage("Orders", "Orders", "user");
 const UserOrderDetailPage = lazy(() =>
   import(`@/pages/UserPanel/Orders/OrderDetail`).then((module) => ({
     default: module["OrderDetail"],
+  })),
+) as unknown as () => JSX.Element;
+const UserTicketsPage = importLazyPage("Tickets", "Tickets", "user");
+const UserSendTicketPage = lazy(() =>
+  import(`@/pages/UserPanel/Tickets/SendTicket`).then((module) => ({
+    default: module["SendTicket"],
+  })),
+) as unknown as () => JSX.Element;
+const UserShowAnsweredTicketPage = lazy(() =>
+  import(`@/pages/UserPanel/Tickets/ShowAnsweredTicket`).then((module) => ({
+    default: module["ShowAnsweredTicket"],
   })),
 ) as unknown as () => JSX.Element;
 const UserCoursesPage = importLazyPage("UserCourses", "UserCourses", "user");
@@ -211,6 +223,12 @@ export const routes = [
             component: AdminDiscountsPage,
             path: "discounts",
           },
+          {
+            name: "admin-panel-tickets-page",
+            title: "admin-panel-tickets-page",
+            component: AdminTicketsPage,
+            path: "tickets",
+          },
         ],
       },
     ],
@@ -239,10 +257,30 @@ export const routes = [
             ],
           },
           {
-            name: "user-courses-page",
-            title: "user-courses-page",
+            name: "user-tickets-page",
+            title: "user-tickets-page",
             component: UserCoursesPage,
             path: "user-courses",
+          },
+          {
+            name: "user-tickets-page",
+            title: "user-tickets-page",
+            component: UserTicketsPage,
+            path: "user-tickets",
+            routes: [
+              {
+                name: "user-send-ticket-page",
+                title: "user-send-ticket-page",
+                component: UserSendTicketPage,
+                path: "send-ticket",
+              },
+              {
+                name: "user-answered-ticket-page",
+                title: "user-answered-ticket-page",
+                component: UserShowAnsweredTicketPage,
+                path: "answered-ticket/:ticketID",
+              },
+            ],
           },
         ],
       },

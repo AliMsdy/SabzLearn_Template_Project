@@ -13,6 +13,7 @@ import {
 } from "react-icons/md";
 import { PiVideoFill } from "react-icons/pi";
 import { RiMacbookLine } from "react-icons/ri";
+import { GrTicket } from "react-icons/gr";
 
 //types
 import { useAuthContext } from "@/context/AuthContext";
@@ -39,6 +40,7 @@ const sideBarLinks = [
   { title: "کامنت ها", Icon: FaComments, link: "/comments" },
   { title: "دسته بندی ها", Icon: FaListAlt, link: "/categories" },
   { title: "کد های تخفیف", Icon: MdDiscount, link: "/discounts" },
+  { title: "تیکت ها", Icon: GrTicket, link: "/tickets" },
 ];
 
 function Sidebar({ toggleCollapse, setToggleCollapse }: SidebarProps) {

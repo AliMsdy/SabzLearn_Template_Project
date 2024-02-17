@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-
+import { yupResolver } from "@hookform/resolvers/yup";
 //context
 import { useAuthContext } from "@/context/AuthContext";
 //api
@@ -21,11 +21,18 @@ import type { Row } from "@tanstack/react-table";
 type ContactFormInputType = {
   answer: string;
 };
+//validation
+import * as yup from "yup";
+const contactFormValidationSchema = yup.object().shape({
+    answer: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+});
+
 
 function ContactActionCell({ row }: { row: Row<ContactUsInputTypes> }) {
   const queryClient = useQueryClient();
   const { token } = useAuthContext();
   const methods = useForm<ContactFormInputType>({
+    resolver: yupResolver(contactFormValidationSchema),
     defaultValues: {
       answer: "",
     },
@@ -97,7 +104,6 @@ function ContactActionCell({ row }: { row: Row<ContactUsInputTypes> }) {
               placeholder="پاسخ..."
               id="response"
               className="mt-4"
-              spellCheck="false"
             />
             <div className="flex justify-end">
               <DialogFooter className="mt-4">
