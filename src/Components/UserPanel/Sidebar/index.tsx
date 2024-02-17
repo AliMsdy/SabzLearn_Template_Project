@@ -39,7 +39,7 @@ function Sidebar() {
         )}
       </div>
       <ul
-        className="transition-max-height overflow-hidden border-b-2 border-solid border-gray-500 duration-500 sm:border-b-0 sm:border-l-2 sm:pl-6"
+        className="transition-max-height overflow-hidden border-b-2 border-solid border-gray-500 duration-500 sm:min-h-[450px] sm:border-b-0 sm:border-l-2 sm:pl-6"
         ref={contentRef}
         style={{
           maxHeight: collapse ? contentRef.current?.scrollHeight : "0",

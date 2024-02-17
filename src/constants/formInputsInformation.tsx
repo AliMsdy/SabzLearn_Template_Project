@@ -1,5 +1,6 @@
 import { IconType } from "react-icons";
 import * as yup from "yup";
+// import { string, object } from 'yup';
 
 //icons
 import {
@@ -196,15 +197,15 @@ const addSessionValidationSchema = yup.object().shape({
         }
         return false;
       },
-    )
-    // .test("fileSize", "حجم فایل باید کمتر از 2 مگابایت باشد", (value) => {
-    //   if (value instanceof FileList) {
-    //     return value[0] && value[0].size <= 2 * 1024 * 1024;
-    //   } else if (value instanceof File) {
-    //     return value && value.size <= 2 * 1024 * 1024;
-    //   }
-    //   return false;
-    // }),
+    ),
+  // .test("fileSize", "حجم فایل باید کمتر از 2 مگابایت باشد", (value) => {
+  //   if (value instanceof FileList) {
+  //     return value[0] && value[0].size <= 2 * 1024 * 1024;
+  //   } else if (value instanceof File) {
+  //     return value && value.size <= 2 * 1024 * 1024;
+  //   }
+  //   return false;
+  // }),
 });
 const addArticleValidationSchema = yup.object().shape({
   title: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
@@ -245,21 +246,38 @@ const addArticleValidationSchema = yup.object().shape({
   body: yup.string().required("مقاله نمیتواند بدون محتوا باشد..."),
 });
 const addMenuValidationSchema = yup.object().shape({
-  title: yup.string().min(5,"حداقل تعداد کاراکتر 5 میباشد").required("فیلد را تکمیل کنید(الزامی)"),
+  title: yup
+    .string()
+    .min(5, "حداقل تعداد کاراکتر 5 میباشد")
+    .required("فیلد را تکمیل کنید(الزامی)"),
   href: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
-  parent: yup.string()
+  parent: yup.string(),
 });
 const addDiscountValidationSchema = yup.object().shape({
-  code: yup.string().min(5,"حداقل تعداد کاراکتر 5 میباشد").required("فیلد را تکمیل کنید(الزامی)"),
+  code: yup
+    .string()
+    .min(5, "حداقل تعداد کاراکتر 5 میباشد")
+    .required("فیلد را تکمیل کنید(الزامی)"),
   percent: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
   max: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
-  course:yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  course: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
 });
 
-const registerToCourseWithOffCodeValidationSchema =  yup.object().shape({ 
-  offCode:yup.string().required("فیلد را تکمیل کنید(الزامی)"),
-
-})
+const registerToCourseWithOffCodeValidationSchema = yup.object().shape({
+  offCode: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+});
+const sendTicketValidationSchema = yup.object().shape({
+  departmentID: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  departmentSubID: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  title: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  body: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  priority: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  course: yup.string().when("departmentSubID", {
+    is: "63b688c5516a30a651e98156",
+    then: (schema) => schema.required("فیلد را تکمیل کنید(الزامی)"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+});
 
 //input lists
 
@@ -579,7 +597,7 @@ const addNewMenuInputList = [
         {
           title: "منوی اصلی را انتخاب کنید",
           value: "",
-          disabled:true,
+          disabled: true,
         },
       ],
     },
@@ -593,8 +611,8 @@ const addNewMenuInputList = [
       id: "href",
       isValidationStylesEnabled: false,
     },
-  ]
-]
+  ],
+];
 const addNewDiscountInputList = [
   [
     {
@@ -605,7 +623,7 @@ const addNewDiscountInputList = [
       id: "code",
       isValidationStylesEnabled: false,
     },
-    
+
     {
       name: "course",
       label: "دوره مربوطه",
@@ -615,7 +633,7 @@ const addNewDiscountInputList = [
         {
           title: "دروه را انتخاب کنید",
           value: "",
-          disabled:true,
+          disabled: true,
         },
       ],
     },
@@ -637,16 +655,100 @@ const addNewDiscountInputList = [
       id: "max",
       isValidationStylesEnabled: false,
     },
-  ]
-]
+  ],
+];
+const addNewTicketInputList = [
+  [
+    {
+      name: "departmentID",
+      label: "دپارتمان مورد نظر را انتخاب کنید",
+      element: "select",
+      id: "departmentID",
+      options: [
+        {
+          title: "دپارتمان را انتخاب کنید",
+          value: "",
+          disabled: true,
+        },
+      ],
+    },
+
+    {
+      name: "title",
+      label: "عنوان تیکت را انتخاب نمایید",
+      placeholder: "عنوان...",
+      type: "text",
+      id: "title",
+      isValidationStylesEnabled: false,
+    },
+    {
+      name: "course",
+      label: "دوره مربوطه را انتخاب کنید: ",
+      element: "select",
+      id: "courses",
+      options: [
+        {
+          title: "دوره مورد نظر را انتخاب کنید",
+          value: "",
+          disabled: true,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      name: "departmentSubID",
+      label: "واحد مربوطه را انتخاب نمایید",
+      element: "select",
+      id: "departmentSubID",
+      options: [
+        {
+          title: "لطفا ابتدا دپارتمان مورد نظر را اتخاب نمایید",
+          value: "",
+          disabled: true,
+        },
+      ],
+    },
+    {
+      name: "priority",
+      label: "اهمیت تیکت را انتخاب نمایید",
+      element: "select",
+      id: "priority",
+      options: [
+        {
+          title: "سطح اولویت را انتخاب نمایید",
+          value: "",
+          disabled: true,
+        },
+        {
+          value: "3",
+          title: "کم",
+        },
+        {
+          value: "2",
+          title: "متوسط",
+        },
+        {
+          value: "1",
+          title: "زیاد",
+        },
+      ],
+    },
+  ],
+];
 export {
   addArticleValidationSchema,
   addCategoryValidationSchema,
   addCourseCategoryInputList,
   addCourseValidationSchema,
+  addDiscountValidationSchema,
+  addMenuValidationSchema,
   addNewArticleInputList,
   addNewCourseInputList,
+  addNewDiscountInputList,
+  addNewMenuInputList,
   addNewSessionInputList,
+  addNewTicketInputList,
   addSessionValidationSchema,
   addUserInputList,
   addUserValidationSchema,
@@ -655,10 +757,8 @@ export {
   loginInputList,
   loginValidationSchema,
   registerInputList,
+  registerToCourseWithOffCodeValidationSchema,
   registerValidationSchema,
   sendCommentSchema,
-  addNewMenuInputList,addMenuValidationSchema,
-  addNewDiscountInputList,
-  addDiscountValidationSchema,
-  registerToCourseWithOffCodeValidationSchema
+  sendTicketValidationSchema,
 };

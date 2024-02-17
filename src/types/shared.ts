@@ -125,6 +125,20 @@ type LinkType = {
   submenus: LinkType[] | [];
 };
 
+type TicketType = {
+  _id:string;
+  departmentID:string;
+  departmentSubID:string;
+  priority:number;
+  title:string;
+  body:string;
+user:string;
+answer:number;
+course:string;
+isAnswer:number;
+createdAt:string;
+}
+
 type MenusType = {
   _id: string;
   title: string;
@@ -177,6 +191,14 @@ type AddNewDiscountInputTypes = {
   course: string;
 };
 
+type AddNewTicketInputType = {
+  departmentID: string;
+  departmentSubID: string;
+  title: string;
+  body: string;
+  priority: string;
+  course?:string;
+}
 type radioInputProps = {
   id: string;
   value: string;
@@ -215,5 +237,7 @@ export type {
   UserType,
   AddNewDiscountInputTypes,
   DiscountType,
-  OrderType
+  OrderType,
+  AddNewTicketInputType,
+  TicketType
 };

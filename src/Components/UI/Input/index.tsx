@@ -69,8 +69,8 @@ function Input({
           </label>
         )}
         <select
-          {...rest}
           {...field}
+          {...rest}
           className={cn(
             "mt-4 block w-full rounded-md p-2 px-4  dark:bg-[#484965] dark:shadow-dark-theme",
             {

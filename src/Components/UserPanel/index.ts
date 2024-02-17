@@ -1,2 +1,5 @@
 export * from "./Sidebar"
 export * from "./UserPanelCourseBox"
+export * from "./TicketBox"
+export * from "./TicketInfoBox"
+export * from "./UserPanelHeader"

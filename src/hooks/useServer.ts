@@ -39,10 +39,11 @@ const useQueryCall = (
   { method = "GET", ...config }: AxiosRequestConfig,
   options = {},
   onErrorHandler?: (error: AxiosError) => void,
+  queryFunction?:() => Promise<any>,
 ) =>
   useQuery({
     queryKey: key || [config.url, config.params].filter(Boolean),
-    queryFn: async () => {
+    queryFn: queryFunction || async function() {
       try {
         const { data } = await axiosInstance.request({
           method,

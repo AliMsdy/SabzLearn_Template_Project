@@ -67,7 +67,6 @@ function TicketActionCell({ row }: { row: Row<TicketType> }) {
   );
 
   const handleResponseToTicket = (data: SendTicketAnswerFormInputType) => {
-    console.log("data",data)
     sendTicketAnswer({
       url: "/tickets/answer",
       data: { ...data, ticketID: row.original._id },
