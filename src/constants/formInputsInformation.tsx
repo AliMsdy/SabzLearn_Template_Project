@@ -266,6 +266,38 @@ const addDiscountValidationSchema = yup.object().shape({
 const registerToCourseWithOffCodeValidationSchema = yup.object().shape({
   offCode: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
 });
+const editUserInfosValidationSchema = yup.object().shape({
+  name: yup
+    .string()
+    .max(21, "حداکثر تعداد کاراکتر 21 عدد میباشد")
+    .required("فیلد را تکمیل کنید(الزامی)"),
+  username: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
+  phone: yup
+    .string()
+    .required("فیلد را تکمیل کنید(الزامی)")
+    .matches(
+      /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/,
+      "شماره تلفن شما به درستی وارد نشده است",
+    ),
+  email: yup
+    .string()
+    .email("ایمیل خود را به درستی وارد کنید")
+    .required("فیلد را تکمیل کنید(الزامی)"),
+  newPassword: yup
+    .string()
+    .min(8, "حداقل تعداد کاراکتر 8 عدد میباشد")
+    .max(12, "حداکثر تعداد کاراکتر 12 عدد میباشد")
+    .required("فیلد را تکمیل کنید(الزامی)"),
+  confirmNewPassword: yup
+    .string()
+    .required("فیلد را تکمیل کنید(الزامی)")
+    .when("newPassword", {
+      is: (password: string) =>
+        !!password && password.length > 0 ? true : false,
+      then: (schema) =>
+        schema.oneOf([yup.ref("newPassword")], "پسورد با فیلد بالا مطابقت ندارد"),
+    }),
+});
 const sendTicketValidationSchema = yup.object().shape({
   departmentID: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
   departmentSubID: yup.string().required("فیلد را تکمیل کنید(الزامی)"),
@@ -736,6 +768,56 @@ const addNewTicketInputList = [
     },
   ],
 ];
+const editUserInfosInputList = [
+  {
+    name: "name",
+    label: "نام و نام خانوادگی *",
+    placeholder: "نام خود را واردکنید",
+    type: "text",
+    id: "name",
+    isValidationStylesEnabled: false,
+  },
+  {
+    name: "email",
+    label: "آدرس ایمیل *",
+    placeholder: "ایمیل خود را وارد کنید",
+    type: "email",
+    id: "email",
+    isValidationStylesEnabled: false,
+  },
+  {
+    name: "phone",
+    label: "شماره تلفن *",
+    placeholder: "شماره تلفن خود را وارد کنید",
+    type: "text",
+    id: "phone",
+    isValidationStylesEnabled: false,
+  },
+  {
+    name: "username",
+    label: "نام کاربری (نمایشی) *",
+    placeholder: "لطفا نام نمایشی خود را وارد کنید",
+    type: "text",
+    id: "username",
+    isValidationStylesEnabled: false,
+  },
+  {
+    name: "newPassword",
+    label: "گذرواژه جدید",
+    placeholder: "گذرواژه جدید",
+    type: "password",
+    id: "newPassword",
+    isValidationStylesEnabled: false,
+  },
+  {
+    name: "confirmNewPassword",
+    label: "گذرواژه جدید را دوباره بنویسید",
+    placeholder: "تکرار گذرواژه جدید",
+    type: "password",
+    id: "confirmNewPassword",
+    isValidationStylesEnabled: false,
+  },
+];
 export {
   addArticleValidationSchema,
   addCategoryValidationSchema,
@@ -754,6 +836,8 @@ export {
   addUserValidationSchema,
   contactUsInputList,
   contactUsValidationSchema,
+  editUserInfosInputList,
+  editUserInfosValidationSchema,
   loginInputList,
   loginValidationSchema,
   registerInputList,

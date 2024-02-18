@@ -58,6 +58,7 @@ const UserShowAnsweredTicketPage = lazy(() =>
   })),
 ) as unknown as () => JSX.Element;
 const UserCoursesPage = importLazyPage("UserCourses", "UserCourses", "user");
+const UserProfilePage = importLazyPage("EditUserInfos", "EditUserInfos", "user");
 
 //mainPages
 const HomePage = importLazyPage("HomePage");
@@ -281,6 +282,12 @@ export const routes = [
                 path: "answered-ticket/:ticketID",
               },
             ],
+          },
+          {
+            name: "user-edit-infos-page",
+            title: "user-edit-infos-page",
+            component: UserProfilePage,
+            path: "user-profile",
           },
         ],
       },
