@@ -95,18 +95,24 @@ function AddNewSession() {
       <div>
         <h2 className="mb-2">وضعیت پولی یا رایگان بودن جلسه</h2>
         <div className="flex gap-7">
-          <div className="flex items-center gap-2">
-            <label htmlFor={inputInfo.withMoney?.id}>پولی</label>
+          <div className="flex cursor-pointer items-center gap-2">
+            <label className="cursor-pointer" htmlFor={inputInfo.withMoney?.id}>
+              پولی
+            </label>
             <input
               type="radio"
+              className="cursor-pointer"
               {...inputInfo["withMoney"]}
               {...methods.register("free")}
             />
           </div>
-          <div className="flex items-center gap-2">
-            <label htmlFor={inputInfo.free?.id}>رایگان</label>
+          <div className="flex cursor-pointer items-center gap-2">
+            <label className="cursor-pointer" htmlFor={inputInfo.free?.id}>
+              رایگان
+            </label>
             <input
               type="radio"
+              className="cursor-pointer"
               {...inputInfo["free"]}
               {...methods.register("free")}
             />

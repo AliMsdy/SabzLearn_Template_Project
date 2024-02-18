@@ -6,11 +6,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { Fragment, useEffect, useState } from "react";
-import {
-  FormProvider,
-  useForm,
-  type SubmitHandler
-} from "react-hook-form";
+import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 
 //components
@@ -32,7 +28,6 @@ import { fetchAndUpdateInputList } from "@/utils/fetchAndSetInputListData";
 //type
 import { AddNewCourseInputTypes, InputListType } from "@/types/shared";
 import type { ObjectSchema } from "yup";
-
 
 function AddNewCourse() {
   const [completeInputList, setCompleteInputList] = useState<InputListType[][]>(
@@ -92,25 +87,36 @@ function AddNewCourse() {
 
   useEffect(() => {
     //adding the categories fetched from api to the select input list
-    fetchAndUpdateInputList(isLoading,categories,addNewCourseInputList,setCompleteInputList)
+    fetchAndUpdateInputList(
+      isLoading,
+      categories,
+      addNewCourseInputList,
+      setCompleteInputList,
+    );
   }, [isLoading, categories]);
   const radioInputsMarkUp = (inputInfo: InputListType) => {
     return (
       <div>
         <h2 className="mb-2">وضعیت دوره</h2>
         <div className="flex gap-7">
-          <div className="flex items-center gap-2">
-            <label htmlFor={inputInfo.presell?.id}>پیش فروش</label>
+          <div className="flex cursor-pointer items-center gap-2">
+            <label className="cursor-pointer" htmlFor={inputInfo.presell?.id}>
+              پیش فروش
+            </label>
             <input
               type="radio"
+              className="cursor-pointer"
               {...inputInfo.presell}
               {...methods.register("status")}
             />
           </div>
-          <div className="flex items-center gap-2">
-            <label htmlFor={inputInfo.start?.id}>در حال برگذاری</label>
+          <div className="flex cursor-pointer items-center gap-2">
+            <label className="cursor-pointer" htmlFor={inputInfo.start?.id}>
+              در حال برگذاری
+            </label>
             <input
               type="radio"
+              className="cursor-pointer"
               {...inputInfo.start}
               {...methods.register("status")}
             />
@@ -135,9 +141,7 @@ function AddNewCourse() {
                     return input.type === "file" ? (
                       <FileUploader
                         key={input.id}
-                        methods={
-                          methods
-                        }
+                        methods={methods}
                         title="عکس کاور دوره"
                         fieldValue="cover"
                         errors={methods.formState.errors}
@@ -175,4 +179,3 @@ function AddNewCourse() {
 }
 
 export { AddNewCourse };
-

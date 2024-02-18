@@ -7,6 +7,7 @@ export type UserTable = {
   name: string;
   phone: number;
   email: string;
+  role: "USER" | "ADMIN";
 };
 
 export const userColumns: ColumnDef<UserTable>[] = [
@@ -40,6 +41,16 @@ export const userColumns: ColumnDef<UserTable>[] = [
   {
     accessorKey: "email",
     header: "Email",
+  },
+  {
+    accessorKey: "role",
+    header: "نقش",
+    cell: ({ row }) =>
+      row.original.role === "ADMIN" ? (
+        <div className="text-primary-color">مدیر</div>
+      ) : (
+        "کاربر سایت"
+      ),
   },
   {
     accessorKey: "actions",
