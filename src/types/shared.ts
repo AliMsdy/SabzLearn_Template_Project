@@ -33,6 +33,7 @@ type CourseType = {
     title: string;
   };
   support:string;
+  discount:number;
   courseAverageScore:number;
 };
 

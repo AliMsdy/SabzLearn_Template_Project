@@ -14,6 +14,7 @@ import {
 import { PiVideoFill } from "react-icons/pi";
 import { RiMacbookLine } from "react-icons/ri";
 import { GrTicket } from "react-icons/gr";
+import { TbDiscount } from "react-icons/tb";
 
 //types
 import { useAuthContext } from "@/context/AuthContext";
@@ -40,6 +41,7 @@ const sideBarLinks = [
   { title: "کامنت ها", Icon: FaComments, link: "/comments" },
   { title: "دسته بندی ها", Icon: FaListAlt, link: "/categories" },
   { title: "کد های تخفیف", Icon: MdDiscount, link: "/discounts" },
+  { title: "تخفیف کمپین ها", Icon: TbDiscount, link: "/set-campaign-discount" },
   { title: "تیکت ها", Icon: GrTicket, link: "/tickets" },
 ];
 

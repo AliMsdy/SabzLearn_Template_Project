@@ -37,6 +37,11 @@ const AdminMenusPage = importLazyPage("Menus", "Menus", "admin");
 const AdminCommentsPage = importLazyPage("Comments", "Comments", "admin");
 const AdminDiscountsPage = importLazyPage("Discounts", "Discounts", "admin");
 const AdminTicketsPage = importLazyPage("Tickets", "Tickets", "admin");
+const AdminCampaignDiscountPage = importLazyPage(
+  "CampaignDiscount",
+  "CampaignDiscount",
+  "admin",
+);
 
 //userPanelPages
 const UserMainPage = importLazyPage("MainPage", "MainPage", "user");
@@ -58,7 +63,11 @@ const UserShowAnsweredTicketPage = lazy(() =>
   })),
 ) as unknown as () => JSX.Element;
 const UserCoursesPage = importLazyPage("UserCourses", "UserCourses", "user");
-const UserProfilePage = importLazyPage("EditUserInfos", "EditUserInfos", "user");
+const UserProfilePage = importLazyPage(
+  "EditUserInfos",
+  "EditUserInfos",
+  "user",
+);
 
 //mainPages
 const HomePage = importLazyPage("HomePage");
@@ -229,6 +238,12 @@ export const routes = [
             title: "admin-panel-tickets-page",
             component: AdminTicketsPage,
             path: "tickets",
+          },
+          {
+            name: "admin-panel-set-campaign-discount-page",
+            title: "admin-panel-set-campaign-discount-page",
+            component: AdminCampaignDiscountPage,
+            path: "set-campaign-discount",
           },
         ],
       },

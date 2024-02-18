@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
 //icons
@@ -8,7 +9,6 @@ import StarUnfilled from "/images/svgs/star.svg";
 import StarFilled from "/images/svgs/star_fill.svg";
 
 //components
-// import { Breathing, Image } from ;
 import { Breathing, Image, ImageProps } from "react-shimmer";
 //types
 import { CourseType } from "@/types/shared";
@@ -21,6 +21,7 @@ function CourseBox({
   name,
   shortName,
   courseAverageScore,
+  discount,
   isForSlider,
 }: CourseType) {
   const ShimmerImage = Image as any as React.ComponentClass<ImageProps>;
@@ -54,7 +55,10 @@ function CourseBox({
         <div className="flex items-center justify-between">
           <span className="flex items-center gap-x-3 text-[#6c757d] dark:text-white">
             <FaChalkboardTeacher size={25} />
-            {creator}
+            <span className="flex items-center gap-x-1">
+              <span>مدرس:</span>
+              <span className="mt-1 block">{creator}</span>
+            </span>
           </span>
           <div className="flex">
             {Array(5 - courseAverageScore)
@@ -73,11 +77,25 @@ function CourseBox({
         <div className="my-4 flex justify-between">
           <span className="flex items-center gap-x-3 text-[#6c757d] dark:text-white">
             <FaUsers size={25} />
-            {registers}
+            <span className="flex items-center gap-x-2">
+              <span>تعداد دانشجو:</span>
+              <span className="mt-1 block">{registers}</span>
+            </span>
           </span>
-          <p className="text-[#6c757d] dark:text-white">
-            {price === 0 ? "رایگان" : price.toLocaleString()}
-          </p>
+          <div className="text-[#6c757d] dark:text-white">
+            <div
+              className={cn({
+                "line-through": !!(discount && price !== 0),
+              })}
+            >
+              {price === 0 ? "رایگان" : `${price.toLocaleString()} تومان`}
+            </div>
+            {price !== 0 && !!discount && (
+              <div className="text-left">
+                {`${(price - price * (discount / 100)).toLocaleString()} تومان`}
+              </div>
+            )}
+          </div>
         </div>
       </div>
       {/* its parent should have flex for margin-top:auto takes effect ↓↓ */}
@@ -92,6 +110,11 @@ function CourseBox({
           <FaArrowLeft />
         </Link>
       </div>
+      {!!discount && price !== 0 && (
+        <div className="absolute -left-2 -top-2 -rotate-[15deg] rounded-lg bg-primary-color p-2 px-4 text-white transition-transform duration-300 hover:-rotate-45">
+          {discount}%
+        </div>
+      )}
     </div>
   );
 }
