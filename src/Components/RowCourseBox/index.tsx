@@ -1,5 +1,7 @@
+import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Breathing, Image, ImageProps } from "react-shimmer";
+
 //type
 import { CourseType } from "@/types/shared";
 
@@ -18,13 +20,14 @@ function RowCourseBox({
   creator,
   name,
   shortName,
+  discount,
   description,
 }: CourseType) {
   const ShimmerImage = Image as any as React.ComponentClass<ImageProps>;
 
   return (
-    <div className="col-span-3 flex rounded-xl text-xs shadow-xl dark:bg-dark-theme-secondary sm:text-sm lg:text-base">
-      <div className="max-h-[200px] w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4">
+    <div className="relative col-span-3 flex rounded-xl text-xs shadow-xl dark:bg-dark-theme-secondary sm:text-sm lg:text-base">
+      <div className="max-h-[220px] w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4">
         <Link className="w-full" to={`/course-info/${shortName}`}>
           <ShimmerImage
             fadeIn={true}
@@ -53,7 +56,10 @@ function RowCourseBox({
         <div className="flex items-center justify-between">
           <span className="flex items-center gap-x-3 text-[#6c757d] dark:text-white">
             <FaChalkboardTeacher size={20} />
-            {creator}
+            <span className="flex items-center gap-x-1">
+              <span>مدرس:</span>
+              <span className="mt-1 block">{creator}</span>
+            </span>
           </span>
           <div className="flex">
             <img
@@ -79,13 +85,32 @@ function RowCourseBox({
         <div className="my-4 flex items-center justify-between">
           <span className="flex items-center gap-x-3 text-[#6c757d] dark:text-white">
             <FaUsers size={20} />
-            تعداد شرکت کننده: {registers}
+            <span className="flex items-center gap-x-2">
+              <span>تعداد دانشجو:</span>
+              <span className="mt-1 block">{registers}</span>
+            </span>
           </span>
-          <p className="text-[#6c757d] dark:text-white">
-            {price === 0 ? "رایگان" : price.toLocaleString()}
-          </p>
+          <div className="text-[#6c757d] dark:text-white">
+            <div
+              className={cn({
+                "line-through": !!(discount && price !== 0),
+              })}
+            >
+              {price === 0 ? "رایگان" : `${price.toLocaleString()} تومان`}
+            </div>
+            {price !== 0 && !!discount && (
+              <div className="text-left">
+                {`${(price - price * (discount / 100)).toLocaleString()} تومان`}
+              </div>
+            )}
+          </div>
         </div>
       </div>
+      {!!discount && price !== 0 && (
+        <div className="absolute -left-2 -top-2 -rotate-[15deg] rounded-lg bg-primary-color p-2 px-4 text-white transition-transform duration-300 hover:-rotate-45">
+          {discount}%
+        </div>
+      )}
     </div>
   );
 }
