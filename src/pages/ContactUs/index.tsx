@@ -16,7 +16,12 @@ import { FaCommentDots } from "react-icons/fa6";
 import { useMutateCall } from "@/hooks";
 
 //type
-import { ContactUsInputTypes } from "@/types/shared";
+type ContactUsInputTypes = {
+  name: string;
+  email: string;
+  phone: string;
+  body: string;
+};
 
 function ContactUs() {
   const methods = useForm<ContactUsInputTypes>({
