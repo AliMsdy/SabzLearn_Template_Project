@@ -2,7 +2,8 @@ import { userColumns } from "./userColumns";
 //context
 import { useAuthContext } from "@/context/AuthContext";
 //components
-import { DataTable, Section } from "@/Components/AdminPanel";
+import { Section } from "@/Components/AdminPanel";
+import { CustomDataTable } from "@/Components/AdminPanel/CustomDataTable";
 
 //api
 import { useQueryCall } from "@/hooks";
@@ -16,13 +17,10 @@ function ListOfUsers() {
         Authorization: `Bearer ${token}`,
       },
     },
-    {
-      enabled: !!token,
-    },
   );
   return (
     <Section className="mt-8 font-bold">
-      <DataTable
+      <CustomDataTable
         columns={userColumns}
         data={users}
         title={

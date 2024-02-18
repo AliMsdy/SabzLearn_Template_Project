@@ -1,6 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 //component
+import { DataTableColumnHeader } from "@/Components/AdminPanel/CustomDataTable/DataTableColumnHeader";
+import { Checkbox } from "@/Components/AdminPanel/shadCnComponents/Checkbox";
 import { UserActionCell } from "./userActionCell";
 export type UserTable = {
   _id: string;
@@ -11,6 +13,29 @@ export type UserTable = {
 };
 
 export const userColumns: ColumnDef<UserTable>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+    size: 60,
+  },
   {
     accessorKey: "_id",
     header: "شناسه",
@@ -31,11 +56,13 @@ export const userColumns: ColumnDef<UserTable>[] = [
   },
   {
     accessorKey: "name",
-    header: "نام و نام خانوادگی",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="نام کامل" />
+    ),
   },
   {
     accessorKey: "phone",
-    header: "شماره",
+    header: "phone",
     enableSorting: false,
   },
   {
