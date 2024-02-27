@@ -5,7 +5,6 @@ import { useAuthContext } from "@/context/AuthContext";
 const userPanelBoxList = [
   { title: "سفارش ها", link: "orders" },
   { title: "دوره های خریداری شده", link: "user-courses" },
-  { title: "کیف پول من", link: "my-wallet" },
   { title: "جزئیات حساب کاربری", link: "user-profile" },
   { title: "تیکت های پشتیبانی", link: "user-tickets" },
 ];
@@ -29,6 +28,7 @@ function MainPage() {
       <div className="mt-4 grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:grid-cols-3">
         {userPanelBoxList.map(({ title, link }) => (
           <Button
+            key={title}
             variant="unfilled"
             component="link"
             to={`/my-account/${link}`}

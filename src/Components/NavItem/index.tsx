@@ -14,7 +14,11 @@ function NavItem({ title, href, submenus, setSidebar }: NavItemProps) {
   const contentRef = useRef<HTMLUListElement | null>(null);
   const hasSubMenus = !!submenus.length;
   return (
-    <li key={title} className="justify-center text-white" onClick={() => setIsOpen(!open)} >
+    <li
+      key={title}
+      className="justify-center text-white"
+      onClick={() => setIsOpen(!open)}
+    >
       {hasSubMenus ? (
         <div className="flex items-center justify-between rounded-md bg-dark-theme-secondary p-2">
           {title}
@@ -29,7 +33,7 @@ function NavItem({ title, href, submenus, setSidebar }: NavItemProps) {
         <Link
           onClick={() => setSidebar(false)}
           to={href}
-          className="block rounded-md bg-dark-theme-secondary p-2"
+          className="block rounded-md bg-dark-theme-secondary p-2 text-white"
         >
           {title}
         </Link>

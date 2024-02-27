@@ -19,7 +19,12 @@ function UserPanelLayout() {
           {
             userPanelLinks
               .map((item) => ({ ...item, href: `/my-account${item.href}` }))
-              .find((item) => item.href === location.pathname)?.title
+              .find((item) => {
+                if (item.href === "/my-account") {
+                  return item.href === location.pathname;
+                }
+                return location.pathname.includes(item.href);
+              })?.title
           }
         </p>
       </div>
@@ -27,7 +32,7 @@ function UserPanelLayout() {
         <div className="col-span-12 sm:col-span-3">
           <Sidebar />
         </div>
-        <div className="col-span-12 sm:p-4 sm:col-span-9">
+        <div className="col-span-12 sm:col-span-9 sm:p-4">
           <Outlet />
         </div>
       </main>

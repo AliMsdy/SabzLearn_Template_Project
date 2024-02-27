@@ -17,12 +17,16 @@ function TicketInfoBox(props: TicketType) {
       <div className="flex w-full items-center justify-center gap-4 sm:justify-evenly lg:w-auto">
         <div className="flex flex-col gap-y-6">
           {answer ? (
-            <Link className="text-center" to={`answered-ticket/${_id}`}>{title}</Link>
+            <Link className="text-center" to={`answered-ticket/${_id}`}>
+              {title}
+            </Link>
           ) : (
             <span className="text-center ">{title}</span>
           )}
           <Button
             variant="unfilled"
+            component={answer ? "link" : ""}
+            to={answer ? `answered-ticket/${_id}` : ""}
             className={cn(
               "flex gap-x-3 rounded-3xl p-3 py-5 dark:border-none dark:bg-white dark:text-black",
               {

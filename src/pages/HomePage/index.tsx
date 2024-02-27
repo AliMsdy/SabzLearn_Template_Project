@@ -91,7 +91,10 @@ function HomePage() {
             با آکادمی سبزلرن، برنامه نویسی رو با خیال راحت یاد بگیر و پیشرفت کن
           </h3>
           <form
-            onSubmit={() => navigate(`/search/${searchBoxValue}`)}
+            onSubmit={(e) => {
+              e.preventDefault()
+              navigate(`/search/${searchBoxValue}`)
+            }}
             className="flex min-w-[300px] justify-between gap-x-2 rounded-md bg-white p-2 px-3 sm:min-w-[500px]"
           >
             <input
@@ -104,7 +107,7 @@ function HomePage() {
             />
             <Button
               className="px-2"
-              onClick={() => navigate(`/search/${searchBoxValue}`)}
+              type="submit"
             >
               <FaSearch size={30} />
             </Button>

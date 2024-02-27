@@ -215,7 +215,7 @@ function ArticlePage() {
               <div className="mt-1">
                 {mainMenus.map(({ title, href }: LinkType) => (
                   <Link
-                    className="group flex items-center gap-x-4 border-b-[1.5px] border-solid border-[#eeeeee;] py-2 text-sm transition-all duration-300 last:border-b-0 hover:bg-[#f8f9fa] hover:pr-3 dark:rounded-md dark:border-b-0 dark:hover:bg-dark-theme-primary"
+                    className="group flex items-center gap-x-4 border-b-[1.5px] border-solid border-[#eeeeee] py-2 text-sm transition-all duration-300 last:border-b-0 hover:bg-[#f8f9fa] hover:pr-3 dark:rounded-md dark:border-b-0 dark:hover:bg-dark-theme-primary"
                     key={title}
                     to={`/category-info/${href}`}
                   >
@@ -232,7 +232,7 @@ function ArticlePage() {
               <div className="mt-1 space-y-3">
                 {Array.from(Array(5)).map((_, i) => (
                   <Link
-                    className="group flex items-center gap-x-4 border-b-[1.5px] border-solid border-[#eeeeee;] py-2 text-sm transition-all duration-300 last:border-b-0 hover:bg-[#f8f9fa] hover:pr-3 dark:rounded-md dark:border-b-0 dark:hover:bg-dark-theme-primary "
+                    className="group flex items-center gap-x-4 border-b-[1.5px] border-solid border-[#eeeeee] py-2 text-sm transition-all duration-300 last:border-b-0 hover:bg-[#f8f9fa] hover:pr-3 dark:rounded-md dark:border-b-0 dark:hover:bg-dark-theme-primary "
                     key={i}
                     to="/#"
                   >
@@ -250,7 +250,7 @@ function ArticlePage() {
               <div className="mt-1">
                 {mainMenus.map(({ title, href }: LinkType) => (
                   <Link
-                    className="group flex items-center gap-x-4 border-b-[1.5px] border-solid border-[#eeeeee;] py-2 text-sm transition-all duration-300 last:border-b-0 hover:bg-[#f8f9fa] hover:pr-3 dark:rounded-md dark:border-b-0 dark:hover:bg-dark-theme-primary"
+                    className="group flex items-center gap-x-4 border-b-[1.5px] border-solid border-[#eeeeee] py-2 text-sm transition-all duration-300 last:border-b-0 hover:bg-[#f8f9fa] hover:pr-3 dark:rounded-md dark:border-b-0 dark:hover:bg-dark-theme-primary"
                     key={title}
                     to={`/category-info/${href}`}
                   >

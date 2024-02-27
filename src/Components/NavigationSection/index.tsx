@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 //component
-import { NavItem } from "..";
+import { Loading, NavItem } from "..";
 
 //icon
 import { FaAngleDown } from "react-icons/fa6";
@@ -16,12 +16,14 @@ type NavagationSectionProps = {
   setSidebar: SetState<boolean>;
 };
 function NavigationSection({ sidebar, setSidebar }: NavagationSectionProps) {
-  const { data: navLinks = [] } = useQueryCall(["AllMenus"], {
+  const { data: navLinks = [], isLoading } = useQueryCall(["AllMenus"], {
     url: "/menus",
   });
+  if (isLoading) return <Loading />;
   const navLinksModified = navLinks.length
     ? [{ title: "صفحه اصلی", href: "/", submenus: [] }, ...navLinks]
     : [];
+
   return (
     <>
       {/* MOBILE NAVIGATION MENU START */}
@@ -66,7 +68,7 @@ function NavigationSection({ sidebar, setSidebar }: NavagationSectionProps) {
                   {hasSubmenus && <FaAngleDown />}
                 </NavLink>
                 {hasSubmenus && (
-                  <ul className=" invisible absolute z-10 mt-2 min-w-[240px] translate-y-0 rounded-lg  border-b-4 border-solid border-primary-color bg-white p-4  opacity-0 shadow-lg transition-all duration-[400ms] hover:visible hover:translate-y-1 hover:opacity-100 peer-hover:visible peer-hover:translate-y-1 peer-hover:opacity-100 dark:bg-dark-theme-secondary">
+                  <ul className=" invisible absolute z-10 mt-2 min-w-[240px] translate-y-0 rounded-lg  border-b-4 border-solid border-primary-color bg-white p-4  opacity-0 shadow-lg transition-all duration-500 hover:visible hover:translate-y-1 hover:opacity-100 peer-hover:visible peer-hover:translate-y-1 peer-hover:opacity-100 dark:bg-dark-theme-secondary">
                     {submenus.map(({ title, href }: LinkType) => (
                       <li className="my-3 last:mb-1" key={title}>
                         <Link to={href}>{title}</Link>
