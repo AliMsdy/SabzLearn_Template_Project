@@ -13,9 +13,9 @@ export default defineConfig({
         description: "آکادمی آموزش برنامه نویسی سبزلرن",
         theme_color: "#2bce56",
         background_color: "#c1c1c1",
-        scope: "/",
+        scope: "./",
         orientation: "portrait",
-        start_url: "/",
+        start_url: "./",
         display: "standalone",
         icons: [
           {

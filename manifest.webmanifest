@@ -4,8 +4,8 @@
   "description": "آکادمی آموزش برنامه نویسی سبزلرن",
   "theme_color": "#2bce56",
   "background_color": "#c1c1c1",
-  "scope": "/",
-  "start_url":"/",
+  "scope": "./",
+  "start_url":"./",
   "orientation": "portrait",
   "display":"standalone",
   "icons": [
