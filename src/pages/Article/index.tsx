@@ -87,7 +87,7 @@ function ArticlePage() {
             {/* ARTICLE DETAIL START */}
 
             <img
-              src={`${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/${
+              src={`/images/courses/covers/${
                 data.cover
               }`}
               alt="article-cover"
@@ -198,9 +198,7 @@ function ArticlePage() {
                     >
                       <img
                         className="w-20 rounded-lg"
-                        src={`${
-                          import.meta.env.VITE_SITE_DOMAIN
-                        }/courses/covers/${cover}`}
+                        src={`/images/courses/covers/${cover}`}
                         alt="course-image"
                       />
                       <span className="text-sm text-[#8d8d8d] dark:text-white">

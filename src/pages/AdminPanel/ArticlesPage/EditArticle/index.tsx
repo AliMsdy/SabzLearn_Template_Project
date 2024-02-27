@@ -181,9 +181,7 @@ function EditArticle() {
           continue;
         }
         if (key === "cover") {
-          const imageUrl = `${
-            import.meta.env.VITE_SITE_DOMAIN
-          }/courses/covers/${fetchedArticleData["cover"]}`;
+          const imageUrl = `/images/courses/covers/${fetchedArticleData["cover"]}`;
           convertImageSourceToDataUrlAndFile(imageUrl, "image.jpg")
             .then(({ dataUrl, file }) => {
               setPreview(dataUrl as string);

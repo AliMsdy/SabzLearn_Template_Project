@@ -228,7 +228,7 @@ function CoursePage() {
                 title="آموزش 20 کتابخانه جاوا اسکریپت مخصوص بازار کار"
               />
               <img
-                src={`${import.meta.env.VITE_SITE_DOMAIN}/1.gif`}
+                src={`/images/1.gif`}
                 alt="course-detail-cover"
               />
               <p>
@@ -247,7 +247,7 @@ function CoursePage() {
                 title="هدف از این دوره چیست؟ (تنها راه ورود به بازار کار و کسب درآمد)"
                 className="mt-6 w-full after:h-[calc(100%-10px)] sm:w-max sm:after:h-2/6"
               />
-              <img src={`${import.meta.env.VITE_SITE_DOMAIN}/2.jpg`} />
+              <img src={`/images/2.jpg`} />
               <p>
                 وقتی برای اولین بار وارد یکی از شرکت های برنامه نویسی شدم، از
                 کتابخانه هایی به اسم Lodash و Formik استفاده می شد، در حالی که
@@ -309,7 +309,7 @@ function CoursePage() {
               <div className="flex items-center gap-x-4">
                 <img
                   className="h-auto w-16 rounded-full"
-                  src={`${import.meta.env.VITE_SITE_DOMAIN}${
+                  src={`/images${
                     courseData.creator.profile
                   }`}
                   alt="teacher-photo"
@@ -523,9 +523,7 @@ function CoursePage() {
                       >
                         <img
                           className="w-20 rounded-lg"
-                          src={`${
-                            import.meta.env.VITE_SITE_DOMAIN
-                          }/courses/covers/${cover}`}
+                          src={`/images/courses/covers/${cover}`}
                           alt="related-courses"
                         />
                         <span className="text-sm text-[#8d8d8d] dark:text-white">

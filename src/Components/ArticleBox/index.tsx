@@ -17,7 +17,7 @@ function ArticleBox({ title, description, cover, shortName }: ArticleBoxType) {
       <Link to={`/article-info/${shortName}`} className="text-center">
         <ShimmerImage
           fadeIn={true}
-          src={`${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/${cover}`}
+          src={`/images/courses/covers/${cover}`}
           NativeImgProps={{
             className: "max-h-[200px] w-full rounded-t-xl",
             alt: "article-picture",

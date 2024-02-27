@@ -34,7 +34,7 @@ function CourseBox({
       <Link to={`/course-info/${shortName}`}>
         <ShimmerImage
           fadeIn={true}
-          src={`${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/${cover}`}
+          src={`/images/courses/covers/${cover}`}
           // src="https://picsum.photos/200/300"
           NativeImgProps={{
             className: "max-h-[200px] w-full rounded-t-xl",
@@ -60,19 +60,21 @@ function CourseBox({
               <span className="mt-1 block">{creator}</span>
             </span>
           </span>
-          <div className="flex">
-            {Array(5 - courseAverageScore)
-              .fill(0)
-              .map((_, i) => (
-                <img src={StarUnfilled} alt="score" key={i} />
-              ))}
+          {!!courseAverageScore && (
+            <div className="flex">
+              {Array(5 - courseAverageScore)
+                .fill(0)
+                .map((_, i) => (
+                  <img src={StarUnfilled} alt="score" key={i} />
+                ))}
 
-            {Array(courseAverageScore)
-              .fill(0)
-              .map((_, i) => (
-                <img src={StarFilled} alt="score" key={i} />
-              ))}
-          </div>
+              {Array(courseAverageScore)
+                .fill(0)
+                .map((_, i) => (
+                  <img src={StarFilled} alt="score" key={i} />
+                ))}
+            </div>
+          )}
         </div>
         <div className="my-4 flex justify-between">
           <span className="flex items-center gap-x-3 text-[#6c757d] dark:text-white">

@@ -31,7 +31,7 @@ function RowCourseBox({
         <Link className="w-full" to={`/course-info/${shortName}`}>
           <ShimmerImage
             fadeIn={true}
-            src={`${import.meta.env.VITE_SITE_DOMAIN}/courses/covers/${cover}`}
+            src={`/images/courses/covers/${cover}`}
             // src="https://picsum.photos/200/300"
             NativeImgProps={{
               className: "h-full max-w-full rounded-r-xl lg:object-cover",
