@@ -8,6 +8,7 @@
   "start_url":"/",
   "orientation": "portrait",
   "display":"standalone",
+  "lang":"fa",
   "icons": [
     {
       "src": "/icons/icon-144x144.png",

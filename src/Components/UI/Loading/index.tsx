@@ -26,7 +26,7 @@ function CircleLoading() {
 
 function Loading() {
   return (
-    <div className="absolute bottom-0 left-0 right-0 top-0 z-30 bg-gray-300 ">
+    <div className="absolute bottom-0 left-0 right-0 top-0 z-50 bg-gray-300 ">
       <img
         className="absolute right-1/2 top-3  translate-x-1/2 translate-y-1/2"
         src={loadingSpinner}

@@ -17,6 +17,7 @@ export default defineConfig({
         orientation: "portrait",
         start_url: "./",
         display: "standalone",
+        lang: "fa",
         icons: [
           {
             src: "icons/icon-144x144.png",
@@ -64,6 +65,37 @@ export default defineConfig({
             src: "icons/icon-512x512.png",
             sizes: "512x512",
             type: "image/png",
+          },
+        ],
+      },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => {
+              return url.pathname.startsWith("/v1");
+            },
+            handler: "StaleWhileRevalidate" as const,
+            options: {
+              cacheName: "api-assets",
+              expiration: {
+                maxEntries: 1000,
+              },
+            },
+          },
+          {
+            urlPattern: ({ url }) => {
+              return (
+                url.pathname.startsWith("/images") ||
+                url.pathname.startsWith("/fonts")
+              );
+            },
+            handler: "CacheFirst" as const,
+            options: {
+              cacheName: "site-assets",
+              expiration: {
+                maxAgeSeconds: 60 * 60 * 24 * 10, // 10 day cache the assets
+              },
+            },
           },
         ],
       },
