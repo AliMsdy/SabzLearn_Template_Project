@@ -35,6 +35,8 @@ type generalDataType = {
 };
 
 function HomePage() {
+  console.log("this is base url", import.meta.env.VITE_BASE_URL);
+  console.log("this is api url", import.meta.env.VITE_API_URL);
   const [searchBoxValue, setSearchBoxValue] = useState("");
   const [landingFullSvgList, setLandingFullSvgList] = useState<
     LandingCountUptype[]
@@ -92,8 +94,8 @@ function HomePage() {
           </h3>
           <form
             onSubmit={(e) => {
-              e.preventDefault()
-              navigate(`/search/${searchBoxValue}`)
+              e.preventDefault();
+              navigate(`/search/${searchBoxValue}`);
             }}
             className="flex min-w-[300px] justify-between gap-x-2 rounded-md bg-white p-2 px-3 sm:min-w-[500px]"
           >
@@ -105,10 +107,7 @@ function HomePage() {
               onChange={(e) => setSearchBoxValue(e.target.value)}
               spellCheck="false"
             />
-            <Button
-              className="px-2"
-              type="submit"
-            >
+            <Button className="px-2" type="submit">
               <FaSearch size={30} />
             </Button>
           </form>
