@@ -215,7 +215,6 @@ function EditArticle() {
           fetchedArticleData[key],
         );
       }
-      console.log(fetchedArticleData.body);
       setModel(fetchedArticleData.body);
     }
   }, [fetchedArticleData, isArticleDataFetching]); //eslint-disable-line
