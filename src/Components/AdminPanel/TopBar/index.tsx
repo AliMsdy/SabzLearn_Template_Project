@@ -37,7 +37,7 @@ function TopBar() {
   };
 
   return (
-    <header className="dark:bg-admin-topBar-dark-color flex items-center justify-between p-2 py-4 dark:text-white lg:px-6">
+    <header className="flex items-center justify-between p-2 py-4 dark:bg-admin-topBar-dark-color dark:text-white lg:px-6">
       <div className="hidden items-center gap-5 sm:flex">
         <form>
           <input
@@ -59,7 +59,7 @@ function TopBar() {
             className="cursor-pointer text-[#a3abb1]"
           />
           <ul
-            className={`absolute right-1/2 z-20 mt-1 w-max translate-x-1/2 rounded-md bg-gray-color dark:bg-dark-theme-secondary p-1 opacity-0 transition-all duration-500 ${
+            className={`absolute right-1/2 z-20 mt-1 w-max translate-x-1/2 rounded-md bg-gray-color p-1 opacity-0 transition-all duration-500 dark:bg-dark-theme-secondary ${
               showNotifs && "opacity-100"
             }`}
           >
@@ -102,7 +102,7 @@ function TopBar() {
           <span className="text-sm">{userInfos?.name}</span>
         </div>
         <img
-          src={`/images/${userInfos?.profile}`}
+          src={`${import.meta.env.VITE_BASE_URL}/${userInfos?.profile}`}
           className="h-12 w-12 cursor-pointer rounded-full"
           alt="profile-pic"
         />

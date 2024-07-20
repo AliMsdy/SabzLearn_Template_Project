@@ -45,7 +45,7 @@ function CourseVideoSection({
         <div className="flex h-full items-center">
           <video
             className="w-full rounded-lg"
-            poster={`/images/courses/covers/${cover}`}
+            poster={`${import.meta.env.VITE_BASE_URL}/${cover}`}
             controls
           ></video>
         </div>

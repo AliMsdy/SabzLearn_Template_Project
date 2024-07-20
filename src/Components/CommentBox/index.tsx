@@ -13,9 +13,9 @@ function CommentBox(props: CommentType) {
     <div className="mb-10 rounded-md border  border-solid border-[#ece3e3] bg-[#f7f7f7] p-4 last:mb-0 dark:border-none dark:bg-[#484965] dark:shadow-dark-theme">
       <div className="flex items-center justify-between ">
         <div className="flex items-center gap-2 text-sm sm:gap-3">
-          <span>{creator.name}</span>
+          <span>{creator?.name}</span>
           <Button className="cursor-default p-2 text-xs">
-            {creator.role === "ADMIN" ? "مدیر" : "کاربر سایت"}
+            {creator?.role === "ADMIN" ? "مدیر" : "کاربر سایت"}
           </Button>
           <span className="text-[#a69595]">{createdAt.slice(0, 10)}</span>
         </div>
@@ -29,9 +29,11 @@ function CommentBox(props: CommentType) {
         <div className="mb-10 mt-5 rounded-md border  border-solid border-[#ece3e3] bg-[#f7f7f7] p-4 last:mb-0 dark:border-none dark:bg-[#484965] dark:shadow-dark-theme sm:px-4">
           <div className="flex items-center justify-between ">
             <div className="flex items-center gap-2 text-sm sm:gap-3">
-              <span>{answerContent.creator.name}</span>
+              <span>{answerContent.creator?.name}</span>
               <Button className="cursor-default p-2 text-xs">
-                {answerContent.creator.role === "ADMIN" ? "مدیر" : "کاربر سایت"}
+                {answerContent.creator?.role === "ADMIN"
+                  ? "مدیر"
+                  : "کاربر سایت"}
               </Button>
               <span className="text-[#a69595]">
                 {answerContent.createdAt.slice(0, 10)}

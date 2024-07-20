@@ -36,7 +36,7 @@ export const sessionColumns: ColumnDef<SessionType>[] = [
   },
 
   {
-    accessorFn: ({ course }) => course.name,
+    accessorFn: ({ course }) => course?.name,
     header: "دوره",
   },
   {

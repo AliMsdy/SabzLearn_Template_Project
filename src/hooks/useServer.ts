@@ -8,7 +8,7 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { toast } from "react-toastify";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 axiosInstance.interceptors.response.use(
@@ -39,21 +39,23 @@ const useQueryCall = (
   { method = "GET", ...config }: AxiosRequestConfig,
   options = {},
   onErrorHandler?: (error: AxiosError) => void,
-  queryFunction?:() => Promise<any>,
+  queryFunction?: () => Promise<any>,
 ) =>
   useQuery({
     queryKey: key || [config.url, config.params].filter(Boolean),
-    queryFn: queryFunction || async function() {
-      try {
-        const { data } = await axiosInstance.request({
-          method,
-          ...config,
-        });
-        return data;
-      } catch (error) {
-        onErrorHandler!(error as AxiosError);
-      }
-    },
+    queryFn:
+      queryFunction ||
+      async function () {
+        try {
+          const { data } = await axiosInstance.request({
+            method,
+            ...config,
+          });
+          return data;
+        } catch (error) {
+          onErrorHandler!(error as AxiosError);
+        }
+      },
     ...options,
   });
 

@@ -36,13 +36,13 @@ export const articleColumns: ColumnDef<ArticleType>[] = [
     enableSorting: false,
   },
   {
-    accessorFn: ({ creator }) => creator.name,
+    accessorFn: ({ creator }) => creator?.name,
     header: "نویسنده",
   },
   {
     accessorKey: "publish",
     header: "وضعیت مقاله",
-    cell: ({row}) => row.original.publish === 1 ? "منتشر شده" : "پیش نویس" 
+    cell: ({ row }) => (row.original.publish === 1 ? "منتشر شده" : "پیش نویس"),
   },
   {
     accessorKey: "actions",

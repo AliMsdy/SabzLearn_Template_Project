@@ -26,7 +26,7 @@ function UserPanelCourseBox({
         <Link className="w-full" to={`/course-info/${shortName}`}>
           <ShimmerImage
             fadeIn={true}
-            src={`/images/courses/covers/${cover}`}
+            src={`${import.meta.env.VITE_BASE_URL}/${cover}`}
             // src="https://picsum.photos/200/300"
             NativeImgProps={{
               className: "h-full max-w-full rounded-r-xl lg:object-cover",
@@ -51,8 +51,7 @@ function UserPanelCourseBox({
         <div className="flex items-center justify-between">
           <span className="flex items-center gap-x-3 text-[#6c757d] dark:text-white">
             <FaChalkboardTeacher size={20} />
-            وضعیت دوره :
-            {isComplete === 0 ? "در حال برگزاری" : "تکمیل شده"}
+            وضعیت دوره :{isComplete === 0 ? "در حال برگزاری" : "تکمیل شده"}
           </span>
           <div className="hidden sm:flex">
             <img
@@ -79,7 +78,9 @@ function UserPanelCourseBox({
             <span className="text-primary-color">مبلغ : </span>
             <span>
               {" "}
-              {price === 0 ? "رایگان" : `${price.toLocaleString("fa-IR")} تومان`}
+              {price === 0
+                ? "رایگان"
+                : `${price.toLocaleString("fa-IR")} تومان`}
             </span>
           </p>
         </div>

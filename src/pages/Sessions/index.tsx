@@ -97,7 +97,7 @@ function Sessions() {
           <video
             className="w-full rounded-lg"
             controls
-            src={`/images/courses/covers/${
+            src={`${import.meta.env.VITE_BASE_URL}/${
               sessionsData.session.video
             }`}
           ></video>

@@ -42,7 +42,7 @@ export const commentColumns: ColumnDef<CommentType>[] = [
     },
   },
   {
-    accessorFn: ({ creator }) => creator.name,
+    accessorFn: ({ creator }) => creator?.name,
     header: "کاربر",
   },
 
@@ -61,14 +61,14 @@ export const commentColumns: ColumnDef<CommentType>[] = [
               <>
                 {Array(5 - row.original.score)
                   .fill(0)
-                  .map((_,i) => (
+                  .map((_, i) => (
                     <img src={StarUnfilled} alt="score" key={i} />
                   ))}
               </>
               <>
                 {Array(row.original.score)
                   .fill(0)
-                  .map((_,i) => (
+                  .map((_, i) => (
                     <img src={StarFilled} alt="score" key={i} />
                   ))}
               </>

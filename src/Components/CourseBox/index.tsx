@@ -34,7 +34,8 @@ function CourseBox({
       <Link to={`/course-info/${shortName}`}>
         <ShimmerImage
           fadeIn={true}
-          src={`/images/courses/covers/${cover}`}
+          // src={`${import.meta.env.VITE_BASE_URL}/${cover}`}
+          src={`${import.meta.env.VITE_BASE_URL}/${cover}`}
           // src="https://picsum.photos/200/300"
           NativeImgProps={{
             className: "max-h-[200px] w-full rounded-t-xl",

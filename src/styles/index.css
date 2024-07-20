@@ -67,7 +67,7 @@ a:hover {
 }
 
 .custom-container {
-  @apply container mx-auto max-w-[90%] md:max-w-[85%] px-0 sm:px-8;
+  @apply container mx-auto max-w-[90%] px-0 sm:px-8 md:max-w-[85%];
 }
 
 /* COURSE PAGE STYLES */
@@ -107,7 +107,7 @@ a:hover {
   @apply mx-auto mt-5 rounded-lg;
 }
 .dark .blog-content p {
-  @apply text-white;
+  @apply text-white bg-none;
 }
 .dark .blog-content.editor p {
   @apply text-black;

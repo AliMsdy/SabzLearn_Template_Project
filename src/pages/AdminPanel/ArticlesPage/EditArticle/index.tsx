@@ -85,13 +85,25 @@ function EditArticle() {
   );
   const { token } = useAuthContext();
   const { shortName } = useParams();
-  const { data: categories = [], isLoading:isCategoriesFetching } = useQueryCall(["Categories"], {
-    url: "/category",
-  });
-  const { data: fetchedArticleData = {}, isLoading: isArticleDataFetching } =
-    useQueryCall(["Article", shortName], {
-      url: `/articles/${shortName}`,
+  // getting the categories
+  const { data: categories = [], isLoading: isCategoriesFetching } =
+    useQueryCall(["Categories"], {
+      url: "/category",
     });
+
+  // getting the article info
+  const { data: fetchedArticleData = {}, isLoading: isArticleDataFetching } =
+    useQueryCall(
+      ["Article", shortName],
+      {
+        url: `/articles/${shortName}`,
+      },
+      {
+        staleTime: 0,
+      },
+    );
+
+  // function for adding new article
   const { mutate: addNewArticle, isPending } = useMutateCall(
     ["publishArticle"],
     {
@@ -108,6 +120,8 @@ function EditArticle() {
       },
     },
   );
+
+  // function for saving the article as draft
   const { mutate: saveArticleAsDraft } = useMutateCall(["saveArticleAsDraft"], {
     onSuccess: async () => {
       toast.success("مقاله مورد نظر با موفقیت پیش نویس شد.");
@@ -116,6 +130,7 @@ function EditArticle() {
       toast.error("پیش نویس کردن مقاله با مشکلی مواجه شد.");
     },
   });
+
   const handleAddArticle = () => {
     if (methods.formState.isValid) {
       onSubmit(methods.getValues());
@@ -160,6 +175,7 @@ function EditArticle() {
       saveArticleAsDraft({
         url: "/articles/draft",
         data: formData,
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -181,7 +197,9 @@ function EditArticle() {
           continue;
         }
         if (key === "cover") {
-          const imageUrl = `/images/courses/covers/${fetchedArticleData["cover"]}`;
+          const imageUrl = `${import.meta.env.VITE_BASE_URL}/${
+            fetchedArticleData["cover"]
+          }`;
           convertImageSourceToDataUrlAndFile(imageUrl, "image.jpg")
             .then(({ dataUrl, file }) => {
               setPreview(dataUrl as string);
@@ -197,6 +215,7 @@ function EditArticle() {
           fetchedArticleData[key],
         );
       }
+      console.log(fetchedArticleData.body);
       setModel(fetchedArticleData.body);
     }
   }, [fetchedArticleData, isArticleDataFetching]); //eslint-disable-line

@@ -141,6 +141,7 @@ function CoursePage() {
   if (isLoading) {
     return <Loading />;
   }
+  console.log("this is courseData", courseData);
   return (
     <section className="custom-container">
       {/* BREADCRUMB START */}
@@ -227,10 +228,7 @@ function CoursePage() {
                 className="w-full after:h-[calc(100%-10px)] sm:w-max sm:after:h-2/6"
                 title="آموزش 20 کتابخانه جاوا اسکریپت مخصوص بازار کار"
               />
-              <img
-                src={`/images/1.gif`}
-                alt="course-detail-cover"
-              />
+              <img src={`/images/1.gif`} alt="course-detail-cover" />
               <p>
                 کتابخانه های بسیار زیادی برای زبان جاوا اسکریپت وجود دارد و
                 سالانه چندین کتابخانه جدید نیز به این لیست اضافه می شود که در
@@ -309,7 +307,7 @@ function CoursePage() {
               <div className="flex items-center gap-x-4">
                 <img
                   className="h-auto w-16 rounded-full"
-                  src={`/images${
+                  src={`${import.meta.env.VITE_BASE_URL}/${
                     courseData.creator.profile
                   }`}
                   alt="teacher-photo"
@@ -523,7 +521,7 @@ function CoursePage() {
                       >
                         <img
                           className="w-20 rounded-lg"
-                          src={`/images/courses/covers/${cover}`}
+                          src={`${import.meta.env.VITE_BASE_URL}/${cover}`}
                           alt="related-courses"
                         />
                         <span className="text-sm text-[#8d8d8d] dark:text-white">

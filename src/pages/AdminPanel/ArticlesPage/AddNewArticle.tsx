@@ -125,6 +125,7 @@ function AddNewArticle() {
   };
 
   const saveArticleDraft = () => {
+    // TODO check the save draft method
     if (methods.formState.isValid) {
       const formInputsData = methods.getValues();
       const formData = new FormData();
@@ -137,6 +138,7 @@ function AddNewArticle() {
       saveArticleAsDraft({
         url: "/articles/draft",
         data: formData,
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
         },
